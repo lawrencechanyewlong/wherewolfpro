@@ -1,7 +1,7 @@
 Feature: User info
   As a user,
   I want to log in,
-  so I can accesss my account.
+  so I can access the features of the site.
 
 Scenario: a user can log into google
   Given I am signed in with provider "google_oauth2"
