@@ -1,0 +1,121 @@
+%h1 Event#select_duration
+%p Find me in app/views/event/select_duration.html.erb
+
+%script(src="code.jquery.com/jquery-1.10.2.js")
+%script(src="code.jquery.com/ui/1.11.4/jquery-ui.js")
+
+
+= form_tag 'select_contacts', :method => :post do
+    Until I Arrive
+    = check_box_tag 'until_i_arrive', 'until_i_arrive', true
+    %div#slider1{:class => 'slider'}
+    <br><br>
+    Until This Time
+    %div#slider2{:class => 'slider'} 
+
+    <br><br>
+    For This Many Hours
+    %div#slider3{:class => 'slider'}
+    
+    <br><br>
+    =submit_tag 'Next', :id => 'duration_submit'
+
+= form_tag 'ampm' do
+    %label.btn.btn-default
+        = radio_button_tag :ampm, true
+        AM
+    %label.btn.btn-default
+        = radio_button_tag :ampm, false
+        PM
+
+:javascript
+    $(function() {
+        $('#slider1').slider({max:1, min:0, step:1, animate:"fast", });
+        $('#slider2').slider({max:12, min:1, step:1}).each(function() {
+            // Add labels to slider whose values 
+            // are specified by min, max
+            // Get the options for this slider (specified above)
+            var opt = $(this).data().uiSlider.options;
+            // Get the number of possible values
+            var vals = opt.max - opt.min;
+            // Position the labels
+            for (var i = 0; i <= vals; i++) {
+                // Create a new element and position it with percentages
+                var el = $('<label>' + (i + opt.min) + '</label>').css('left', (i/vals*100) + '%');
+                // Add the element inside #slider
+                $("#slider2").append(el);
+            }
+        });
+        $('#slider3').slider({max:12, min:1, step:1}).each(function() {
+            // Add labels to slider whose values 
+            // are specified by min, max
+            // Get the options for this slider (specified above)
+            var opt = $(this).data().uiSlider.options;
+            // Get the number of possible values
+            var vals = opt.max - opt.min;
+            // Position the labels
+            for (var i = 0; i <= vals; i++) {
+                // Create a new element and position it with percentages
+                var el = $('<label>' + (i + opt.min) + '</label>').css('left', (i/vals*100) + '%');
+                // Add the element inside #slider
+                $("#slider3").append(el);
+            }
+        });
+        
+        var startPos1 = $('#slider1').slider('value');
+        var startPos2 = $('#slider2').slider('value');
+        var startPos3 = $('#slider3').slider('value');
+        
+        var startPos = $("#slider1").slider("value"); 
+        endPos = '';
+        
+        $('#slider1').on('slidestop', function(event, ui) {
+            if ($('#slider1').slider('value') != startPos1) {
+                $('#slider2').slider('option', 'value', startPos2);
+                $('#slider3').slider('option', 'value', startPos3);
+            }
+        });
+        $('#slider2').on('slidestop', function(event, ui) {
+            if ($('#slider2').slider('value') != startPos2) {
+                $('#slider1').slider('option', 'value', startPos1);
+                $('#slider3').slider('option', 'value', startPos3);
+            }
+        });
+        $('#slider3').on('slidestop', function(event, ui) {
+            if ($('#slider3').slider('value') != startPos3) {
+                $('#slider1').slider('option', 'value', startPos1);
+                $('#slider2').slider('option', 'value', startPos2);
+            }
+        });
+
+
+        $('#slider1, #slider2, #slider3').mouseover(function(event) {
+            slider_id = this.id
+            createTooltip(event, slider_id);               
+        }).mouseout(function(){
+            // create a hidefunction on the callback if you want
+            //hideTooltip(); 
+            $('div.tooltip').remove()
+        });
+        
+        function createTooltip(event, slider_id){          
+            $('<div class="tooltip">'+ $('#'+slider_id).slider('value') + '</div>').appendTo('body');
+            positionTooltip(event);        
+        };
+        function positionTooltip(event){
+            var tPosX = event.pageX - 20;
+            var tPosY = event.pageY - 60;
+            cssItems = {
+                'position': 'absolute',
+                'top': tPosY,
+                'left': tPosX,
+                'border-radius': '25px',
+                'backgroundColor': '#73AD21',
+                'padding': '20px',
+                'width': '20px',
+                'height': '15px' 
+            }
+
+            $('div.tooltip').css(cssItems);
+        };
+    });

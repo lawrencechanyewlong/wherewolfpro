@@ -1,0 +1,13 @@
+%h1 Events#index
+%p Find me in app/views/events/index.html.erb
+%table.table
+    -model=Event
+    %tr
+        -model.column_names.each do |key|
+            %th= key
+    -model.all.each do |object|
+        %tr
+            -model.column_names.each do |key|
+                %td= object[key]
+    
+        

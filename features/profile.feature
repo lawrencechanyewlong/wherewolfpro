@@ -9,6 +9,6 @@ Background:
   
 Scenario: Showing the shares and the events
   Given I am on the homepage,
-  and I press "Profile picture",
-  then my number of shares should be 12,
-  and my events should be "Work" and "home".
+  And I press "Profile picture",
+  Then my number of shares should be 12,
+  And my events should be "Work" and "home".

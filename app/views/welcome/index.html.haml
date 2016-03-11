@@ -1,0 +1,19 @@
+%h1 Wherewoof Application
+%h2 Features
+%p - Generating awareness of wherewoof with a barking sound at the launch of application
+%p - Create events and share with people
+%p - Real-time updates of location
+%p - Browser compatible so that receivers of link in text message can open in browser if they do not have the app
+%p - Intuitive user interface to rival competitor in Glympse
+
+- 
+
+- if @name
+    = link_to "events", "/events/create"
+    = link_to "contacts", "/contacts/gmail"
+    = link_to "logout", "/welcome/destroy"
+    
+- else
+    = link_to "user_login", "/auth/google_oauth2"
+
+= button_to "New Event", {:controller => "event", :action => "select_contacts"},method: :get 

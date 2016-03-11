@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
+gem 'omniauth'
 
+gem "omnicontacts"
+
+gem "omniauth-google-oauth2"
+
+gem "omniauth-facebook"
 ruby '2.3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
@@ -29,6 +35,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+gem 'html2haml'
+gem 'haml'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -68,3 +77,8 @@ group :production do
   
   gem 'rails_12factor'
 end
+
+gem 'gmaps4rails'
+gem 'geocoder'
+
+gem 'jquery-ui-rails'

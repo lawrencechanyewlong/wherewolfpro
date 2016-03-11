@@ -6,6 +6,19 @@
 
 require 'cucumber/rails'
 
+OmniAuth.config.test_mode = true
+OmniAuth.config.add_mock(:google_oauth2, {
+    :uid => "123456789",
+    :info => {
+        :name => "John Doe",
+        :email => "john@company_name.com"
+    }
+}
+)
+
+OmniContacts.integration_test.enabled = true 
+OmniContacts.integration_test.mock(:gmail,{:email =>"bob@gmail.com"})
+
 World(FactoryGirl::Syntax::Methods)
 
 # Capybara defaults to CSS3 selectors rather than XPath.

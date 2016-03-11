@@ -6,18 +6,12 @@ Feature: select duration for a new event
     
 Background: 
   
-    Given: I am already on the duration page
+    Given I am on the duration page
   
 Scenario: Choosing until I arrive as duration
     
-    When I am selecting duration
-    Then I should see the "Until I arrive" option to be chosen
-    
-Scenario: Choosing until this time as duration
-  
-    When I am sliding the slider for "Until this time"
-    Then the the sliders for "Until I arrive" and "For this many hours" should be inactive
-    And a mouseover should appear over the "Until this time" slider
+    Then I should see "Until I Arrive"
+    Then the "until_i_arrive" checkbox should be checked
     
 Scenario: Choosing 12 for until this time as duration
   

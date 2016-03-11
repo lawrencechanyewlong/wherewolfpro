@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uid: MyString
+  address_lat: 1.5
+  address_lng: 1.5
+  receiver: MyString
+  datetime_sent: 2016-03-10 07:25:59
+  duration_setting: MyString
+  active: false
+
+two:
+  uid: MyString
+  address_lat: 1.5
+  address_lng: 1.5
+  receiver: MyString
+  datetime_sent: 2016-03-10 07:25:59
+  duration_setting: MyString
+  active: false

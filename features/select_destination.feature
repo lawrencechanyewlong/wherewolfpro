@@ -8,7 +8,7 @@ Scenario: send a location of a saved destination
   
   Given I am on destination page
   And I click on a saved destination
-  Then I should be on select contact page
+  Then I should be on the select contacts page
   
 Scenario: send a location of a new destination
   

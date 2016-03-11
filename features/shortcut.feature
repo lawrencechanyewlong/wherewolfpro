@@ -21,6 +21,6 @@ Scenario: Dad's house is before Mom's house in the list.
     And I press "Shortcut",
     Then I am on the shortcut page,
     And I press "Dad's House",
-    then I am on the event page for "Dad's House"
+    Then I am on the event page for "Dad's House"
   
   

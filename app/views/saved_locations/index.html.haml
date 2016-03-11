@@ -1,0 +1,11 @@
+%h1 SavedLocations#index
+%p Find me in app/views/saved_locations/index.html.erb
+%table.table
+    -model=SavedLocation
+    %tr
+        -model.column_names.each do |key|
+            %th= key
+    -model.all.each do |object|
+        %tr
+            -model.column_names.each do |key|
+                %td= object[key]

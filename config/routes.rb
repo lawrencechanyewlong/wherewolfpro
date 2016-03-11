@@ -1,6 +1,28 @@
 Rails.application.routes.draw do
+  get 'saved_locations/index'
+
+  get 'users/index'
+
+  get 'events/index'
+
+  get 'event/new'
+
+  get 'event/select_contacts'
+
+  get 'event/select_destination'
+
+  get 'event/select_duration'
+
+  get 'event/confirm'
+
+  get 'welcome/login'
+
   get 'welcome/index'
 
+  get 'welcome/destroy'
+
+  get '/auth/:provider/callback', :to => 'welcome#create'
+  
   root 'welcome#index'
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   # The priority is based upon order of creation: first created -> highest priority.

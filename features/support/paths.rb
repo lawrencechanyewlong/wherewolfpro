@@ -15,6 +15,21 @@ module NavigationHelpers
 
     when /^the home\s?page$/
       '/'
+      
+    when /^the welcome page$/
+      '/welcome/index'
+      
+    when /^the select contacts page$/
+      '/event/select_contacts'
+      
+    when /^destination page$/
+      'event/select_destination'
+      
+    when /^a saved destination$/
+      '/event/select_contacts'
+      
+    when /^the duration page/
+      '/event/select_duration'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
