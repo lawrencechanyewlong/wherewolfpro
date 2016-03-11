@@ -5,7 +5,7 @@
 %script(src="code.jquery.com/ui/1.11.4/jquery-ui.js")
 
 
-= form_tag 'select_contacts', :method => :post do
+= form_tag 'confirm', :method => :get do
     Until I Arrive
     = check_box_tag 'until_i_arrive', 'until_i_arrive', true
     %div#slider1{:class => 'slider'}
