@@ -170,7 +170,7 @@
         null,
         null,
         1,
-        0,
+        1,
         null,
         null,
         null,
@@ -261,8 +261,68 @@
         null,
         null,
         null
+      ],
+      "/home/ubuntu/workspace/wherewolfpro/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/wherewolfpro/app/helpers/event_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/wherewolfpro/app/helpers/events_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/wherewolfpro/app/helpers/saved_locations_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/wherewolfpro/app/helpers/users_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/wherewolfpro/app/helpers/welcome_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/wherewolfpro/app/controllers/event_controller.rb": [
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null
+      ],
+      "/home/ubuntu/workspace/wherewolfpro/app/controllers/application_controller.rb": [
+        1,
+        null,
+        null,
+        1,
+        null
       ]
     },
-    "timestamp": 1457730799
+    "timestamp": 1457732174
   }
 }
