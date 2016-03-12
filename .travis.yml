@@ -1,7 +1,7 @@
 language: ruby
 cache: bundler
 rvm:
-- ruby-2.3.0 # THIS IS WHERE YOU SET THE RUBY VERSION! You'd probably put 1.9.3
+- ruby-2.3.0
 services:
 - postgresql 
 before_script:
@@ -9,7 +9,7 @@ before_script:
 # so we need to "trick it" into thinking it has one...more or less.
 - export DISPLAY=:99.0 # Declaring which display we will use.
 - sh -e /etc/init.d/xvfb start # Turning on the fake display
-- psql -c 'create database [DATABASE_NAME];' -U postgres
+# - psql -c 'create database [DATABASE_NAME];' -U postgres
 script:
 - RAILS_ENV=test bundle exec rake db:migrate --trace
 - bundle exec rake db:test:prepare
