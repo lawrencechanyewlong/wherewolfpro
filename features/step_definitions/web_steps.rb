@@ -36,6 +36,9 @@ Given /^I am signed in with provider "([^"]*)"$/ do |provider|
   visit "/auth/#{provider.downcase}"
 end
 
+Given /^I am contacted in with provider "([^"]*)"$/ do |provider|
+  visit "/contacts/#{provider.downcase}"
+end
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
@@ -96,7 +99,12 @@ When /^(?:|I )check "([^"]*)"$/ do |field|
 end
 
 And /^(?:|I )click on ([^"]*)$/ do |field|
-  visit path_to(field)
+  case field
+  
+  when /^map$/
+    find('div.gmap').click  
+    
+  end
 end
 
 When /^(?:|I )uncheck "([^"]*)"$/ do |field|

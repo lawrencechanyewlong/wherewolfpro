@@ -1,2 +1,9 @@
 %h1 Event#select_contacts
-%p Find me in app/views/event/select_contacts.html.erb
+- if @contacts
+    = form_tag event_select_duration_path, :method => :get, :id => 'ratings_form' do
+        - @contacts.each do |contact|
+            = contact
+            = check_box_tag "info[#{contact}]", :id => "info_#{contact}"
+        = submit_tag 'Submit Contacts', :id => 'contacts'
+- else
+    = link_to "contacts", "/contacts/gmail"

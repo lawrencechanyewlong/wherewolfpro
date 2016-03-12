@@ -16,9 +16,3 @@ Scenario: a user can log into google
   Then I should be on the home page
   And I should see "user_login"
   
-  Scenario: Contacts
-  Given I am signed in with provider "google_oauth2"
-  Then I should be on the home page
-  And I should see "events"
-  Then I follow "contacts"
-  Then I should see "bob@gmail.com"

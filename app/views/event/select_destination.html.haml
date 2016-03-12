@@ -4,14 +4,14 @@
 / only if you need custom infoboxes
 
 %h1 Event#select_destination
-%p Find me in app/views/event/select_destination.html.erb
+%h1 Map
 
-%div{:style => "width: 800px;"}
+%div.gmap{:style => "width: 800px;"}
   #map{:style => "width: 800px; height: 400px;"}
 :javascript
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(raw @hash.to_json );
+    markers = handler.addMarkers(#{raw @hash.to_json});
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
   });

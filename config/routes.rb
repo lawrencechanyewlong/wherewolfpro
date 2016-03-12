@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', :to => 'welcome#create'
   
+  get '/contacts/:provider/callback', :to => 'event#select_contacts'
+  
   root 'welcome#index'
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   # The priority is based upon order of creation: first created -> highest priority.

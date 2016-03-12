@@ -22,6 +22,10 @@ module NavigationHelpers
     when /^the select contacts page$/
       '/event/select_contacts'
       
+      
+    when /^the gmail page$/
+      '/contacts/gmail/callback'
+      
     when /^destination page$/
       'event/select_destination'
       
@@ -30,6 +34,8 @@ module NavigationHelpers
       
     when /^the duration page/
       '/event/select_duration'
+      
+   
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
