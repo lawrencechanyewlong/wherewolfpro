@@ -6,14 +6,14 @@ Feature: Reading location of sharer on browser
     
 Background: 
    
-    Given: I am on the browser and someone shares a new event
+#     Given: I am on the browser and someone shares a new event
   
-Scenario: Reading the location of sharer on browser
+# Scenario: Reading the location of sharer on browser
   
-    When someone shares a event
-    And I click on the event
-    Then it should open on a browser
-    And I should be able to read the location of the sharer
+#     When someone shares a event
+#     And I click on the event
+#     Then it should open on a browser
+#     And I should be able to read the location of the sharer
   
     
   

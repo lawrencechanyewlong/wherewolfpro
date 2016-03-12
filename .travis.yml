@@ -14,8 +14,8 @@ script:
 - bundle install --without production
 - RAILS_ENV=test bundle exec rake db:migrate --trace
 - bundle exec rake db:test:prepare db:seed
-# - bundle exec rake cucumber
-# - bundle exec rake spec # IMPORTANT! This runs all of the tests.
+- bundle exec rake cucumber
+# - bundle exec rake spec
 # addons:
 #   code_climate: # Pulls Code Coverage metrics from Code Climate
 #     repo_token: [REDACTED]

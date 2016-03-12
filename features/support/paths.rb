@@ -26,8 +26,8 @@ module NavigationHelpers
     when /^the gmail page$/
       '/contacts/gmail/callback'
       
-    when /^destination page$/
-      'event/select_destination'
+    when /^the select destination page$/
+      '/event/select_destination'
       
     when /^a saved destination$/
       '/event/select_contacts'
