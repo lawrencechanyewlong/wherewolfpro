@@ -12,8 +12,15 @@ class EventController < ApplicationController
       end
     end
   end
+  
+  def geocoding
+    respond_to do |format|               
+      format.js
+    end
+  end
 
   def select_destination
+=begin
     # need user's location
     
     temp = SavedLocation.new
@@ -30,6 +37,7 @@ class EventController < ApplicationController
       # marker.infowindow locat.description
       # marker.json({ title: user.title })
     end
+=end
     
   end
 
