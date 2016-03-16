@@ -1,19 +1,26 @@
-%h1 Wherewoof Application
-%h2 Features
-%p - Generating awareness of wherewoof with a barking sound at the launch of application
-%p - Create events and share with people
-%p - Real-time updates of location
-%p - Browser compatible so that receivers of link in text message can open in browser if they do not have the app
-%p - Intuitive user interface to rival competitor in Glympse
-
-- 
+.container
+	.row
+		.col-lg-12.text-center{:style => "padding: 100px"}
+			%p The Wherewoof App is a project of City Dog Share
+			%p a 501c3 nonprofit organization
+			%a{:href => "http://citydogshare.org"}
+				= image_tag("citydogshare_logo.jpg", :size => '150x150')
 
 - if @name
-    = link_to "events", "/events/create"
-    = link_to "contacts", "/contacts/gmail"
-    = link_to "logout", "/welcome/destroy"
+	= link_to "events", "/events/create"
+	= link_to "contacts", "/contacts/gmail"
+	= link_to "logout", "/welcome/destroy"
     
 - else
-    = link_to "user_login", "/auth/google_oauth2"
+	= link_to "user_login", "/auth/google_oauth2"
 
-= button_to "New Event", {:controller => "event", :action => "select_destination"},method: :get 
+
+%nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
+	.container
+		.row
+			.col-xs-3
+			.col-xs-6
+			.col-xs-3
+				%a.btn.btn-success{:href => "/event/select_destination"}
+					%span New
+					%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}

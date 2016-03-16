@@ -1,5 +1,4 @@
-%h1 Event#select_duration
-%p Find me in app/views/event/select_duration.html.erb
+%h1 Select Duration
 
 
 = form_tag 'select_contacts', :method => :post do
@@ -15,7 +14,7 @@
     %div#slider3{:class => 'slider'}
     
     <br><br>
-    =submit_tag 'Next', :id => 'duration_submit'
+    / =submit_tag 'Next', :id => 'duration_submit'
 
 
 = form_tag 'ampm' do
@@ -125,3 +124,17 @@
         };
         
     });
+
+
+%nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
+    .container
+        .row
+            .col-xs-3
+                %a.btn.btn-danger{:href => "/event/select_contacts"} 
+                    %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
+                    %span Back
+            .col-xs-6
+            .col-xs-3
+                %a.btn.btn-success{:href => "/event/confirm"}
+                    %span Next
+                    %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}

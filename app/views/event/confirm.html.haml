@@ -1,2 +1,15 @@
-%h1 Event#confirm
-%p Find me in app/views/event/confirm.html.erb
+%h1 Confirm
+%p Not implemented yet
+
+%nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
+    .container
+        .row
+            .col-xs-3
+                %a.btn.btn-danger{:href => "/event/select_duration"} 
+                    %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
+                    %span Back
+            .col-xs-6
+            .col-xs-3
+                %a.btn.btn-success{:href => "/"}
+                    %span Next
+                    %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}

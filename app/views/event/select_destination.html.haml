@@ -3,7 +3,7 @@
 %script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js", :type => "text/javascript"}
 / only if you need custom infoboxes
 
-%h1 Event#select_destination
+%h1 Select Destination
 %h1 Map
 
 %div.gmap{:style => "width: 800px;"}
@@ -15,4 +15,16 @@
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
   });
-  
+
+%nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
+  .container
+    .row
+      .col-xs-3
+        %a.btn.btn-danger{:href => "/"} 
+          %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
+          %span Back
+      .col-xs-6
+      .col-xs-3
+        %a.btn.btn-success{:href => "/event/select_contacts"}
+          %span Next
+          %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}

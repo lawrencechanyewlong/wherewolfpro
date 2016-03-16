@@ -1,4 +1,4 @@
-%h1 Event#select_contacts
+%h1 Select Contacts
 - if @contacts
     = form_tag event_select_duration_path, :method => :get, :id => 'ratings_form' do
         - @contacts.each do |contact|
@@ -7,3 +7,15 @@
         = submit_tag 'Submit Contacts', :id => 'contacts'
 - else
     = link_to "contacts", "/contacts/gmail"
+%nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
+    .container
+        .row
+            .col-xs-3
+                %a.btn.btn-danger{:href => "/event/select_destination"} 
+                    %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
+                    %span Back
+            .col-xs-6
+            .col-xs-3
+                %a.btn.btn-success{:href => "/event/select_duration"}
+                    %span Next
+                    %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
