@@ -1,18 +1,13 @@
-%script{:src => "//maps.google.com/maps/api/js?v=3.18&sensor=false&client=&key=&libraries=geometry&language=&hl=&region="}
-%script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js"}
-%script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js", :type => "text/javascript"}
-/ only if you need custom infoboxes
 
 %h1 Event#select_destination
 %h1 Map
 
-%div.gmap{:style => "width: 800px;"}
-  #map{:style => "width: 800px; height: 400px;"}
-:javascript
-  handler = Gmaps.build('Google');
-  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(#{raw @hash.to_json});
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-  });
+#search_options
+  = link_to "Search", geocoding_path, remote: true, id: "geocoding"
+#map-container
+  #map-canvas
+  #geocoding_fields
+    = text_field_tag :search, params[:search], placeholder: "Enter a place", :id => 'search_box_geocoding', class: 'search_box'
+    = button_tag "Search", id: "submit_button_geocoding", data: { disable_with: "Please wait..." }, class: "submit_button"
+  
   

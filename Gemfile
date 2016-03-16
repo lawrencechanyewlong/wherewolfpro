@@ -84,7 +84,20 @@ group :production do
   gem 'rails_12factor'
 end
 
-gem 'gmaps4rails'
-gem 'geocoder'
+# Bootstrap 3
+group :development, :test do
+  gem 'rails_layout', '~> 0.5.11'  # Bootstrap 3 layout generator
+end
+
+gem 'bootstrap-sass', '~> 3.0.3.0'
+
+# font-awesome
+gem 'font-awesome-sass', '~> 4.0.2'
 
 gem 'jquery-ui-rails'
+
+# Paging
+gem 'kaminari', '~> 0.15.0'
+
+# Slugs and friendly id's
+gem 'friendly_id', '~> 5.0.2'
