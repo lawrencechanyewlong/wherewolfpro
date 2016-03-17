@@ -6,15 +6,6 @@
 			%a{:href => "http://citydogshare.org"}
 				= image_tag("citydogshare_logo.jpg", :size => '150x150')
 
-- if @name
-	= link_to "events", "/events/create"
-	= link_to "contacts", "/contacts/gmail"
-	= link_to "logout", "/welcome/destroy"
-    
-- else
-	= link_to "user_login", "/contacts/gmail"
-
-
 %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
 	.container
 		.row
@@ -24,3 +15,13 @@
 				%a.btn.btn-success{:href => "/event/select_destination"}
 					%span New
 					%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+				%a.btn.btn-success{:href => "/event/select_contacts"}
+					%span contacts
+					%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+				%a.btn.btn-success{:href => "/contacts/gmail"}
+					%span login
+					%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+				%a.btn.btn-success{:href => "/welcome/destroy"}
+					%span logout
+					%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+					

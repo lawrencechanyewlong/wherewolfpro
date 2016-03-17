@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'saved_locations/index'
 
   get 'users/index'
-
+  
   get 'events/index'
 
   get 'event/new'
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', :to => 'welcome#create'
   
-  get '/contacts/:provider/callback', :to => 'event#select_contacts'
+  get '/contacts/:provider/callback', :to => 'users#index'
   
   root 'welcome#index'
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
