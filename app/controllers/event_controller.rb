@@ -5,6 +5,9 @@ class EventController < ApplicationController
   def select_contacts
     
     contacts = request.env['omnicontacts.contacts']
+    user = request.env['omnicontacts.user']
+    name = user['name']
+    email = user['email']
     #name =  contacts['name']
     #@authorization = Authorization.find_by_provider_and_uid(contacts["provider"], contacts["uid"])
     #if @authorization
@@ -25,6 +28,7 @@ class EventController < ApplicationController
         @contacts += ["#{contact[:email]}"]
       end
     end
+    
   end
   
   def geocoding
