@@ -18,3 +18,4 @@ exclude_paths:
 - doc/*
 - spec/**/*
 - "**/vendor/**/*"
+- features/*
