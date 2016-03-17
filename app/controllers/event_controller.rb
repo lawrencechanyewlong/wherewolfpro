@@ -5,30 +5,25 @@ class EventController < ApplicationController
   def select_contacts
     
     contacts = request.env['omnicontacts.contacts']
-    user = request.env['omnicontacts.user']
-    name = user['name']
-    email = user['email']
-    #name =  contacts['name']
-    #@authorization = Authorization.find_by_provider_and_uid(contacts["provider"], contacts["uid"])
-    #if @authorization
-     # session[:id] = @authorization.id
-    #else
-     # user = User.new :name => name, :email => email
-      #user.authorizations.build :provider => auth_hash["provider"], :uid => auth_hash["uid"]
-      #contact_list = []
-      #contacts.each do |contact|
-      #  contact_list += ["#{contact[:email]}"]
-      #end
-      #user.save
-    #end
-    #session[:id] = user.id
-    if contacts 
-      @contacts = []
-      contacts.each do |contact|
-        @contacts += ["#{contact[:email]}"]
-      end
+    user_data = request.env['omnicontacts.user']
+   
+    name = user_data[:name]
+    email = user_data[:email]
+    user = User.find_by email: user_data[:email]
+    if user
+      @contacts = user.contacts
+      session[:id] = user.id
+      return
     end
-    
+    user = User.new :name => name, :email => email
+    contact_list = []
+    session[:id] = user.id
+    contacts.each do |contact|
+      contact_list += ["#{contact[:email]}"]
+    end
+    user.contacts = contact_list
+    user.save!
+    @contacts = user.contacts
   end
   
   def geocoding
