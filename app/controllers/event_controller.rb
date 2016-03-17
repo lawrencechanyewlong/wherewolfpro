@@ -5,6 +5,20 @@ class EventController < ApplicationController
   def select_contacts
     
     contacts = request.env['omnicontacts.contacts']
+    #name =  contacts['name']
+    #@authorization = Authorization.find_by_provider_and_uid(contacts["provider"], contacts["uid"])
+    #if @authorization
+     # session[:id] = @authorization.id
+    #else
+     # user = User.new :name => name, :email => email
+      #user.authorizations.build :provider => auth_hash["provider"], :uid => auth_hash["uid"]
+      #contact_list = []
+      #contacts.each do |contact|
+      #  contact_list += ["#{contact[:email]}"]
+      #end
+      #user.save
+    #end
+    #session[:id] = user.id
     if contacts 
       @contacts = []
       contacts.each do |contact|

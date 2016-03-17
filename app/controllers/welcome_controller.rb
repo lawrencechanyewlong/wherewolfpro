@@ -30,13 +30,4 @@ class WelcomeController < ApplicationController
     redirect_to "/"
   end
   
-  def contact
-    contacts = request.env['omnicontacts.contacts']
-    contact_list = []
-    contacts.each do |contact|
-      contact_list += ["#{contact[:email]}"]
-    end
-    redirect_to event_select_contacts_path(:contacts => ["google.com"]), :action => "post"
-    
-  end
 end
