@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem "codeclimate-test-reporter", group: :test, require: nil
+# gem "codeclimate-test-reporter", group: :test, require: nil
+gem 'codeclimate-test-reporter', '~> 0.4.8', group: :test, require: nil
 
 gem 'test-unit'
 
