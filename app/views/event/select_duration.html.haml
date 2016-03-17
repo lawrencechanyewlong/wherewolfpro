@@ -1,29 +1,68 @@
+:javascript
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+%style
+    #ex1Slider .slider-selection {background: #BABABA;}
+    #ex2Slider .slider-selection {background: #BABABA;}
+%script{:src => "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"}
+%link{:href => "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css", :rel => "stylesheet"}/
 %h1 Select Duration
 
-%div{:class => 'col-md-8'}
+.container
     = form_tag 'select_contacts', :method => :post do
-        Until I Arrive
-        = range_field 'until_i_arrive', 'until_i_arrive', {:min => '0', :max => '1', :step => '1', :value => '0'}
-    
-        Until This Time
-        = range_field 'until_this_time', 'until_this_time', {:min => '0', :max => '12', :step => '1', :value => '0'}
+        .row
+            .col-xs-12 Until I Arrive
+        .row
+            .col-xs-9
+                
+                = range_field 'until_i_arrive', 'until_i_arrive', {:min => '0', :max => '1', :step => '1', :value => '0'}
+            .col-xs-3
+                %a.btn.btn-success.btn-xs{:href => "/event/confirm"}
+                    %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
+        .row
+            .col-xs-12 Until This Time
+        .row
+            .col-xs-9
+                / = range_field 'until_this_time', 'until_this_time', {:min => '0', :max => '12', :step => '1', :value => '0'}
+                %input#ex1{"data-slider-id" => "ex1Slider", "data-slider-max" => "12", "data-slider-min" => "0", "data-slider-step" => "1", "data-slider-value" => "0", :type => "text", :style => "width:100%"}/
+                - for i in (0..12)
+                    %div{:style => "display: inline-block;*display: inline;zoom: 1;width: #{100/15}%;text-align: center;"}= i
+            .col-xs-3
+                .btn-group{"data-toggle" => "buttons"}
+                    %label.btn.btn-default.btn-xs.active
+                        %input#option1{:autocomplete => "off", :checked => "checked", :name => "options", :type => "radio"}/
+                        AM
+                    %label.btn.btn-default.btn-xs
+                        %input#option2{:autocomplete => "off", :name => "options", :type => "radio"}/
+                        PM
+        .row
+            .col-xs-12 For This Many Hours
+        .row
+            .col-xs-9
+                / = range_field 'hours', 'hours', {:min => '0', :max => '12', :step => '1', :value => '0'}
+                %input#ex2{"data-slider-id" => "ex2Slider", "data-slider-max" => "12", "data-slider-min" => "0", "data-slider-step" => "1", "data-slider-value" => "0", :type => "text", :style => "width:100%"}/
+                - for i in (0..12)
+                    %div{:style => "display: inline-block;*display: inline;zoom: 1;width: #{100/15}%;text-align: center;"}= i
+            .col-xs-3
+                %a.btn.btn-success.btn-xs{:href => "#"} More
+:javascript
+    // Without JQuery
+    var slider1 = new Slider('#ex1', {
+        formatter: function(value) {
+            return value;
+        }
+    });
+    var slider2 = new Slider('#ex2', {
+        formatter: function(value) {
+            return value;
+        }
+    });
 
-        %br
-        For This Many Hours
-        = range_field 'hours', 'hours', {:min => '0', :max => '12', :step => '1', :value => '0'}
-        
 
-        = button_tag :nxt
+
         
-        %label.btn.btn-default
-            = radio_button_tag :am, false
-            AM
-        
-        %label.btn.btn-default
-            = radio_button_tag :pm, false
-            PM
-        
-        
+// @@@@@@@@@@@@@@Start of Daniel's old code
 // = form_tag 'select_contacts', :method => :post do
 //     Until I Arrive
 //     = check_box_tag 'until_i_arrive', 'until_i_arrive', true
@@ -147,7 +186,7 @@
 //         };
         
 //     });
-
+// @@@@@@@@@@@@End of Daniel's old code
 
 %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
     .container
