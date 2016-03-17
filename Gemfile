@@ -92,7 +92,7 @@ end
 gem 'bootstrap-sass', '~> 3.0.3.0'
 
 # font-awesome
-gem 'font-awesome-sass', '~> 4.0.2'
+gem 'font-awesome-sass', '~> 4.4.0'
 
 #gem 'jquery-ui-rails'
 
