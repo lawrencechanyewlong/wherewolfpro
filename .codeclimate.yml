@@ -15,5 +15,6 @@ ratings:
   - "**.go"
 exclude_paths:
 - coverage/*
+- doc/*
 - spec/**/*
 - "**/vendor/**/*"
