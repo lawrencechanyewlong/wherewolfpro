@@ -3,12 +3,14 @@ Feature: User info
   I want to log in,
   so I can access the features of the site.
  
+@wip
 Scenario: a user can log into google
   Given I am signed in with provider "google_oauth2"
   Then I should be on the home page
   And I should see "events"
   
-  Scenario: a user can log out from google
+@wip
+Scenario: a user can log out from google
   Given I am signed in with provider "google_oauth2"
   Then I should be on the home page
   And I should see "events"

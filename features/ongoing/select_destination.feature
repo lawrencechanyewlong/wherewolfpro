@@ -13,8 +13,6 @@ Background: I have saved destinations
 #     | test1     | 1.0           | 1.4           |
 #     | test2     | 1.2           | 1.5           |
 #     | test3     | 1.3           | 1.6           |
-  
-Scenario: background
 
 
 # @wip

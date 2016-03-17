@@ -7,7 +7,8 @@ Feature: select duration for a new event
 Background: 
   
     Given I am on the duration page
-  
+
+@wip  
 Scenario: Choosing until I arrive as duration
     
     Then I should see "Until I Arrive"

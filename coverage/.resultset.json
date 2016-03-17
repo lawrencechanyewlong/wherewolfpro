@@ -1,33 +1,52 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/ubuntu/workspace/wherewolfpro/spec/support/factory_girl.rb": [
+      "/Users/melvynsng/Google Drive/College/AY2015-16/CS169/wherewolfpro/spec/support/factory_girl.rb": [
         1,
         1,
         null
       ],
-      "/home/ubuntu/workspace/wherewolfpro/app/controllers/event_controller.rb": [
+      "/Users/melvynsng/Google Drive/College/AY2015-16/CS169/wherewolfpro/app/controllers/event_controller.rb": [
         1,
         1,
         null,
         null,
         1,
         null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        0,
+        0,
         0,
         null,
         null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         1,
         null,
         null,
@@ -35,7 +54,7 @@
         null,
         null
       ],
-      "/home/ubuntu/workspace/wherewolfpro/app/controllers/application_controller.rb": [
+      "/Users/melvynsng/Google Drive/College/AY2015-16/CS169/wherewolfpro/app/controllers/application_controller.rb": [
         1,
         null,
         null,
@@ -43,6 +62,6 @@
         null
       ]
     },
-    "timestamp": 1457734344
+    "timestamp": 1458215785
   }
 }
