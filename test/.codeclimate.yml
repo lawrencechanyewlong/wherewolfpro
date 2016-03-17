@@ -24,7 +24,7 @@ index e69de29..b81469a 100644
 +  eslint:
 +    enabled: true
 +  fixme:
-+    enabled: true
++    enabled: false
 +  rubocop:
 +    enabled: true
 +ratings:
