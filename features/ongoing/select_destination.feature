@@ -15,13 +15,13 @@ Background: I have saved destinations
 #     | test3     | 1.3           | 1.6           |
 
 
-# @wip
+
 # Scenario: send a location of a saved destination
   
 #   And I follow "test1"
 #   Then I should be on the select contacts page
   
-# @wip
+
 # Scenario: send a location of a new destination
   
 #   And I click on map
