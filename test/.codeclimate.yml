@@ -1577,3 +1577,13 @@ index e69de29..86422e3 100644
 +    "level": "warn"
 +  }
 +}
+## other configuration excluded from example...
+exclude_paths:
+- coverage/
+- doc/
+- lib/
+- tmp/
+- bin/
+- log/
+- script/
+- vendor/
