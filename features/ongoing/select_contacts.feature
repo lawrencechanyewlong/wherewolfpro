@@ -10,7 +10,7 @@ Background: I am already on the select contacts page
   # And my 10 most recently shared contacts are
   # we do not have a contacts schema already
 
-@wip
+
 Scenario: Contacts
   Given I am contacted in with provider "gmail"
   Then I should be on the gmail page
@@ -18,12 +18,12 @@ Scenario: Contacts
   When I check the following emails: bob_gmail.com
   And I press "Submit Contacts"
   
-@wip
+
 Scenario: Preselecting the most recently shared contact
     
   Then I should see the contact "Alex" checkbox to be checked
     
-@wip
+
 Scenario: list the 10 most recently shared contacts sorted by date_time_shared
     
   Then I should see the contact "Alex"
@@ -38,7 +38,7 @@ Scenario: list the 10 most recently shared contacts sorted by date_time_shared
   And I should see the contact "Jacob"
   And I should see the list sorted by date_time_shared
 
-@wip
+
 Scenario: flag if no contact is selected
 
   When I uncheck all contacts
