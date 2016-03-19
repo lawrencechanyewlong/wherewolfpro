@@ -4,9 +4,8 @@ Feature: display Wherewoof logo on screen
   So that I can attract traffic to CityDogShare
   I want to increase awareness of CityDogShare
   
-@wip
-Scenario: start the application
+Scenario: Start the application
   
-  When I start the application
-  Then I should see the Wherewoof logo
-  
+  Given I am on the home page
+  Then I should see the image "wherewoof_logo"
+  And I should see the image "citydogshare_logo"

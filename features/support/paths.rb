@@ -21,7 +21,12 @@ module NavigationHelpers
       
     when /^the select contacts page$/
       '/event/select_contacts'
-      
+    
+    when /^the select duration page$/
+      '/event/select_duration'  
+
+    when /^the confirm page$/
+      '/event/confirm'
       
     when /^the gmail page$/
       '/contacts/gmail/callback'
