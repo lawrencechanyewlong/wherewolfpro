@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get 'event/confirm'
 
   get 'welcome/login'
+  
+  get 'event/maptesting'
 
   get 'welcome/index'
 

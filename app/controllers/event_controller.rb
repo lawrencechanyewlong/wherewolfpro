@@ -43,4 +43,5 @@ class EventController < ApplicationController
 
   def confirm
   end
+  
 end

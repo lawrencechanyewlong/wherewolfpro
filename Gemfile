@@ -7,6 +7,8 @@ gem 'test-unit'
 
 gem 'omniauth'
 
+gem 'geocoder'
+
 gem "omnicontacts"
 
 gem "omniauth-google-oauth2"

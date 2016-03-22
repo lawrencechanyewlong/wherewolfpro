@@ -1,16 +1,10 @@
-
 %h1 Select Destination
 %h1 Map
 
 
-#search_options
-  = link_to "Search", geocoding_path, remote: true, id: "geocoding"
-#map-container
-  #map-canvas
-  #geocoding_fields
-    = text_field_tag :search, params[:search], placeholder: "Enter a place", :id => 'search_box_geocoding', class: 'search_box'
-    = button_tag "Search", id: "submit_button_geocoding", data: { disable_with: "Please wait..." }, class: "submit_button"
-  
+
+#map_container
+
 %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
   .container
     .row
@@ -20,6 +14,7 @@
           %span Back
       .col-xs-6
       .col-xs-3
-        %a.btn.btn-success{:href => "/event/select_contacts"}
+        %a.btn.btn-success{:href => "/event/maptesting"}
           %span Next
           %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
+          
