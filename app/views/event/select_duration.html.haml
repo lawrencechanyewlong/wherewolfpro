@@ -132,6 +132,7 @@
         });
         document.getElementById("next").addEventListener("click", function () {
             form.submit();
+            window.location.href='/event/confirm';
         });
     });
 
@@ -289,6 +290,6 @@
                     %span Back
             .col-xs-6
             .col-xs-3
-                %a#next.btn.btn-success{:href => "/event/confirm"}
+                %a#next.btn.btn-success
                     %span Next
                     %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
