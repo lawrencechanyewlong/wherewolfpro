@@ -1,66 +1,158 @@
-:javascript
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
-%style
-    #ex1Slider .slider-selection {background: #BABABA;}
-    #ex2Slider .slider-selection {background: #BABABA;}
-%script{:src => "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"}
-%link{:href => "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css", :rel => "stylesheet"}/
+
+// %style
+//     #ex1Slider .slider-selection {background: #BABABA;}
+//     #ex2Slider .slider-selection {background: #BABABA;}
+//This script and link was placed in application.html.haml. Gem 'jquery-turbolinks' installed and //= require jquery.turbolinks was placed in application.js
+// %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"}
+// %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css", :rel => "stylesheet"}/
 %h1 Select Duration
 
-.container
-    = form_tag 'select_contacts', :method => :post do
-        .row
-            .col-xs-12 Until I Arrive
-        .row
+
+= form_tag '/event/select_contacts', :method => :post, :id => 'duration_form' do
+
+    // .row.selectdurationheader
+    //     .container
+    //         .col-xs-12 
+    //             %h4 Until I Arrive
+    .row.selectdurationarrive
+        .container.vertical-align
             .col-xs-9
-                
-                = range_field 'until_i_arrive', 'until_i_arrive', {:min => '0', :max => '1', :step => '1', :value => '0'}
+                .btn-group
+                    %label.btn.btn-default.btn-md
+                        %input#arrive{:autocomplete => "off", :checked => "checked", :name => "arrive", :type => "checkbox"}/
+                        Until I Arrive
+                /= range_field 'until_i_arrive', 'until_i_arrive', {:min => '0', :max => '1', :step => '1', :value => '0'}
             .col-xs-3
-                %a.btn.btn-success.btn-xs{:href => "/event/confirm"}
+                // %label
+                // %button#submit_arrive.btn.btn-success.btn-xs{:type => "submit"}
+                %label#submit_arrive.btn.btn-success.btn-xs
                     %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
-        .row
-            .col-xs-12 Until This Time
-        .row
+                        
+    // .row.selectdurationheader
+    //     .container.vertical-align
+    //         .col-xs-9
+    //             %h4 Until I Arrive
+    //             /= range_field 'until_i_arrive', 'until_i_arrive', {:min => '0', :max => '1', :step => '1', :value => '0'}
+    //         .col-xs-3
+    //             %a.btn.btn-success.btn-xs{:href => "/event/confirm"}
+    //                 %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
+        
+    %br
+    .row.selectdurationheader
+        .container
+            .col-xs-12
+                %h4 Until This Time
+    .row.selectdurationrow
+        .container
             .col-xs-9
-                / = range_field 'until_this_time', 'until_this_time', {:min => '0', :max => '12', :step => '1', :value => '0'}
-                %input#ex1{"data-slider-id" => "ex1Slider", "data-slider-max" => "12", "data-slider-min" => "0", "data-slider-step" => "1", "data-slider-value" => "0", :type => "text", :style => "width:100%"}/
-                - for i in (0..12)
-                    %div{:style => "display: inline-block;*display: inline;zoom: 1;width: #{100/15}%;text-align: center;"}= i
+                %input#slider1{"data-slider-id" => "ex1Slider", "data-slider-max" => "12", "data-slider-min" => "0", "data-slider-step" => "1", "data-slider-value" => "0", :type => "text", :style => "width:100%"}/
             .col-xs-3
                 .btn-group{"data-toggle" => "buttons"}
-                    %label.btn.btn-default.btn-xs.active
-                        %input#option1{:autocomplete => "off", :checked => "checked", :name => "options", :type => "radio"}/
+                    %label.btn.btn-default.btn-xs#amlabel
+                        %input#am{:autocomplete => "off", :name => "options", :type => "radio"}/
                         AM
-                    %label.btn.btn-default.btn-xs
-                        %input#option2{:autocomplete => "off", :name => "options", :type => "radio"}/
+                    %label.btn.btn-default.btn-xs#pmlabel
+                        %input#pm{:autocomplete => "off", :name => "options", :type => "radio"}/
                         PM
-        .row
-            .col-xs-12 For This Many Hours
-        .row
+    %br
+    .row.selectdurationheader
+        .container
+            .col-xs-12 
+                %h4 For This Many Hours
+    .row.selectdurationrow
+        .container
             .col-xs-9
                 / = range_field 'hours', 'hours', {:min => '0', :max => '12', :step => '1', :value => '0'}
-                %input#ex2{"data-slider-id" => "ex2Slider", "data-slider-max" => "12", "data-slider-min" => "0", "data-slider-step" => "1", "data-slider-value" => "0", :type => "text", :style => "width:100%"}/
-                - for i in (0..12)
-                    %div{:style => "display: inline-block;*display: inline;zoom: 1;width: #{100/15}%;text-align: center;"}= i
+                %input#slider2{"data-slider-id" => "ex2Slider", "data-slider-max" => "12", "data-slider-min" => "0", "data-slider-step" => "1", "data-slider-value" => "0", :type => "text", :style => "width:100%"}/
             .col-xs-3
                 %a.btn.btn-success.btn-xs{:href => "#"} More
+
+
 :javascript
-    // Without JQuery
-    var slider1 = new Slider('#ex1', {
-        formatter: function(value) {
-            return value;
-        }
+    //turbolinks was using ajax to automatically reload the page, breaking the binding of events with javascript
+    //see top of page for more comments
+    var pageready = function(){
+        $('#slider1').slider({
+            ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            ticks_labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+        	formatter: function(value) {
+        		return 'Current value: ' + value;
+        	}
+        });
+        $('#slider2').slider({
+            ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            ticks_labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+        	formatter: function(value) {
+        		return 'Current value: ' + value;
+        	}
+        });
+        
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+        
+        startPos = 0
+        $('#arrive').on('click', function(event) {
+            if (this.checked){
+                $('#slider1').slider("setValue", startPos);
+                $('#slider2').slider("setValue", startPos);
+                $('#am').prop('checked', false);
+                $('#amlabel').removeClass('active');
+                $('#pm').prop('checked', false);
+                $('#pmlabel').removeClass('active');
+            }
+        });
+        $('#slider1, #am, #pm').on('change', function(event) {
+            $('#arrive').prop('checked', false);
+            $('#slider2').slider("setValue", startPos);
+        });
+        $('#slider2').on('change', function(event) {
+            $('#arrive').prop('checked', false);
+            $('#slider1').slider("setValue", startPos);
+            $('#am').prop('checked', false);
+            $('#amlabel').removeClass('active');
+            $('#pm').prop('checked', false);
+            $('#pmlabel').removeClass('active');
+        });
+        
+    };
+
+    window.addEventListener("DOMContentLoaded", function () {
+        var form =  document.getElementById("duration_form");
+    
+        document.getElementById("submit_arrive").addEventListener("click", function () {
+            // $("#arrive").toggle(this.checked);
+            if (document.getElementById("arrive").checked) {
+                form.submit();
+                window.location.href='/event/confirm';
+            } else {
+                alert('"Until I Arrive" is not checked.');
+            }
+                
+        });
+        document.getElementById("next").addEventListener("click", function () {
+            form.submit();
+        });
     });
-    var slider2 = new Slider('#ex2', {
-        formatter: function(value) {
-            return value;
-        }
-    });
+
+    $(document).ready(pageready);
+
+
+// $("#ex6").slider();
+// $("#ex6").on("slide", function(slideEvt) {
+// 	$("#ex6SliderVal").text(slideEvt.value);
+// });
 
 
 
+
+// / What does this javascript do
+// :javascript
+//     $(function () {
+//         $('[data-toggle="tooltip"]').tooltip()
+//     });
+    
+    
         
 // @@@@@@@@@@@@@@Start of Daniel's old code
 // = form_tag 'select_contacts', :method => :post do
@@ -197,6 +289,6 @@
                     %span Back
             .col-xs-6
             .col-xs-3
-                %a.btn.btn-success{:href => "/event/confirm"}
+                %a#next.btn.btn-success{:href => "/event/confirm"}
                     %span Next
                     %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
