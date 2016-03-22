@@ -1,0 +1,10 @@
+%div{:style => "margin-top:50px;"}
+  .list-group
+    - @history.each do |h|
+      %a.list-group-item{:href => "#"}
+        %span= h[:receiver_name]
+        %span= h[:receiver]
+        %span= h[:address_string]
+        %span= h[:duration_setting]
+        %span= h[:datetime_sent]
+    }

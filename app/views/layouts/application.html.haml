@@ -22,4 +22,7 @@
         .navbar-header
           %a.navbar-brand{:href => "/"}
             = image_tag("wherewoof_logo.jpg", :size => '60x50', :id => "wherewoof_logo")
-    = yield
+        %p.navbar-text.navbar-right
+          %a.navbar-link{:href => "/welcome/history"} History
+    .container
+      = yield
