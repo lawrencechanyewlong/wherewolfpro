@@ -1,10 +1,13 @@
 %div{:style => "margin-top:50px;"}
+  %h2 Recent Activities
+  %p Send these same howls with just 1 click
   .list-group
     - @history.each do |h|
       %a.list-group-item{:href => "#"}
-        %span= h[:receiver_name]
-        %span= h[:receiver]
-        %span= h[:address_string]
-        %span= h[:duration_setting]
-        %span= h[:datetime_sent]
-    }
+        %p= "eid:#{h[:eid]}"
+        %p= h[:receiver_name]
+        %p= h[:receiver]
+        %p= h[:address_string]
+        %p= h[:duration_setting]
+        %p= h[:datetime_sent]
+    

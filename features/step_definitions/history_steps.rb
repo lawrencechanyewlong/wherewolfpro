@@ -7,8 +7,7 @@ end
 Then(/^I should( not)? see event (\d+)$/) do |n,arg1|
   e = Event.find_by eid: arg1
   if n then not_space = "not " else "" end
-  # step "I should #{not_space}see \"#{arg1.to_s}\""
-  step "I should #{not_space}see \"#{e[:datetime_sent]}\""
+  step "I should #{not_space}see \"eid:#{arg1.to_s}\""
 end
 
 Then(/^I should see event (\d+) to (\d+)$/) do |arg1, arg2|
@@ -17,21 +16,21 @@ Then(/^I should see event (\d+) to (\d+)$/) do |arg1, arg2|
   end
 end
 
-Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
+Then /I should see event (.*) before event (.*)/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
-  if (page.body =~ /#{e1}/) && (page.body =~ /#{e2}/)
-    if (page.body =~ /#{e1}/) < (page.body =~ /#{e2}/)
+  if (page.body =~ /eid:#{e1}/) && (page.body =~ /eid:#{e2}/)
+    if (page.body =~ /eid:#{e1}/) < (page.body =~ /eid:#{e2}/)
       true
     else
-      fail "#{e1} appears after #{e2}"
+      fail "eid:#{e1} appears after eid:#{e2}"
     end
-  elsif !(page.body =~ /#{e1}/) && !(page.body =~ /#{e1}/)
-    fail "#{e1} and #{e2} not found"
-  elsif !(page.body =~ /#{e1}/)
-    fail "#{e1} not found"
-  elsif !(page.body =~ /#{e2}/)
-    fail "#{e1} not found"
+  elsif !(page.body =~ /eid:#{e1}/) && !(page.body =~ /eid:#{e1}/)
+    fail "eid:#{e1} and eid:#{e2} not found"
+  elsif !(page.body =~ /eid:#{e1}/)
+    fail "eid:#{e1} not found"
+  elsif !(page.body =~ /eid:#{e2}/)
+    fail "eid:#{e1} not found"
   else
     fail "Unknown Error"
   end
@@ -47,7 +46,7 @@ Then(/^I should see events sorted by recency$/) do
   # sorted_events.each do |e| puts e.datetime_sent end # For Checking
   for j in 0..(sorted_events.length-2)
     for k in (j+1)..(sorted_events.length-1)
-      step "I should see \"#{sorted_events[j].datetime_sent}\" before \"#{sorted_events[k].datetime_sent}\""
+      step "I should see event #{sorted_events[j].eid} before event #{sorted_events[k].eid}"
     end
   end
 end
