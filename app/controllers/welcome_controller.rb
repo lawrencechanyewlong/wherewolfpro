@@ -30,4 +30,14 @@ class WelcomeController < ApplicationController
     redirect_to "/"
   end
   
+  def history
+    @history = []
+    i = 0
+    Event.all.each do |e|
+      @history << e
+      i += 1
+      if i == 10 then break end
+    end
+    @history.sort!{ |x,y| y[:datetime_sent] <=> x[:datetime_sent] }
+  end
 end

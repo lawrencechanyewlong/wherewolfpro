@@ -15,6 +15,9 @@ module NavigationHelpers
 
     when /^the home\s?page$/
       '/'
+
+    when /^the history page$/
+      '/welcome/history'
       
     when /^the welcome page$/
       '/welcome/index'

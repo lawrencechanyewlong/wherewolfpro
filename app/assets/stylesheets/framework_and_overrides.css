@@ -444,9 +444,9 @@ img{
   text-decoration: none;
 }
 
-.active {
-  background-color: #F8BD00 !important;
-  border-color: #F8BD00 !important;
+.btn-group .active {
+  background-color: green !important;
+  border-color: green !important;
   color: #fff !important;
 }
 

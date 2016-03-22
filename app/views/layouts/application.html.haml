@@ -13,10 +13,16 @@
     %link{:crossorigin => "anonymous", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css", :integrity => "sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r", :rel => "stylesheet"}/
     / Latest compiled and minified JavaScript
     %script{:crossorigin => "anonymous", :integrity => "sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS", :src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"}
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"}
+    %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css", :rel => "stylesheet"}/
+  
   %body{:style => "padding-top: 50px;"}
     %nav.navbar.navbar-inverse.navbar-fixed-top{:role => "navigation"}
       .container
         .navbar-header
           %a.navbar-brand{:href => "/"}
             = image_tag("wherewoof_logo.jpg", :size => '60x50', :id => "wherewoof_logo")
-    = yield
+        %p.navbar-text.navbar-right
+          %a.navbar-link{:href => "/welcome/history"} History
+    .container
+      = yield

@@ -79,6 +79,7 @@ group :test do
   gem 'autotest-rails'
   gem 'factory_girl_rails' # if using FactoryGirl
   gem 'metric_fu'        # collect code metrics
+  gem 'capybara'
 end
 
 group :production do 
@@ -104,3 +105,6 @@ gem 'kaminari', '~> 0.15.0'
 
 # Slugs and friendly id's
 gem 'friendly_id', '~> 5.0.2'
+
+# To allow jquery and turbolinks to work together
+gem 'jquery-turbolinks'

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'welcome/history'
+
   get 'saved_locations/index'
 
   get 'users/index'
