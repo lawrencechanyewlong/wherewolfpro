@@ -18,8 +18,6 @@ Rails.application.routes.draw do
   get 'event/confirm'
 
   get 'welcome/login'
-  
-  get 'event/maptesting'
 
   get 'welcome/index'
 
@@ -33,7 +31,9 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   
   # for google maps
-  get "event/select_destination/geocoding", to: "events#geocoding", as: "geocoding"
+  #get "event/select_destination/geocoding", to: "events#geocoding", as: "geocoding"
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
