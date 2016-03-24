@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322142938) do
+ActiveRecord::Schema.define(version: 20160323233853) do
 
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20160322142938) do
     t.integer  "eid"
     t.string   "address_string"
     t.string   "receiver_name"
+    t.string   "message"
   end
 
   create_table "saved_locations", force: :cascade do |t|

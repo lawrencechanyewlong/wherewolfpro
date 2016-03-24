@@ -1,5 +1,11 @@
 class EventController < ApplicationController
+  
+  def event_params
+    params.require(:event).permit(:address_lat, :address_lng, :receiver, :duration_setting, :uid, :message)
+  end
+  
   def new
+    Event.new
   end
 
   def select_contacts
@@ -43,5 +49,11 @@ class EventController < ApplicationController
 
   def confirm
   end
-  
+
+=begin  
+  def message
+    @event = Event.find(params[:id])
+    @event.save!(params[:message])
+  end
+=end
 end
