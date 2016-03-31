@@ -11,3 +11,4 @@ Given /the following saved destinations exist/ do |locations_table|
   end
   # fail "Unimplemented"
 end
+

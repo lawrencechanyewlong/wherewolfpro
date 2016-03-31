@@ -14,10 +14,12 @@ Rails.application.routes.draw do
   get 'event/select_destination'
   
   post 'event/select_destination', to: "event#store_destination"
+  
+  post 'event/message', to:"event#store_message"
 
   get 'event/select_duration'
 
-  get 'event/confirm'
+  get 'event/summary'
   
   get 'event/message'
 
@@ -33,6 +35,7 @@ Rails.application.routes.draw do
   
   root 'welcome#index'
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
+  
   
   # for google maps
   #get "event/select_destination/geocoding", to: "events#geocoding", as: "geocoding"

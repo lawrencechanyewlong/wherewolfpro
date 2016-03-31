@@ -1,8 +1,8 @@
 .container
-    %h1 Confirm
-    %p Not implemented yet
+    %h1 Summary
     %p= "latlng: #{session[:latlng]}"
     %p= "formatted_address: #{session[:formatted_address]}"
+    %p= "#{session[:message]}"
 
     %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
         .container

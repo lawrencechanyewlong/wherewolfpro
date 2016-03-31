@@ -1,11 +1,10 @@
 .container
   %h1 Message
     
-  %form{:controller => "event", :action => "message", :method => "post" do}
-    .container
-      .row
-        .col-md-7.col-md-offset-2 
-          %input.form-control{:name => "message", :placeholder => "enter your message here"}/
+  %form{:id => "message", :action => "/event/message", :method => "post"}
+    %input{:name => "message", :type => "text"}/
+    %input#submit-form.hidden{:type => "submit"}/
+  
       
           
         
@@ -19,7 +18,7 @@
             %span Back
         .col-xs-6
         .col-xs-3
-          %a.btn.btn-success{:href => "/event/confirm"}
+          %a.btn.btn-success{:href => "/event/summary", :onclick => "document.getElementById('message').submit(); return false;" }
             %span Next
             %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
             

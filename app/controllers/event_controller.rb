@@ -8,19 +8,19 @@ class EventController < ApplicationController
   end
   
   def new
-    Event.create!(event_params)
-    redirect_to '/event/select_destination'
+    Event.new
   end
 
   def select_contacts
     
     user = User.where(:id => session[:id]).take
     if user
-      @contacts = user.contacts
+      @contacts = user.contacts 
+      if params['email']
+        @contacts = [params['email']] + @contacts
+      end
     end
-    session[:latlng]
-    logger.debug "latlng: #{session[:latlng]}"
-    logger.debug "formatted_address: #{session[:formatted_address]}"
+
   end
   
   def geocoding
@@ -49,16 +49,24 @@ class EventController < ApplicationController
   def select_duration
   end
 
-  def confirm
+  def summary
     logger.debug "latlng: #{session[:latlng]}"
     logger.debug "formatted_address: #{session[:formatted_address]}"
-    @event = Event.find(params[:id])
-  end
-
-begin  
-  def message
-    @event = Event.find(params[:id])
+    logger.debug "message: #{session[:message]}"
     
   end
-end
+
+ 
+  def message
+  end
+ 
+  def store_message
+   # @event = Event.find(params[:id])
+   @message = params[:message]
+   session[:message] = @message
+   
+   
+   render text: "<script>window.location = '#{event_summary_path}';</script>", status: 500
+  end
+
 end

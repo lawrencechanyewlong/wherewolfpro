@@ -1,5 +1,6 @@
 %h1 Select Destination
 %h1 Map
+%h1 optional to choose destination 
 
 !!!
 %html
@@ -14,7 +15,7 @@
         padding: 0;
       }
       #map {
-        height: 70%;
+        height: 63%;
       }
       .controls {
         margin-top: 10px;
@@ -194,7 +195,7 @@
           %span Back
       .col-xs-6
       .col-xs-3
-        %a.btn.btn-success{:onclick => "submit_form()"}
+        %a#next_button.btn.btn-success{:onclick => "submit_form();return false;", :href => '/event/select_contacts'}
           %span Next
           %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
           
