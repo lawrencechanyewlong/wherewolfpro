@@ -4,7 +4,7 @@
     %p Send these same howls with just 1 click
     .list-group
       - @history.each do |h|
-        %a.list-group-item{:href => "/event/confirm"}
+        %a.list-group-item{:href => "/event/summary"}
           %p= "eid:#{h[:eid]}:"
           %p= h[:receiver_name]
           %p= h[:receiver]

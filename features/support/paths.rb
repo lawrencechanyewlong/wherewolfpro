@@ -31,6 +31,9 @@ module NavigationHelpers
     when /^the message page$/
       '/event/message'  
 
+    when /^the summary page$/
+      '/event/summary'  
+
     when /^the confirm page$/
       '/event/confirm'
       

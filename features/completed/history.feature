@@ -41,5 +41,5 @@ Scenario: Click on a past event
 	Given I am on the history page
 	And I should see event 1
 	And I press event 1
-	Then I should be on the confirm page
+	Then I should be on the summary page
   

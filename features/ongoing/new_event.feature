@@ -15,7 +15,6 @@ Scenario: Creating a new event
 Scenario: After selecting destination, see the select contacts page
         
     Given I am on the select destination page
-    Given PENDING
     When I follow "Next"
     Then I should be on the select contacts page
 
@@ -35,4 +34,4 @@ Scenario: After wrting message, see the confirm page
     
     Given I am on the message page
     When I follow "Next"
-    Then I should be on the confirm page
+    Then I should be on the summary page
