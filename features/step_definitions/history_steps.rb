@@ -4,10 +4,14 @@ Given(/^the following events exist:$/) do |table|
   end
 end
 
+And(/^I press event (\d+)$/) do |arg1|
+  step "I follow \"eid:#{arg1.to_s}:\""
+end
+
 Then(/^I should( not)? see event (\d+)$/) do |n,arg1|
   e = Event.find_by eid: arg1
   if n then not_space = "not " else "" end
-  step "I should #{not_space}see \"eid:#{arg1.to_s}\""
+  step "I should #{not_space}see \"eid:#{arg1.to_s}:\""
 end
 
 Then(/^I should see event (\d+) to (\d+)$/) do |arg1, arg2|
@@ -19,18 +23,18 @@ end
 Then /I should see event (.*) before event (.*)/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
-  if (page.body =~ /eid:#{e1}/) && (page.body =~ /eid:#{e2}/)
-    if (page.body =~ /eid:#{e1}/) < (page.body =~ /eid:#{e2}/)
+  if (page.body =~ /eid:#{e1}:/) && (page.body =~ /eid:#{e2}:/)
+    if (page.body =~ /eid:#{e1}:/) < (page.body =~ /eid:#{e2}:/)
       true
     else
       fail "eid:#{e1} appears after eid:#{e2}"
     end
-  elsif !(page.body =~ /eid:#{e1}/) && !(page.body =~ /eid:#{e1}/)
-    fail "eid:#{e1} and eid:#{e2} not found"
-  elsif !(page.body =~ /eid:#{e1}/)
+  elsif !(page.body =~ /eid:#{e1}:/) && !(page.body =~ /eid:#{e1}:/)
+    fail "eid:#{e1}: and eid:#{e2}: not found"
+  elsif !(page.body =~ /eid:#{e1}:/)
     fail "eid:#{e1} not found"
-  elsif !(page.body =~ /eid:#{e2}/)
-    fail "eid:#{e1} not found"
+  elsif !(page.body =~ /eid:#{e2}:/)
+    fail "eid:#{e1}: not found"
   else
     fail "Unknown Error"
   end

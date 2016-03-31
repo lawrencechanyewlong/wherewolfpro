@@ -24,6 +24,7 @@ Scenario: Navigate to the history page
 	And I follow "History"
 	Then I am on the history page
 
+
 Scenario: The 10 most recent events are shown
 	Given I am on the history page
 	Then I should see event 1 to 10
@@ -35,5 +36,10 @@ Scenario: The most recent event appears at the top of the list
 	And I should see event 1 to 10
 	Then I should see events sorted by recency	
 
-  
+
+Scenario: Click on a past event
+	Given I am on the history page
+	And I should see event 1
+	And I press event 1
+	Then I should be on the confirm page
   
