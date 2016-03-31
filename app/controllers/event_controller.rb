@@ -8,18 +8,19 @@ class EventController < ApplicationController
   end
   
   def new
-    Event.new
+    @event = Event.new
   end
 
   def select_contacts
     
     user = User.where(:id => session[:id]).take
     if user
-      @contacts = user.contacts
+      @contacts = user.contacts 
+      if params['email']
+        @contacts = [params['email']] + @contacts
+      end
     end
-    session[:latlng]
-    logger.debug "latlng: #{session[:latlng]}"
-    logger.debug "formatted_address: #{session[:formatted_address]}"
+
   end
   
   def geocoding
@@ -53,10 +54,5 @@ class EventController < ApplicationController
     logger.debug "formatted_address: #{session[:formatted_address]}"
   end
 
-=begin  
-  def message
-    @event = Event.find(params[:id])
-    @event.save!(params[:message])
-  end
-=end
+
 end

@@ -28,6 +28,9 @@ module NavigationHelpers
     when /^the select duration page$/
       '/event/select_duration'  
 
+    when /^the message page$/
+      '/event/message'  
+
     when /^the confirm page$/
       '/event/confirm'
       
