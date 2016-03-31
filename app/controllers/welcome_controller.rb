@@ -3,6 +3,8 @@ class WelcomeController < ApplicationController
     if session[:id]
       user = User.find(session[:id])
       @name = user.name
+    else
+      redirect_to "/welcome/login"
     end 
   end
   

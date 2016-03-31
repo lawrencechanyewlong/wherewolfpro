@@ -15,8 +15,12 @@ class EventController < ApplicationController
     
     user = User.where(:id => session[:id]).take
     if user
-      @contacts = user.contacts
+      @contacts = user.contacts 
+      if params['email']
+        @contacts = [params['email']] + @contacts
+      end
     end
+
   end
   
   def geocoding
