@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
   get 'event/select_contacts'
 
-  get 'event/select_destination' 
+  get 'event/select_destination'
+  
+  post 'event/select_destination', to: "event#store_destination"
 
   get 'event/select_duration'
 

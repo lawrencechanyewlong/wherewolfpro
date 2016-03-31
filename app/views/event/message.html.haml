@@ -1,24 +1,25 @@
-%h1 Message
-  
-%form{:controller => "event", :action => "message", :method => "post"}
-  .container
-    .row
-      .col-md-7.col-md-offset-2 
-        %input.form-control{:name => "message", :placeholder => "enter your message here"}/
+.container
+  %h1 Message
     
-        
+  %form{:controller => "event", :action => "message", :method => "post"}
+    .container
+      .row
+        .col-md-7.col-md-offset-2 
+          %input.form-control{:name => "message", :placeholder => "enter your message here"}/
       
-  
-%nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
-  .container
-    .row
-      .col-xs-3
-        %a.btn.btn-danger{:href => "/event/select_duration"} 
-          %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
-          %span Back
-      .col-xs-6
-      .col-xs-3
-        %a.btn.btn-success{:href => "/event/confirm"}
-          %span Next
-          %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
           
+        
+    
+  %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
+    .container
+      .row
+        .col-xs-3
+          %a.btn.btn-danger{:href => "/event/select_duration"} 
+            %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
+            %span Back
+        .col-xs-6
+        .col-xs-3
+          %a.btn.btn-success{:href => "/event/confirm"}
+            %span Next
+            %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
+            

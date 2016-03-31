@@ -4,7 +4,16 @@
 			%p The Wherewoof App is a project of City Dog Share
 			%p a 501c3 nonprofit organization
 			%a{:href => "http://citydogshare.org"}
-				= image_tag("citydogshare_logo.jpg", :size => '150x150', :id => "citydogshare_logo")
+				= image_tag("citydogshare_logo.jpg", :size => '150x150', :id => "citydogshare_logo", :style => "margin: auto;")
+			/ %a.btn.btn-success{:href => "/event/select_contacts"}
+			/ 	%span contacts
+			/ 	%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+			%a.btn.btn-success{:href => "/contacts/gmail"}
+				%span login
+				%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+			%a.btn.btn-success{:href => "/welcome/destroy"}
+				%span logout
+				%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
 
 %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
 	.container
@@ -15,13 +24,5 @@
 				%a.btn.btn-success{:href => "/event/select_destination"}
 					%span New
 					%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
-				%a.btn.btn-success{:href => "/event/select_contacts"}
-					%span contacts
-					%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
-				%a.btn.btn-success{:href => "/contacts/gmail"}
-					%span login
-					%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
-				%a.btn.btn-success{:href => "/welcome/destroy"}
-					%span logout
-					%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+				
 					

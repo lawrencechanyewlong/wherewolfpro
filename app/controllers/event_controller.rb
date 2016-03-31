@@ -1,4 +1,7 @@
 class EventController < ApplicationController
+  attr_accessor :latlng
+  attr_accessor :formatted_address
+  skip_before_action :verify_authenticity_token
   
   def event_params
     params.require(:event).permit(:address_lat, :address_lng, :receiver, :duration_setting, :uid, :message)
@@ -27,31 +30,28 @@ class EventController < ApplicationController
   end
 
   def select_destination
-=begin
-    # need user's location
+  end
+  
+  def store_destination
+    logger.debug "In store_destination"
+    @latlng = {lat: params[:lat], long: params[:long]}
+    @formatted_address = params[:formatted_address]
     
-    temp = SavedLocation.new
-    temp.name = "International House Berkeley"
-    temp.address_lat = 37.871593
-    temp.address_lng = -122.272747
-    temp.save
+    session[:latlng] = @latlng
+    session[:formatted_address] = @formatted_address
     
-    @saved_locations = SavedLocation.all
+    logger.debug "latlng: #{session[:latlng]}"
+    logger.debug "formatted_address: #{session[:formatted_address]}"
     
-    @hash = Gmaps4rails.build_markers(@saved_locations) do |location, marker|
-      marker.lat 37.871593 # user.latitude
-      marker.lng -122.272747 # user.longitude
-      # marker.infowindow locat.description
-      # marker.json({ title: user.title })
-    end
-=end
-    
+    render text: "<script>window.location = '#{event_select_contacts_path}';</script>", status: 500
   end
 
   def select_duration
   end
 
   def confirm
+    logger.debug "latlng: #{session[:latlng]}"
+    logger.debug "formatted_address: #{session[:formatted_address]}"
   end
 
 =begin  
