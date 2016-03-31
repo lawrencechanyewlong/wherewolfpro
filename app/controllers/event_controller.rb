@@ -8,7 +8,8 @@ class EventController < ApplicationController
   end
   
   def new
-    Event.new
+    Event.create!(event_params)
+    redirect_to '/event/select_destination'
   end
 
   def select_contacts
@@ -51,12 +52,13 @@ class EventController < ApplicationController
   def confirm
     logger.debug "latlng: #{session[:latlng]}"
     logger.debug "formatted_address: #{session[:formatted_address]}"
+    @event = Event.find(params[:id])
   end
 
-=begin  
+begin  
   def message
     @event = Event.find(params[:id])
-    @event.save!(params[:message])
+    
   end
-=end
+end
 end

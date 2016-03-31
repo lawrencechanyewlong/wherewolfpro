@@ -21,7 +21,7 @@
 			.col-xs-3
 			.col-xs-6
 			.col-xs-3
-				%a.btn.btn-success{:href => "/event/select_destination"}
+				%a.btn.btn-success{:controller => "event", :action => "new", method: :post,:href => "/event/select_destination"}
 					%span New
 					%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
 				
