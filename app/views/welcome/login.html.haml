@@ -1,6 +1,5 @@
-%h1 Login
-
 .container
+  %h1 Login
   .row
     .col-md-4.col-md-offset-4
       .login-panel.panel.panel-default
@@ -20,3 +19,5 @@
               / Change this to a button or input when using this as a form
               %a.btn.btn-lg.btn-success.btn-block{:href => "index.html"} Login
           %a.btn.btn-success{:href => "/contacts/gmail"} Or Login with Gmail!
+  %a{:href => "http://citydogshare.org"}
+    = image_tag("citydogshare_logo.jpg", :size => '150x150', :id => "citydogshare_logo", :style => "margin: auto;")
