@@ -40,6 +40,7 @@ Given /^I am contacted in with provider "([^"]*)"$/ do |provider|
   visit "/contacts/#{provider.downcase}"
 end
 # Single-line step scoper
+
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
 end

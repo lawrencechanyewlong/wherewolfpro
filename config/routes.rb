@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   get 'event/select_duration'
 
-  get 'event/confirm'
+  get 'event/summary'
   
   get 'event/message'
 

@@ -48,7 +48,7 @@ class EventController < ApplicationController
   def select_duration
   end
 
-  def confirm
+  def summary
     logger.debug "latlng: #{session[:latlng]}"
     logger.debug "formatted_address: #{session[:formatted_address]}"
   end
