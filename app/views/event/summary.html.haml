@@ -1,18 +1,22 @@
 .container
-    %h1 Summary
-    %p= "latlng: #{session[:latlng]}"
-    %p= "formatted_address: #{session[:formatted_address]}"
-    %p= "#{session[:message]}"
 
-    %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
-        .container
-            .row
-                .col-xs-3
-                    %a.btn.btn-danger{:href => "/event/message"} 
-                        %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
-                        %span Back
-                .col-xs-6
-                .col-xs-3
-                    %a.btn.btn-success{:href => "/"}
-                        %span Next
-                        %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
+  %h1 Summary
+  %h3 Address
+  %p= "#{session[:formatted_address]}"
+  %h3 Contacts
+  %h3 Duration
+  %h3 Message
+  <!-- %p= "latlng: #{session[:latlng]}" -->
+  %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
+    .container
+      .row
+        .col-xs-3
+          %a.btn.btn-danger{:href => "/event/message"}
+            %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
+            %span Back
+        .col-xs-6
+        .col-xs-3
+          %a.btn.btn-success{:href => "/"}
+            %span Send!
+            <!-- %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"} -->
+
