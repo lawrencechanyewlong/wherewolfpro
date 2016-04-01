@@ -1,10 +1,39 @@
+:javascript
+  function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+      if(params.hasOwnProperty(key)) {
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", params[key]);
+
+        form.appendChild(hiddenField);
+      }
+    }
+
+    document.body.appendChild(form);
+    form.submit(); 
+  }
+
+  function submit_form(eid) {
+    post("", {eid: eid});
+  }
+
 .container
   %div{:style => "margin-top:50px;"}
     %h2 Recent Activities
     %p Send these same howls with just 1 click
     .list-group
       - @history.each do |h|
-        %a.list-group-item{:href => "/event/summary"}
+        %a.list-group-item{:href => "/event/summary", :onclick => "submit_form(#{h[:eid].to_s});return false;"}
           %p= "eid:#{h[:eid]}:"
           %p= h[:receiver_name]
           %p= h[:receiver]

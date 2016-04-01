@@ -7,8 +7,8 @@ Feature: Creating new event
   
 Scenario: Creating a new event
     
-    Given I am on the welcome page
-    Given PENDING
+    Given I log in
+    Then I should be on the welcome page
     When I follow "New"
     Then I should be on the select destination page
     

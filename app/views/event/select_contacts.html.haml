@@ -1,8 +1,14 @@
-.container{:style => "margin-top: 50px;"}
 
+
+.container{:style => "margin-top: 50px;"}
+    - if flash[:notice]
+        .alert-message.warning
+        %p
+    = flash[:notice]
+  
     = form_tag event_select_contacts_path, :method => :get do
         = text_field_tag "email", ""
-        = submit_tag "Submit value"
+        = submit_tag "Submit", :id => 'Submit'
 
     %h1 Select Contacts
     - if @contacts
