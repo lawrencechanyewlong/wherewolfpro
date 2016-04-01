@@ -4,21 +4,51 @@ Feature: User info
   so I can access the features of the site.
  
 
-Scenario: a user can log into google
 
-  Given PENDING
-  Given I am signed in with provider "google_oauth2"
-  Then I should be on the home page
-  And I should see "events"
+Scenario: A user creates an account
+  Given I am on the new user page
+  When I fill in "Email" with "user@berkeley.edu"
+  And I fill in "Password" with "password"
+  And I press "Submit info"
+  Then I should be on the login page
+  Then I should see "user created!"
   
 
-Scenario: a user can log out from google
+Scenario: A user forgets to fill in info
+  Given I am on the new user page
+  When I fill in "Email" with "user@berkeley.edu"
+  And I press "Submit info"
+  Then I should be on the new user page
+  And I should see "entry missing"
 
-  Given PENDING
-  Given I am signed in with provider "google_oauth2"
-  Then I should be on the home page
-  And I should see "events"
+
+
+Scenario: A user cannot make duplicates
+  Given I am on the new user page
+  When I fill in "Email" with "user@berkeley.edu"
+  And I fill in "Password" with "password"
+  And I press "Submit info"
+  Then I am on the new user page
+  When I fill in "Email" with "user@berkeley.edu"
+  And I fill in "Password" with "password"
+  And I press "Submit info"
+  Then I should see "email already taken"
+  
+Scenario: A user fails to log in
+  Given I am on the login page
+  And I press "login"
+  Then I should be on the login page
+  Then I should see "the email is not in our database"
+  
+Scenario: A user logs in and is able to log out
+  Given I am on the new user page
+  When I fill in "Email" with "user@berkeley.edu"
+  And I fill in "Password" with "password"
+  And I press "Submit info"
+  Then I should be on the login page
+  When I fill in "Email" with "user@berkeley.edu"
+  And I fill in "Password" with "password"
+  And I press "login"
+  Then I should be on the welcome page
   Then I follow "logout"
-  Then I should be on the home page
-  And I should see "user_login"
-  
+  Then I should be on the login page

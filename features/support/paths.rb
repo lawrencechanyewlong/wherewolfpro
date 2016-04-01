@@ -19,6 +19,12 @@ module NavigationHelpers
     when /^the history page$/
       '/welcome/history'
       
+    when /^the login page$/
+      '/welcome/login'
+   
+    when /^the new user page$/
+      '/welcome/new_user'
+      
     when /^the welcome page$/
       '/welcome/index'
       

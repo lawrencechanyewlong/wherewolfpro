@@ -17,7 +17,19 @@ class EventController < ApplicationController
     if user
       @contacts = user.contacts 
       if params['email']
-        @contacts = [params['email']] + @contacts
+        if params['email'].length == 0
+          flash['notice'] = 'Invalid'
+          return
+        else
+          flash['notice'] = 'user created'
+        end
+        if @contacts
+          @contacts = [params['email']] + @contacts
+        else
+          @contacts = [params['email']]
+        end
+        user.contacts = @contacts
+        user.save!
       end
     end
 
@@ -47,6 +59,9 @@ class EventController < ApplicationController
   end
 
   def select_duration
+    if params[:info]
+      session[:info] = params[:info].keys
+    end
   end
 
   def summary
