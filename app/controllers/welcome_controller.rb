@@ -8,23 +8,6 @@ class WelcomeController < ApplicationController
     end 
   end
   
-  def create
-    auth_hash = request.env['omniauth.auth']
-   # auth_hash.to_yaml =~ /email:(.*)/
-    email = auth_hash['info']['email']
-    #auth_hash.to_yaml =~ /name:(.*)/
-    name =  auth_hash['info']['name']
-    @authorization = Authorization.find_by_provider_and_uid(auth_hash["provider"], auth_hash["uid"])
-    if @authorization
-      session[:id] = @authorization.id
-    else
-      user = User.new :name => name, :email => email
-      user.authorizations.build :provider => auth_hash["provider"], :uid => auth_hash["uid"]
-      user.save
-      session[:id] = user.id
-    end
-    redirect_to "/"
-  end
   
   def destroy
     session[:id] = nil

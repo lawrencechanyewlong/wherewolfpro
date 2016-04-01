@@ -5,6 +5,8 @@
 # files.
 
 require 'cucumber/rails'
+require "factory_girl"
+
 
 OmniAuth.config.test_mode = true
 OmniAuth.config.add_mock(:google_oauth2, {
@@ -17,7 +19,10 @@ OmniAuth.config.add_mock(:google_oauth2, {
 )
 
 OmniContacts.integration_test.enabled = true 
-OmniContacts.integration_test.mock(:gmail,{:email =>"bob@gmail.com"})
+
+OmniContacts.integration_test.mock(:gmail, {:email => "contact@example.com"})
+
+
 
 World(FactoryGirl::Syntax::Methods)
 

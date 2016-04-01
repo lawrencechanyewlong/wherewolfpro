@@ -8,12 +8,12 @@
 			/ %a.btn.btn-success{:href => "/event/select_contacts"}
 			/ 	%span contacts
 			/ 	%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
-			%a.btn.btn-success{:href => "/contacts/gmail"}
+			%a.btn.btn-success{:href => "/contacts/gmail", :submit_tag => "login",:class => "btn btn-primary", :value => "login"}
 				%span login
 				%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
-			%a.btn.btn-success{:href => "/welcome/destroy"}
+			%a.btn.btn-success{:href => "/welcome/destroy", :submit_tag => "logout",:class => "btn btn-primary", :value => "logout"}
 				%span logout
-				%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+				%span.glyphicon.glyphicon-plus{"aria-hidden" => "true" }
 
 %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
 	.container

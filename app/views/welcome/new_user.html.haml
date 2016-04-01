@@ -1,0 +1,19 @@
+- if flash[:notice]
+  .alert-message.warning
+  %p
+  = flash[:notice]
+.container
+
+%br
+%br
+%br
+%br
+
+= form_tag users_new_user_path, :method => :get do
+  = label :user, :email, "Email"
+  = text_field :user, :email
+  %br
+  = label :user, :password
+  = password_field :user, :password
+  = submit_tag "Submit info"
+  

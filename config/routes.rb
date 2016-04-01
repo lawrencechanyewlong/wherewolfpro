@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   get 'saved_locations/index'
 
-  get 'users/index'
+  get 'users/third_party'
+  
+  get 'users/new_user'
+  
+  get 'users/login'
   
   get 'events/index'
 
@@ -26,6 +30,8 @@ Rails.application.routes.draw do
   get 'event/message'
 
   get 'welcome/login'
+  
+  get 'welcome/new_user'
 
   get 'welcome/index'
 
@@ -33,7 +39,7 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', :to => 'welcome#create'
   
-  get '/contacts/:provider/callback', :to => 'users#index'
+  get '/contacts/:provider/callback', :to => 'users#third_party'
   
   root 'welcome#index'
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
