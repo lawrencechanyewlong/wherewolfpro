@@ -4,6 +4,7 @@ Feature: confirm event
   So that I can confirm my selections
   I want to see my previous choices
   
+@wip
 Scenario: view confirmation after selections
   
   Given I have selected "2799 Bancroft Way, Berkeley, CA 94704, USA" on the select destination page

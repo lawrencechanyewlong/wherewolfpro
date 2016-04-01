@@ -14,6 +14,7 @@ Scenario: Until I arrive should be checked at the start
     Then I should see "Until I Arrive"
     Then the "arrive" checkbox should be checked
 
+@wip
 Scenario: PENDING: Choosing until I arrive as duration
   
     When I move the slider for "Until This Time" to "12"
@@ -23,6 +24,7 @@ Scenario: PENDING: Choosing until I arrive as duration
     And a mouseover should appear over the "Until this time" slider
     And the mouseover should indicate "12 noon" or "12 midnight"
 
+@wip
 Scenario: PENDING: Choosing for this many hours as duration
     
     When I move the slider for "For this many hours" to "10"
