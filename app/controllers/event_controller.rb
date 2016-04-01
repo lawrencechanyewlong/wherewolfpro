@@ -79,7 +79,7 @@ class EventController < ApplicationController
     logger.debug "latlng: #{session[:latlng]}"
     logger.debug "formatted_address: #{session[:formatted_address]}"
     logger.debug "message: #{session[:message]}"
-    @duration = session[:duration]['duration'].values[0] if session[:duration]['duration']
+    @duration = session[:duration]['duration'].values[0] if session[:duration] && session[:duration]['duration']
   end
 
  
