@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   
   get '/contacts/:provider/callback', :to => 'users#index'
   
+  post '/event/select_duration', :to => 'event#store_duration'
+  
   root 'welcome#index'
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   
