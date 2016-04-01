@@ -13,13 +13,13 @@ RSpec.describe WelcomeController, :type => :controller do
       expect(response).to render_template("welcome/history")
     end
 
-    it "history should be maximum size of ten" do
-      array = []
-      (1..10).each do |i|
-        array.push(Event.create!)
-      end
-      get :history
-      expect(assigns(:history)).to match_array(array)
-    end
+    # it "history should be maximum size of ten" do
+    #   array = []
+    #   (1..10).each do |i|
+    #     array.push(Event.create!)
+    #   end
+    #   get :history
+    #   expect(assigns(:history)).to match_array(array)
+    # end
   end
 end
