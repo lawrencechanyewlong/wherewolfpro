@@ -2,9 +2,9 @@ require 'capybara/poltergeist'
 require 'phantomjs'
 
 When /^I move the slider for "(.*)" to "(.*)"/ do |slider, value| 
-   # Phantomjs.path # Force install on require
+   Phantomjs.path # Force install on require
    Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, {:phantomjs => "/home/ubuntu/workspace/wherewolfpro/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs", :phantomjs_options => ['--ssl-protocol=any']})
+      Capybara::Poltergeist::Driver.new(app, {:phantomjs => Phantomjs.path, :phantomjs_options => ['--ssl-protocol=any']})
    end
    Capybara.javascript_driver = :poltergeist
    Capybara.current_driver = Capybara.javascript_driver
