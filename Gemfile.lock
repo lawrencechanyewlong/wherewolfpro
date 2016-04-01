@@ -51,7 +51,6 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.0.3.0)
       sass (~> 3.2)
-    bootstrap_form (2.3.0)
     builder (3.2.2)
     byebug (8.2.2)
     cane (2.6.2)
@@ -375,7 +374,6 @@ PLATFORMS
 DEPENDENCIES
   autotest-rails
   bootstrap-sass (~> 3.0.3.0)
-  bootstrap_form
   byebug
   capybara
   codeclimate-test-reporter (~> 0.4.8)
