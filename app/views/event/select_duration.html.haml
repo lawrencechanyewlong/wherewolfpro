@@ -1,42 +1,18 @@
 .container
-    // %style
-    //     #ex1Slider .slider-selection {background: #BABABA;}
-    //     #ex2Slider .slider-selection {background: #BABABA;}
-    //This script and link was placed in application.html.haml. Gem 'jquery-turbolinks' installed and //= require jquery.turbolinks was placed in application.js
-    // %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"}
-    // %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css", :rel => "stylesheet"}/
     %h1 Select Duration
 
-
-    = form_tag '/event/select_contacts', :method => :post, :id => 'duration_form' do
-
-        // .row.selectdurationheader
-        //     .container
-        //         .col-xs-12 
-        //             %h4 Until I Arrive
+    = form_tag '/event/select_duration', :method => :post, :id => 'duration_form' do
         .row.selectdurationarrive
             .container.vertical-align
                 .col-xs-9
                     .btn-group
-                        %label.btn.btn-default.btn-md
-                            %input#arrive{:autocomplete => "off", :checked => "checked", :name => "arrive", :type => "checkbox"}/
+                        %label.btn.btn-default.btn-md{:for => 'arrive'}
+                            = check_box_tag "arrive" , 1, true, :name => "arrive", :type => "checkbox", :id => "arrive"
                             Until I Arrive
-                    /= range_field 'until_i_arrive', 'until_i_arrive', {:min => '0', :max => '1', :step => '1', :value => '0'}
                 .col-xs-3
-                    // %label
-                    // %button#submit_arrive.btn.btn-success.btn-xs{:type => "submit"}
-                    %label#submit_arrive.btn.btn-success.btn-xs
-                        %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
-                            
-        // .row.selectdurationheader
-        //     .container.vertical-align
-        //         .col-xs-9
-        //             %h4 Until I Arrive
-        //             /= range_field 'until_i_arrive', 'until_i_arrive', {:min => '0', :max => '1', :step => '1', :value => '0'}
-        //         .col-xs-3
-        //             %a.btn.btn-success.btn-xs{:href => "/event/confirm"}
-        //                 %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
-            
+                    %a#arrive_next{:onclick => 'submit_form_arrive();return false;', :href => '/event/message'}
+                        %label#submit_arrive.btn.btn-success.btn-xs
+                            %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
         %br
         .row.selectdurationheader
             .container
@@ -45,14 +21,14 @@
         .row.selectdurationrow
             .container
                 .col-xs-9
-                    %input#slider1{"data-slider-id" => "ex1Slider", "data-slider-max" => "12", "data-slider-min" => "0", "data-slider-step" => "1", "data-slider-value" => "0", :type => "text", :style => "width:100%"}/
+                    %input#slider1{"data-slider-id" => "ex1Slider", "data-slider-max" => "12", "data-slider-min" => "0", "data-slider-step" => "1", "data-slider-value" => "0", :type => "text", :style => "width:100%", :name => "until_this_time"}/
                 .col-xs-3
                     .btn-group{"data-toggle" => "buttons"}
                         %label.btn.btn-default.btn-xs#amlabel
-                            %input#am{:autocomplete => "off", :name => "options", :type => "radio"}/
+                            %input#am{:autocomplete => "off", :name => "am", :type => "radio"}/
                             AM
                         %label.btn.btn-default.btn-xs#pmlabel
-                            %input#pm{:autocomplete => "off", :name => "options", :type => "radio"}/
+                            %input#pm{:autocomplete => "off", :name => "pm", :type => "radio"}/
                             PM
         %br
         .row.selectdurationheader
@@ -62,15 +38,12 @@
         .row.selectdurationrow
             .container
                 .col-xs-9
-                    / = range_field 'hours', 'hours', {:min => '0', :max => '12', :step => '1', :value => '0'}
-                    %input#slider2{"data-slider-id" => "ex2Slider", "data-slider-max" => "12", "data-slider-min" => "0", "data-slider-step" => "1", "data-slider-value" => "0", :type => "text", :style => "width:100%"}/
+                    %input#slider2{"data-slider-id" => "ex2Slider", "data-slider-max" => "12", "data-slider-min" => "0", "data-slider-step" => "1", "data-slider-value" => "0", :type => "text", :style => "width:100%", :name => "for_this_many_hours"}/
                 .col-xs-3
                     %a.btn.btn-success.btn-xs{:href => "#"} More
 
-
     :javascript
-        //turbolinks was using ajax to automatically reload the page, breaking the binding of events with javascript
-        //see top of page for more comments
+
         var pageready = function(){
             $('#slider1').slider({
                 ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -116,180 +89,68 @@
             });
             
         };
-
-        window.addEventListener("DOMContentLoaded", function () {
+      
+        function submit_form_arrive() {
             var form =  document.getElementById("duration_form");
-        
-            document.getElementById("submit_arrive").addEventListener("click", function () {
-                // $("#arrive").toggle(this.checked);
-                if (document.getElementById("arrive").checked) {
-                    form.submit();
-                    window.location.href='/event/confirm';
-                } else {
-                    alert('"Until I Arrive" is not checked.');
-                }
-                    
-            });
-            document.getElementById("next").addEventListener("click", function () {
+            if (check_arrive()) {
                 form.submit();
-                window.location.href='/event/confirm';
-            });
-        });
+            } else {
+                alert('"Until I Arrive" is not checked.');
+            }
+        }
+        
+        function check_arrive(){
+            if ( document.getElementById("arrive").checked) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function check_until_this_time(){
+            if ( $('#slider1').slider("getValue") > 0 && check_am_pm()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function check_for_this_many_hours(){
+            if ( $('#slider2').slider("getValue") > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function check_am_pm(){
+            if (document.getElementById("am").checked || document.getElementById("pm").checked) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function submit_form() {
+            if (check_arrive() || check_until_this_time() || check_for_this_many_hours()) {
+                var form =  document.getElementById("duration_form");
+                form.submit();
+            } else {
+                alert('Choose an option.');
+            }
+        }
+        
 
         $(document).ready(pageready);
-
-
-    // $("#ex6").slider();
-    // $("#ex6").on("slide", function(slideEvt) {
-    // 	$("#ex6SliderVal").text(slideEvt.value);
-    // });
-
-
-
-
-    // / What does this javascript do
-    // :javascript
-    //     $(function () {
-    //         $('[data-toggle="tooltip"]').tooltip()
-    //     });
-        
-        
-            
-    // @@@@@@@@@@@@@@Start of Daniel's old code
-    // = form_tag 'select_contacts', :method => :post do
-    //     Until I Arrive
-    //     = check_box_tag 'until_i_arrive', 'until_i_arrive', true
-    //     %div#slider1{:class => 'slider'}
-    //     <br><br>
-    //     Until This Time
-    //     %div#slider2{:class => 'slider'} 
-
-    //     <br><br>
-    //     For This Many Hours
-    //     %div#slider3{:class => 'slider'}
-        
-    //     <br><br>
-    //     / =submit_tag 'Next', :id => 'duration_submit'
-
-
-    // = form_tag 'ampm' do
-    //     %label.btn.btn-default
-    //         = radio_button_tag :ampm, true
-    //         AM
-    //     %label.btn.btn-default
-    //         = radio_button_tag :ampm, false
-    //         PM
-            
-    // %div#test
-
-    // :javascript
-    //     $(function() {
-    //         $('#slider1').slider({max:1, min:0, step:1, animate:"fast", });
-    //         $('#slider2').slider({max:12, min:0, step:1}).each(function() {
-    //             // Add labels to slider whose values 
-    //             // are specified by min, max
-    //             // Get the options for this slider (specified above)
-    //             var opt = $(this).data().uiSlider.options;
-    //             // Get the number of possible values
-    //             var vals = opt.max - opt.min;
-    //             // Position the labels
-    //             for (var i = 0; i <= vals; i++) {
-    //                 // Create a new element and position it with percentages
-    //                 var el = $('<label>' + (i + opt.min) + '</label>').css('left', (i/vals*100) + '%');
-    //                 // Add the element inside #slider
-    //                 $("#slider2").append(el);
-    //             }
-    //         });
-    //         $('#slider3').slider({max:12, min:0, step:1}).each(function() {
-    //             // Add labels to slider whose values 
-    //             // are specified by min, max
-    //             // Get the options for this slider (specified above)
-    //             var opt = $(this).data().uiSlider.options;
-    //             // Get the number of possible values
-    //             var vals = opt.max - opt.min;
-    //             // Position the labels
-    //             for (var i = 0; i <= vals; i++) {
-    //                 // Create a new element and position it with percentages
-    //                 var el = $('<label>' + (i + opt.min) + '</label>').css('left', (i/vals*100) + '%');
-    //                 // Add the element inside #slider
-    //                 $("#slider3").append(el);
-    //             }
-    //         });
-            
-    //         var startPos1 = $('#slider1').slider('value');
-    //         var startPos2 = $('#slider2').slider('value');
-    //         var startPos3 = $('#slider3').slider('value');
-            
-            
-    //         $('#slider1').on('slidestop', function(event, ui) {
-    //             if ($('#slider1').slider('value') != startPos1) {
-    //                 $('#slider2').slider('option', 'value', startPos2);
-    //                 $('#slider3').slider('option', 'value', startPos3);
-    //                 $('#until_i_arrive').prop('checked', true);
-    //                 $('#ampm_true').prop('checked', false);
-    //                 $('#ampm_false').prop('checked', false);
-    //             }
-    //         });
-    //         $('#slider2').on('slidestop', function(event, ui) {
-    //             if ($('#slider2').slider('value') != startPos2) {
-    //                 $('#slider1').slider('option', 'value', startPos1);
-    //                 $('#slider3').slider('option', 'value', startPos3);
-    //                 $('#until_i_arrive').prop('checked', false);
-    //             }
-    //         });
-    //         $('#slider3').on('slidestop', function(event, ui) {
-    //             if ($('#slider3').slider('value') != startPos3) {
-    //                 $('#slider1').slider('option', 'value', startPos1);
-    //                 $('#slider2').slider('option', 'value', startPos2);
-    //                 $('#until_i_arrive').prop('checked', false);
-    //             }
-    //         });
-            
-
-
-    //         $('#slider1, #slider2, #slider3').mousemove(function(event) {
-    //             slider_id = this.id;
-    //             createTooltip(event, slider_id);               
-    //         })
-
-            
-    //         function createTooltip(event, slider_id){ 
-    //             console.log($('#'+slider_id).slider('value'));
-    //             $('<div class="tooltip">'+ $('#'+slider_id).slider('value') + '</div>').appendTo('body');
-    //             positionTooltip(event);        
-    //         };
-    //         function positionTooltip(event){
-    //             var tPosX = event.pageX - 30;
-    //             var tPosY = event.pageY - 60;
-               
-    //             cssItems = {
-    //                 'position': 'absolute',
-    //                 'top': tPosY,
-    //                 'left': tPosX,
-    //                 'border-radius': '25px',
-    //                 'backgroundColor': '#73AD21',
-    //                 'padding': '20px',
-    //                 'width': '20px',
-    //                 'height': '15px', 
-    //                 'display': 'block'
-    //             };
-    //             console.log($('div.tooltip').css(cssItems));
-    //             $('div.tooltip').css(cssItems);
-                
-    //         };
-            
-    //     });
-    // @@@@@@@@@@@@End of Daniel's old code
 
     %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
         .container
             .row
                 .col-xs-3
-                    %a.btn.btn-danger{:href => "/event/select_contacts"} 
+                    %a#back.btn.btn-danger{:href => "/event/select_contacts"} 
                         %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
                         %span Back
                 .col-xs-6
                 .col-xs-3
-                    %a#next.btn.btn-success{:href => "/event/message"}
+                    %a#next.btn.btn-success{:onclick => 'submit_form();return false;', :href => "/event/message"}
                         %span Next
                         %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
+                        
+                    

@@ -62,13 +62,24 @@ class EventController < ApplicationController
     if params[:info]
       session[:info] = params[:info].keys
     end
+    @duration = params
+    session[:duration] = @duration
+  end
+  
+  def store_duration
+    @duration = {'1': "Until I Arrive"} if params[:arrive]
+    @duration = {'2': "#{params[:until_this_time]} am"} if params[:until_this_time] != '0' && params[:am]
+    @duration = {'3': "#{params[:until_this_time]} pm"} if params[:until_this_time] != '0' && params[:pm]
+    @duration = {'4': "#{params[:for_this_many_hours]} hours"} if params[:for_this_many_hours] != '0'
+    session[:duration] = {'duration': @duration} 
+    render text: " <script>window.location = '#{event_message_path}';</script>", status: 500
   end
 
   def summary
     logger.debug "latlng: #{session[:latlng]}"
     logger.debug "formatted_address: #{session[:formatted_address]}"
     logger.debug "message: #{session[:message]}"
-    
+    @duration = session[:duration]['duration'].values[0] if session[:duration]['duration']
   end
 
  

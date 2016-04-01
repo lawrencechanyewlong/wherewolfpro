@@ -80,6 +80,11 @@ group :test do
   gem 'factory_girl_rails' # if using FactoryGirl
   gem 'metric_fu'        # collect code metrics
   gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'poltergeist', :require => 'phantomjs/poltergeist'
+  gem 'jasmine'
+  gem 'phantomjs'
+  gem 'launchy'
 end
 
 group :production do 
@@ -108,3 +113,4 @@ gem 'friendly_id', '~> 5.0.2'
 
 # To allow jquery and turbolinks to work together
 gem 'jquery-turbolinks'
+

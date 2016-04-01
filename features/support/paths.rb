@@ -55,7 +55,8 @@ module NavigationHelpers
     when /^the duration page/
       '/event/select_duration'
       
-   
+    when /^the message page/ 
+      '/event/message'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
