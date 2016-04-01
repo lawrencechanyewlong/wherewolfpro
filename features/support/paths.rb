@@ -19,6 +19,12 @@ module NavigationHelpers
     when /^the history page$/
       '/welcome/history'
       
+    when /^the login page$/
+      '/welcome/login'
+   
+    when /^the new user page$/
+      '/welcome/new_user'
+      
     when /^the welcome page$/
       '/welcome/index'
       
@@ -27,6 +33,12 @@ module NavigationHelpers
     
     when /^the select duration page$/
       '/event/select_duration'  
+
+    when /^the message page$/
+      '/event/message'  
+
+    when /^the summary page$/
+      '/event/summary'  
 
     when /^the confirm page$/
       '/event/confirm'

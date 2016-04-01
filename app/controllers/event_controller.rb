@@ -15,11 +15,24 @@ class EventController < ApplicationController
     
     user = User.where(:id => session[:id]).take
     if user
-      @contacts = user.contacts
+      @contacts = user.contacts 
+      if params['email']
+        if params['email'].length == 0
+          flash['notice'] = 'Invalid'
+          return
+        else
+          flash['notice'] = 'user created'
+        end
+        if @contacts
+          @contacts = [params['email']] + @contacts
+        else
+          @contacts = [params['email']]
+        end
+        user.contacts = @contacts
+        user.save!
+      end
     end
-    session[:latlng]
-    logger.debug "latlng: #{session[:latlng]}"
-    logger.debug "formatted_address: #{session[:formatted_address]}"
+
   end
   
   def geocoding
@@ -46,6 +59,9 @@ class EventController < ApplicationController
   end
 
   def select_duration
+    if params[:info]
+      session[:info] = params[:info].keys
+    end
     @duration = params
     session[:duration] = @duration
   end
@@ -59,16 +75,24 @@ class EventController < ApplicationController
     render text: " <script>window.location = '#{event_message_path}';</script>", status: 500
   end
 
-  def confirm
+  def summary
     logger.debug "latlng: #{session[:latlng]}"
     logger.debug "formatted_address: #{session[:formatted_address]}"
+    logger.debug "message: #{session[:message]}"
     @duration = session[:duration]['duration'].values[0] if session[:duration]['duration']
   end
 
-=begin  
+ 
   def message
-    @event = Event.find(params[:id])
-    @event.save!(params[:message])
   end
-=end
+ 
+  def store_message
+   # @event = Event.find(params[:id])
+   @message = params[:message]
+   session[:message] = @message
+   
+   
+   render text: "<script>window.location = '#{event_summary_path}';</script>", status: 500
+  end
+
 end

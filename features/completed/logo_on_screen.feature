@@ -6,6 +6,7 @@ Feature: display Wherewoof logo on screen
   
 Scenario: Start the application
   
-  Given I am on the home page
+  Given I log in
+  Then I should be on the welcome page
   Then I should see the image "wherewoof_logo"
   And I should see the image "citydogshare_logo"
