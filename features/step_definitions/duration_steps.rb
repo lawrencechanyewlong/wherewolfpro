@@ -9,22 +9,11 @@ When /^I move the slider for "(.*)" to "(.*)"/ do |slider, value|
    Capybara.javascript_driver = :poltergeist
    Capybara.current_driver = Capybara.javascript_driver
    Capybara.ignore_hidden_elements = false
-   # page.includeJs('http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js', function() {
-   #     $(document).ready(function() {$('#arrive').show();$('#slider1').slider('setValue', 12);$('#slider1').trigger('change');$('#arrive').prop('checked', false);});
-   # });
-   # page.find('#arrive')
-   # page.find('#ex1Slider')
-   # uncheck('arrive')
-   # page.execute_script("$(document).ready(function() {$('#arrive').show();$('#slider1').slider('setValue', 12);$('#slider1').trigger('change');$('#arrive').prop('checked', false);});")
    visit '/event/select_duration'
    page.find("##{slider}")
    page.execute_script("s = $('##{slider}')")
    page.execute_script("s.slider('setValue', #{value});")
    page.execute_script("s.trigger('change');")
-   page.save_screenshot('file.png', :full => true)
-   
-
-
 end
 
 When /^(?:|I )choose a radio button "([^"]*)"$/ do |field|
