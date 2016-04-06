@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'welcome/history'
 
-  post 'welcome/history', to:"welcome#store_event"
+  post 'welcome/history', to:"event#store_event"
 
   get 'saved_locations/index'
 
