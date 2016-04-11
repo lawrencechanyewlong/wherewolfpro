@@ -14,6 +14,11 @@ Then(/^I should( not)? see event (\d+)$/) do |n,arg1|
   step "I should #{not_space}see \"eid:#{arg1.to_s}:\""
 end
 
+And (/^I should see (.*) of event (\d+)$/) do |field,arg1|
+  e = Event.where(eid: arg1).first
+  step "I should see \"#{e[field]}\""
+end
+
 Then(/^I should see event (\d+) to (\d+)$/) do |arg1, arg2|
   (arg1..arg2).each do |eid|
     step "I should see event #{eid}"

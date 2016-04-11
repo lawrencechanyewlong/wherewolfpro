@@ -71,15 +71,23 @@ class EventController < ApplicationController
     @duration = {'2': "#{params[:until_this_time]} am"} if params[:until_this_time] != '0' && params[:am]
     @duration = {'3': "#{params[:until_this_time]} pm"} if params[:until_this_time] != '0' && params[:pm]
     @duration = {'4': "#{params[:for_this_many_hours]} hours"} if params[:for_this_many_hours] != '0'
-    session[:duration] = {'duration': @duration} 
+    session[:duration] = @duration
     render text: " <script>window.location = '#{event_message_path}';</script>", status: 500
   end
 
   def summary
+
+    logger.debug "session[:info]: #{session[:info]}"
+    logger.debug "session[:formatted_address]: #{session[:formatted_address]}"
+    logger.debug "session[:duration]: #{session[:duration]}"
     logger.debug "latlng: #{session[:latlng]}"
     logger.debug "formatted_address: #{session[:formatted_address]}"
     logger.debug "message: #{session[:message]}"
-    @duration = session[:duration]['duration'].values[0] if session[:duration]['duration']
+    if session[:duration].is_a?(String)
+      @duration = session[:duration]
+    else
+      @duration = session[:duration].values[0] if session[:duration]
+    end
   end
 
  
@@ -93,6 +101,33 @@ class EventController < ApplicationController
    
    
    render text: "<script>window.location = '#{event_summary_path}';</script>", status: 500
+  end
+
+  def store_event
+    if params[:eid]
+      @eid = params[:eid]
+      @event = Event.where(eid: @eid.to_i).first
+      logger.debug "event: #{@event.inspect}"
+      @receiver_name = @event[:receiver_name]
+      @receiver = @event[:receiver]
+      @formatted_address = @event[:address_string]
+      @duration_setting = @event[:duration_setting]
+      @datetime_sent = @event[:datetime_sent]
+
+      # session[:receiver_name] = @receiver_name
+      session[:info] = @receiver
+      session[:formatted_address] = @formatted_address
+      session[:duration] = @duration_setting
+      # session[:datetime_sent] = @datetime_sent
+      session[:message] = ""
+
+      logger.debug "session[:info]: #{session[:info]}"
+      logger.debug "session[:formatted_address]: #{session[:formatted_address]}"
+      logger.debug "session[:duration]: #{session[:duration]}"
+      
+      render text: "<script>window.location = '#{event_summary_path}';</script>", status: 200
+    end
+
   end
 
 end
