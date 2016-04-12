@@ -1,0 +1,77 @@
+%h1 User's Location
+
+!!!
+%html
+  %head
+    %title Geolocation
+    %meta{:content => "initial-scale=1.0, user-scalable=no", :name => "viewport"}/
+    %meta{:charset => "utf-8"}/
+    :css
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 63%;
+      }
+  %body
+    #map
+    :javascript
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 15
+        });
+        var infoWindow = new google.maps.InfoWindow({map: map});
+        
+      var marker = null;
+
+      function autoUpdate() {
+        navigator.geolocation.getCurrentPosition(function(position) {  
+            var newPoint = new google.maps.LatLng(position.coords.latitude, 
+                                                position.coords.longitude);
+
+            if (marker) {
+            // Marker already created - Move it
+                marker.setPosition(newPoint);
+            }
+            
+            else {
+            // Marker does not exist - Create it
+                marker = new google.maps.Marker({
+                    position: newPoint,
+                    map: map
+                });
+            }
+
+            // Center the map on the new position
+            map.setCenter(newPoint);
+        }); 
+        
+        setTimeout(autoUpdate, 1000);
+      }
+
+        autoUpdate();
+
+      }
+    %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?&callback=initMap"}
+      :cdata
+      
+%nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
+  .container
+    .row
+      .col-xs-3
+        %a.btn.btn-danger{:href => "/"} 
+          %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
+          %span Back
+      .col-xs-6
+      .col-xs-3
+        %a#next_button.btn.btn-success{:onclick => "submit_form();return false;", :href => '/event/select_contacts'}
+          %span Next
+          %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}

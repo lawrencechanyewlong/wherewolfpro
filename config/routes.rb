@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'users/login'
   
   get 'events/index'
+  
+  get 'event/live_tracking'
 
   get 'event/new'
 
