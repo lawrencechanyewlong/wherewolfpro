@@ -32,23 +32,11 @@
       var marker = null;
 
       function autoUpdate() {
-        navigator.geolocation.getCurrentPosition(function(position) {  
-            var newPoint = new google.maps.LatLng(position.coords.latitude, 
-                                                position.coords.longitude);
+            
+           
+            var latlong = data
+            var newPoint = new google.maps.LatLng(<%= Session["lati"] %>, <%= Session["longi"] %>);
                                                 
-            var lat = position.coords.latitude;
-            var lng = position.coords.longitude;
-            var latlong = {latitude: lat, longitude: lng};
-            
-            var url = '/event/live_tracking';
-            
-            $.ajax({
-              type: "POST",
-              url: url,
-              data: latlong
-             
-            });
-
             if (marker) {
             // Marker already created - Move it
                 marker.setPosition(newPoint);
@@ -65,10 +53,6 @@
             // Center the map on the new position
             map.setCenter(newPoint);
             
-            
-        }); 
-        
-        
        
        
         setTimeout(autoUpdate, 1000);

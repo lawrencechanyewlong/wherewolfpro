@@ -102,6 +102,16 @@ class EventController < ApplicationController
    
    render text: "<script>window.location = '#{event_summary_path}';</script>", status: 500
   end
+  
+  def live_tracking
+    @latlong = {lat: params[:latitude], lng: params[:longitude]}
+    logger.debug "latlong = #{@latlong}"
+    session[:latlong] = @latlong
+    
+  end
+  
+  def tracking
+  end
 
   def store_event
     if params[:eid]
