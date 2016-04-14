@@ -1,10 +1,22 @@
 .container
   %h1 Message
-    
-  %form{:id => "message", :action => "/event/message", :method => "post"}
-    %input{:id => "message_field", :name => "message", :type => "text"}/
-    %input#submit-form.hidden{:type => "submit"}/
+  .list-group
+    %button.list-group-item.msg-tmpl{:type => "button"} Be right there
+    %button.list-group-item.msg-tmpl{:type => "button"} On my way!
   
+  %form{:id => "message", :action => "/event/message", :method => "post"}
+    
+    %textarea.form-control{:placeholder => "Text here",:rows=>"3", :id => "msg-text", :name => "message"}
+      #{@message}
+    / %input{:id => "message_field", :name => "message", :type => "textarea"}/
+    %input#submit-form.hidden{:type => "submit"}/
+  :javascript
+    var x = document.getElementsByClassName("msg-tmpl");
+    for (var i = 0; i < x.length; i ++) {
+      x[i].addEventListener('click', function(event) {
+        document.getElementById('msg-text').value = this.innerHTML;
+      })
+    }
       
           
         
