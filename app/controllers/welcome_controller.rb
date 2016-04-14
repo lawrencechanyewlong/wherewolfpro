@@ -15,6 +15,8 @@ class WelcomeController < ApplicationController
     session.delete(:address_lng)
     session.delete(:receiver)
     session.delete(:receiver_name)
+    session.delete(:receiver_all)
+    session.delete(:receiver_name_all)
     session.delete(:duration_setting)
     session.delete(:message)
     redirect_to "/"

@@ -14,17 +14,17 @@
 
 
     
-    - if @receiver
+    - if @receiver_all
 
         = form_tag event_select_duration_path, :method => :get, :id => 'ratings_form' do
             %ul.list-group
-                - (0...@receiver.size).each do |i|
+                - (0...@receiver_all.size).each do |i|
                     %li.list-group-item
                         .input-group
                             %span#basic-addon2.input-group-addon 
-                                = "#{@receiver_name[i]} : #{@receiver[i]}"
+                                = "#{@receiver_name_all[i]} : #{@receiver_all[i]}"
                             %span.input-group-addon
-                                %input.receivers{"aria-label" => "...", :type => "checkbox", :id => "receiver_#{i}", :value => "#{@receiver_name[i]}, #{@receiver[i]}"}/
+                                %input.receivers{"aria-label" => "...", :type => "checkbox", :name => "info_#{@receiver_all[i]}", :value => "#{@receiver_name_all[i]}, #{@receiver_all[i]}"}/
                         / = contact
                         / = check_box_tag "info[#{contact}]", :id => "info_#{contact}"
     
@@ -86,6 +86,6 @@
                     %span Back
             .col-xs-6
             .col-xs-3
-                %a.btn.btn-success{:onclick => "submit_form();return false;", :href => "/event/select_duration"}
+                %button.btn.btn-success{:onclick => "submit_form();return false;", :href => "/event/select_duration"}
                     %span Next
                     %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}

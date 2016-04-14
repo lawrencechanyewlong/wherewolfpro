@@ -32,8 +32,8 @@ class EventController < ApplicationController
         user.save!
       end
     else
-      @receiver_all = session[:receiver_all] || []
-      @receiver_name_all = session[:receiver_name_all] || []
+      @receiver_all = session[:receiver_all]
+      @receiver_name_all = session[:receiver_name_all]
       if params['email'] and params['name']
         if params['email'].length == 0 or params['name'].length == 0
           flash['notice'] = 'Invalid'
@@ -50,7 +50,7 @@ class EventController < ApplicationController
           else
             @receiver_name_all = [params['name']]
           end
-
+          logger.debug @receiver_all
           session[:receiver_all] = @receiver_all
           session[:receiver_name_all] = @receiver_name_all
         end
@@ -158,8 +158,9 @@ class EventController < ApplicationController
       @address_lat = "-"
       @address_lng = "-"
     end
-    @receiver_name = session[:receiver_name]
-    @receiver = session[:receiver]
+    logger.debug session[:receiver_name].is_a?(String)
+    @receiver_name = if session[:receiver_name].is_a?(String) then [session[:receiver_name]] else session[:receiver_name] end
+    @receiver = if session[:receiver].is_a?(String) then [session[:receiver]] else session[:receiver] end
     @duration = parseDuration(session[:duration_setting])
     @message = session[:message]
   end

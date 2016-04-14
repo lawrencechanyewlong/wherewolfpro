@@ -9,7 +9,7 @@
   %p
     - if @receiver_name
       - (0...@receiver_name.size).each do |i|
-        = "#{@receiver_name[i]} <#{@receiver[i]}>"
+        = "#{@receiver_name[i]} #{@receiver[i]}"
         - if i != @receiver_name.size - 1
           = ", "
   %h3 Duration
@@ -26,6 +26,6 @@
         .col-xs-6
         .col-xs-3
           %a.btn.btn-success{:href => "/"}
-            %span Send
+            %span Send !
             <!-- %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"} -->
 

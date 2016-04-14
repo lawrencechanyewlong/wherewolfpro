@@ -104,7 +104,6 @@ And /^(?:|I )click on ([^"]*)$/ do |field|
   
   when /^map$/
     find('div.gmap').click  
-    
   end
 end
 

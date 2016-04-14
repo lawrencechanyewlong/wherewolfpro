@@ -39,11 +39,7 @@ Scenario: Clicking back to go to the contacts page
   
     When I follow "back"
     Then I should be on the select contacts page
-    
-Scenario: Clicking until I arrive next
-  
-    When I follow "arrive_next"
-    Then I should be on the message page again
+
     
     
     
