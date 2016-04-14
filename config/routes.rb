@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
+  
   get 'welcome/history'
-
   post 'welcome/history', to:"event#store_event"
+  
+  get 'welcome/login'
+  
+  get 'welcome/new_user'
+  
+  get 'welcome/index'
+  
+  get 'welcome/destroy'
+
+  get 'welcome/clear_event'
 
   get 'saved_locations/index'
 
@@ -12,30 +22,22 @@ Rails.application.routes.draw do
   get 'users/login'
   
   get 'events/index'
-
-  get 'event/new'
-
-  get 'event/select_contacts'
-
-  get 'event/select_destination'
   
+  get 'event/new'
+  
+  get 'event/select_contacts'
+  post 'event/select_contacts', to: "event#store_contacts"
+  
+  get 'event/select_destination'
   post 'event/select_destination', to: "event#store_destination"
   
+  get 'event/message'
   post 'event/message', to:"event#store_message"
 
   get 'event/select_duration'
 
   get 'event/summary'
   
-  get 'event/message'
-
-  get 'welcome/login'
-  
-  get 'welcome/new_user'
-
-  get 'welcome/index'
-
-  get 'welcome/destroy'
 
   get '/auth/:provider/callback', :to => 'welcome#create'
   

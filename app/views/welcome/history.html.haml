@@ -23,8 +23,8 @@
     form.submit(); 
   }
 
-  function submit_form(eid) {
-    post("", {eid: eid});
+  function submit_form(id) {
+    post("", {eid: id});
   }
 
 .container
@@ -33,8 +33,8 @@
     %p Send these same howls with just 1 click
     .list-group
       - @history.each do |h|
-        %a.list-group-item{:href => "/event/summary", :onclick => "submit_form(#{h[:eid].to_s});return false;"}
-          %p= "eid:#{h[:eid]}:"
+        %a.list-group-item{:href => "/event/summary", :onclick => "submit_form(#{h[:id].to_s});return false;"}
+          %p= "eid:#{h[:id]}:"
           %p= h[:receiver_name]
           %p= h[:receiver]
           %p= h[:address_string]

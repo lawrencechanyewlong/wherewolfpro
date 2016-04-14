@@ -4,10 +4,23 @@ class WelcomeController < ApplicationController
       user = User.find(session[:id])
       @name = user.name
     else
-      redirect_to "/welcome/login"
-    end 
+      @name = nil
+    end
+
   end
   
+  def clear_event
+    session.delete(:address_string)
+    session.delete(:address_lat)
+    session.delete(:address_lng)
+    session.delete(:receiver)
+    session.delete(:receiver_name)
+    session.delete(:receiver_all)
+    session.delete(:receiver_name_all)
+    session.delete(:duration_setting)
+    session.delete(:message)
+    redirect_to "/"
+  end
   
   def destroy
     session[:id] = nil

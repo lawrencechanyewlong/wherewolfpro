@@ -2,14 +2,20 @@
 
   %h1 Summary
   %h3 Address
-  %p= "#{session[:formatted_address]}"
+  %p= "#{@address_string}"
+  - if @address_lat and @address_lng
+    %p= "Lat: #{@address_lat}, Lng: #{@address_lng}"
   %h3 Contacts
-  %p= "#{session[:info]}"
+  %p
+    - if @receiver_name
+      - (0...@receiver_name.size).each do |i|
+        = "#{@receiver_name[i]} #{@receiver[i]}"
+        - if i != @receiver_name.size - 1
+          = ", "
   %h3 Duration
-  %P= "duration: #{@duration}"
+  %p= "#{@duration}"
   %h3 Message
-  %p= "#{session[:message]}"
-  <!-- %p= "latlng: #{session[:latlng]}" -->
+  %p= "#{@message}"
   %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
     .container
       .row
@@ -20,6 +26,6 @@
         .col-xs-6
         .col-xs-3
           %a.btn.btn-success{:href => "/"}
-            %span Send!
+            %span Send !
             <!-- %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"} -->
 
