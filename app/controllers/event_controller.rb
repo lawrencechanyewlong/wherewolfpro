@@ -12,7 +12,13 @@ class EventController < ApplicationController
   def select_contacts
     user = User.where(:id => session[:id]).take
     if user
-      @receiver_all = user.contacts 
+      @receiver_all = []
+      @receiver_name_all = []
+      user.contacts.each do |c|
+        @receiver_name_all << c[0]
+        @receiver_all << c[1]
+      end
+      # @receiver_all = user.contacts 
       if params['email']
         if params['email'].length == 0 or params['name'].length == 0
           flash['notice'] = 'Invalid'
