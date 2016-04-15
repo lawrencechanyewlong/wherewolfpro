@@ -4,7 +4,7 @@ class EventController < ApplicationController
   #attr_accessor :latitud
   #attr_accessor :longitud
   skip_before_action :verify_authenticity_token
-  
+  require 'gmail'
   def event_params
     params.require(:event).permit(:address_lat, :address_lng, :receiver, :duration_setting, :uid, :message)
   end
@@ -173,7 +173,36 @@ class EventController < ApplicationController
     @message = session[:message]
   end
 
-
+  def send_mail
+    gmail = Gmail.new('woofwhere', 'battle431101')
+    
+    redirect_to "/"
+    message = session[:message]
+    if session[:receiver]
+      if session[:receiver].is_a?(String)
+        receiver = session[:receiver]
+        gmail.deliver do
+          to receiver
+          subject "Welcome to wherewoof" 
+          text_part do
+            body "Wherewoof is here for you. The message is " + message
+          end
+        end
+        return
+      end
+      session[:receiver].each do |messenger|
+        gmail.deliver do
+          to messenger
+          subject "Welcome to wherewoof " + session[:message]
+          text_part do
+            body "Text of plaintext message."
+          end
+        end
+      end
+    end
+    redirect_to "/"
+  end
+  
   def message
     if session[:message]
       @message = session[:message]

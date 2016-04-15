@@ -8,6 +8,7 @@ gem 'test-unit'
 gem 'omniauth'
 
 gem 'geocoder'
+gem "ruby-gmail"
 
 gem "omnicontacts"
 

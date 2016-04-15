@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   post 'event/live_tracking', to: "event#live_tracking"
   
   get 'event/new'
-  
+  get 'event/send_mail'
   get 'event/select_contacts'
   post 'event/select_contacts', to: "event#store_contacts"
   
