@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     contact_name_list = []
     session[:id] = user.id
     contacts.each do |contact|
-      if contact[:email].length > 0
+      if contact[:email]
         #contact_list += ["#{contact[:email]}"]
         contact_list += [[contact[:name], contact[:email]]]
       end
@@ -57,6 +57,7 @@ class UsersController < ApplicationController
     end
     if email.length > 0 and password.length > 0
       user = User.new :email => email, :password => password
+      user.contacts = []
       user.save!
       
       flash[:notice] = "user created!"

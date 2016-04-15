@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   
   get 'event/new'
   
+  get 'event/send_mail'
+  
   get 'event/select_contacts'
   post 'event/select_contacts', to: "event#store_contacts"
   
