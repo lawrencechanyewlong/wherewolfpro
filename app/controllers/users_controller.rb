@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     contact_name_list = []
     session[:id] = user.id
     contacts.each do |contact|
-      if contact[:email].length > 0
+      if contact[:email]
         #contact_list += ["#{contact[:email]}"]
         contact_list += [[contact[:name], contact[:email]]]
       end
