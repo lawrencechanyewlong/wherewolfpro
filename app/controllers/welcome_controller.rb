@@ -1,7 +1,11 @@
 class WelcomeController < ApplicationController
   def index
     if session[:id]
-      user = User.find(session[:id])
+      user = User.find_by id: session[:id]
+      if !user
+        session[:id] = nil
+        return
+      end
       @name = user.name
     else
       @name = nil
