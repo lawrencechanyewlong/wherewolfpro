@@ -15,8 +15,8 @@ class EventController < ApplicationController
       @receiver_all = []
       @receiver_name_all = []
       user.contacts.each do |c|
-        @receiver_name_all << c[0]
-        @receiver_all << c[1]
+        @receiver_name_all << c
+        @receiver_all << c
       end
       # @receiver_all = user.contacts 
       if params['email']
