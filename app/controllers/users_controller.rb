@@ -13,10 +13,12 @@ class UsersController < ApplicationController
     end
     user = User.new :email => email, :password => "gibberjabber"
     contact_list = []
+    contact_name_list = []
     session[:id] = user.id
     contacts.each do |contact|
       if contact[:email].length > 0
-        contact_list += ["#{contact[:email]}"]
+        #contact_list += ["#{contact[:email]}"]
+        contact_list += [[contact[:name], contact[:email]]]
       end
     end
     user.contacts = contact_list
