@@ -1,6 +1,8 @@
 class EventController < ApplicationController
   attr_accessor :latlng
   attr_accessor :formatted_address
+  #attr_accessor :latitud
+  #attr_accessor :longitud
   skip_before_action :verify_authenticity_token
   
   def event_params
@@ -187,10 +189,21 @@ class EventController < ApplicationController
     @latlong = {lat: params[:latitude], lng: params[:longitude]}
     logger.debug "latlong = #{@latlong}"
     session[:latlong] = @latlong
+    #logger.debug "latlong = #{session[:latlong]}"
+    $latitud = params[:latitude]
+    $longitud = params[:longitude]
+    logger.debug "lat = #{$latitud}"
     
   end
   
   def tracking
+    #@sess = session[:latlong]
+    #logger.debug "sess = #{session[:latlong]}"
+    @lati = $latitud
+    logger.debug "lati = #{@lati}"
+    @longi = $longitud
+    logger.debug "longi = #{@longi}"
+
   end
 
   def store_event

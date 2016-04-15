@@ -22,6 +22,7 @@
       // prompted by your browser. If you see the error "The Geolocation service
       // failed.", it means you probably did not give permission for the browser to
       // locate you.
+      var latlong = {latitude: '', longitude: ''};
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
@@ -30,7 +31,7 @@
         var infoWindow = new google.maps.InfoWindow({map: map});
         
       var marker = null;
-
+    
       function autoUpdate() {
         navigator.geolocation.getCurrentPosition(function(position) {  
             var newPoint = new google.maps.LatLng(position.coords.latitude, 
@@ -38,8 +39,9 @@
                                                 
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
-            var latlong = {latitude: lat, longitude: lng};
-            
+            latlong['latitude'] = lat
+            latlong['longitude'] = lng
+
             var url = '/event/live_tracking';
             
             $.ajax({
