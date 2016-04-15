@@ -57,6 +57,7 @@ class UsersController < ApplicationController
     end
     if email.length > 0 and password.length > 0
       user = User.new :email => email, :password => password
+      user.contacts = []
       user.save!
       
       flash[:notice] = "user created!"
