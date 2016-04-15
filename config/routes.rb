@@ -55,6 +55,8 @@ Rails.application.routes.draw do
   
   post '/event/select_duration', :to => 'event#store_duration'
   
+  get '/receiver_map', :to => 'event#receiver_map'
+  
   root 'welcome#index'
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   

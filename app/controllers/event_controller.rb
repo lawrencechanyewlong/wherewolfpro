@@ -232,5 +232,11 @@ class EventController < ApplicationController
     end
 
   end
+  
+  def receiver_map
+    @dummy_lat = 37.774929
+    @dummy_long = -122.419416
+  end
+  
 
 end
