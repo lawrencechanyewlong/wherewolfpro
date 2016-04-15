@@ -7,6 +7,7 @@ Feature: Send a specified destination
 Background: background
   Given I am on the select destination page
   Then I should see "Select Destination"
+  Then I should see the map rendered
 
 Scenario: navigate to next page
   
