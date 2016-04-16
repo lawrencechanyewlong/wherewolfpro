@@ -14,9 +14,11 @@
 
 
     
-    - if @receiver_all
+    
 
-        = form_tag event_select_duration_path, :method => :get, :id => 'ratings_form' do
+    / # = form_tag event_store_contacts_path, :method => :post, :id => 'ratings_form' do
+    %form{:action => "/event/store_contacts", :method => "post", :id => "ratings_form"}
+        - if @receiver_all
             %ul.list-group
                 - (0...@receiver_all.size).each do |i|
                     %li.list-group-item
@@ -27,65 +29,21 @@
                                 %input.receivers{"aria-label" => "...", :type => "checkbox", :name => "info_#{@receiver_all[i]}", :value => "#{@receiver_name_all[i]}, #{@receiver_all[i]}"}/
                         / = contact
                         / = check_box_tag "info[#{contact}]", :id => "info_#{contact}"
-    
-        / - @contacts = []
-        / = link_to "contacts", "/contacts/gmail"
         
-:javascript
-    function post(path, params, method) {
-        method = method || "post"; // Set method to post by default if not specified.
+    
+        
 
-        // The rest of this code assumes you are not using a library.
-        // It can be made less wordy if you use one.
-        var form = document.createElement("form");
-        form.setAttribute("method", method);
-        form.setAttribute("action", path);
+        %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
+            .container
+                .row
+                    .col-xs-3
+                        %a.btn.btn-danger{:href => "/event/select_destination"} 
+                            %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
+                            %span Back
+                    .col-xs-6
+                    .col-xs-3
+                        / %a.btn.btn-success{:onclick => "submit_form();return false;", :href => "/event/select_duration"}
+                        %button.btn.btn-success{:type => "submit"}
+                            %span Next
+                            %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
 
-        for(var key in params) {
-            if(params.hasOwnProperty(key)) {
-                var hiddenField = document.createElement("input");
-                hiddenField.setAttribute("type", "hidden");
-                hiddenField.setAttribute("name", key);
-                hiddenField.setAttribute("value", params[key]);
-
-                form.appendChild(hiddenField);
-             }
-        }
-
-        document.body.appendChild(form);
-        console.log('submit');
-        console.log(path);
-        form.submit(); 
-      }
-      
-      function submit_form() {
-        var checks = document.getElementsByClassName('receivers');
-        var selected_names = [];
-        var selected_emails = [];
-        for (var i = 0; i < checks.length; i++) {
-            if (checks[i].checked) {
-                console.log(checks[i].value)
-                var s = checks[i].value.split(', ');
-                var name = s[0];
-                var email = s[1];
-                selected_names.push(name);
-                selected_emails.push(email);
-            }
-        }
-        console.log(selected_names);
-        console.log(selected_emails);
-        post("", { receiver: selected_emails, receiver_name: selected_names});
-      }    
-
-%nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
-    .container
-        .row
-            .col-xs-3
-                %a.btn.btn-danger{:href => "/event/select_destination"} 
-                    %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
-                    %span Back
-            .col-xs-6
-            .col-xs-3
-                %a.btn.btn-success{:onclick => "submit_form();return false;", :href => "/event/select_duration"}
-                    %span Next
-                    %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}

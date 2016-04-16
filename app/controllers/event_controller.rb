@@ -68,13 +68,26 @@ class EventController < ApplicationController
 
   def store_contacts
     logger.debug "In store_contacts"
+    logger.debug params.inspect
     puts "HELLO"
-    if params[:receiver_name] and params[:receiver]
-      session[:receiver] = params[:receiver]
-      session[:receiver_name] = params[:receiver_name]
+    @receiver = []
+    @receiver_name = []
+    params.each do |k, v|
+      if k =~ /^info_.*$/
+        @temp = v.split(', ')
+        @receiver_name << @temp[0]
+        @receiver << @temp[1]
+      end
     end
+    session[:receiver] = @receiver
+    session[:receiver_name] = @receiver_name
+    # if params[:receiver_name] and params[:receiver]
+    #   session[:receiver] = params[:receiver]
+    #   session[:receiver_name] = params[:receiver_name]
+    # end
     logger.debug "receiver: #{session[:receiver]}"
-    render text: "<script>window.location = '#{event_select_duration_path}';</script>", status: 200
+    # render text: "<script>window.location = '#{event_select_duration_path}';</script>", status: 200
+    redirect_to '/event/select_duration'
   end
   
   def geocoding
@@ -183,12 +196,15 @@ class EventController < ApplicationController
   end
  
   def store_message
+    logger.debug params.inspect
     if params[:message]
       session[:message] = params[:message]
     else
       session[:message] = ""
     end
-    render text: "<script>window.location = '#{event_summary_path}';</script>", status: 200
+    logger.debug session[:message]
+    redirect_to '/event/summary'
+    # render text: "<script>window.location = '#{event_summary_path}';</script>", status: 200
   end
   
   def live_tracking
