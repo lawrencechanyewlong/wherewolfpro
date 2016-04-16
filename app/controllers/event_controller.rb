@@ -208,6 +208,7 @@ class EventController < ApplicationController
   end
   
   def live_tracking
+
     id = params[:id]
     if Event.exists?(id: id)
       @event = Event.find(id)
