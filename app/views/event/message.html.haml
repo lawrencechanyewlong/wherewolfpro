@@ -1,36 +1,37 @@
 .container
   %h1 Message
   .list-group
-    %button.list-group-item.msg-tmpl{:type => "button"} Be right there
+    %button.list-group-item.msg-tmpl{:type => "button"} Message
     %button.list-group-item.msg-tmpl{:type => "button"} On my way!
   
-  %form{:id => "message", :action => "/event/message", :method => "post"}
+  %form{:id => "message", :action => "/event/store_message", :method => "post"}
     
     %textarea.form-control{:placeholder => "Text here",:rows=>"3", :id => "msg-text", :name => "message"}
       #{@message}
     / %input{:id => "message_field", :name => "message", :type => "textarea"}/
-    %input#submit-form.hidden{:type => "submit"}/
-  :javascript
-    var x = document.getElementsByClassName("msg-tmpl");
-    for (var i = 0; i < x.length; i ++) {
-      x[i].addEventListener('click', function(event) {
-        document.getElementById('msg-text').value = this.innerHTML;
-      })
-    }
+    / %input#submit-form.hidden{:type => "submit"}/
+    
       
           
         
     
-  %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
-    .container
-      .row
-        .col-xs-3
-          %a.btn.btn-danger{:href => "/event/select_duration"} 
-            %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
-            %span Back
-        .col-xs-6
-        .col-xs-3
-          %a.btn.btn-success{:href => "/event/summary", :onclick => "document.getElementById('message').submit(); return false;" }
-            %span Next
-            %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
+    %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
+      .container
+        .row
+          .col-xs-3
+            %a.btn.btn-danger{:href => "/event/select_duration"} 
+              %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
+              %span Back
+          .col-xs-6
+          .col-xs-3
+            %button.btn.btn-success{:type => "submit"}
+              %span Next
+              %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
+:javascript
+  var x = document.getElementsByClassName("msg-tmpl");
+  for (var i = 0; i < x.length; i ++) {
+    x[i].addEventListener('click', function(event) {
+      document.getElementById('msg-text').value = this.innerHTML;
+    })
+  }
             
