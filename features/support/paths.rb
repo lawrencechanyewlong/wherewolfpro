@@ -59,7 +59,7 @@ module NavigationHelpers
       '/event/message'
       
     when /^the user's live tracking page/
-      '/event/live_tracking'
+      '/event/live_tracking/1'
       
     when /^the receiver's live tracking page/
       '/event/tracking'

@@ -18,5 +18,5 @@ Scenario: I send an email and the contact was submitted
     And I fill in "email" with "user@berkeley.edu"
     And I press "Add Contact"
     Given I am on the summary page
-    When I follow "Send !"
+    When I follow "Send"
     Then I should be on the home page

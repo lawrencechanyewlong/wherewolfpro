@@ -192,13 +192,28 @@ class EventController < ApplicationController
   end
   
   def live_tracking
-    @latlong = {lat: params[:latitude], lng: params[:longitude]}
-    logger.debug "latlong = #{@latlong}"
-    session[:latlong] = @latlong
-    #logger.debug "latlong = #{session[:latlong]}"
-    $latitud = params[:latitude]
-    $longitud = params[:longitude]
-    logger.debug "lat = #{$latitud}"
+    id = params[:id]
+    if Event.exists?(id: id)
+      @event = Event.find(id)
+      if @event.active == true
+        @latlong = {lat: params[:latitude], lng: params[:longitude]}
+        logger.debug "latlong = #{@latlong}"
+        session[:latlong] = @latlong
+        #logger.debug "latlong = #{session[:latlong]}"
+        $latitud = params[:latitude]
+        $longitud = params[:longitude]
+        logger.debug "lat = #{$latitud}"
+        
+        # check condition for turning active off
+        @event.current_lat = $latitud
+        @event.current_lng = $longitud
+      else
+        redirect_to welcome_index_path
+      end
+    else
+      redirect_to welcome_index_path
+    end
+
     
   end
   
@@ -269,5 +284,25 @@ class EventController < ApplicationController
 
   end
   
+  def create_event
+    @event = Event.create!(
+        :uid => session[:uid],
+        :address_lat => session[:address_lat],
+        :address_lng => session[:address_lng],
+        :receiver => session[:receiver],
+        :datetime_sent => session[:datetime_sent],
+        :duration_setting => session[:duration_setting],
+        :active => true,
+        :address_string => session[:address_string],
+        :receiver_name => session[:receiver_name],
+        :message => session[:message],
+        # :current_lat => session[:current_lat],
+        # :current_lng => session[:current_lng]
+      )
+      
+      #not sure if this path is defined
+    # redirect_to event_live_tracking_path(@event)
+    redirect_to controller: 'event', action: 'live_tracking', id: @event.id
+  end
 
 end
