@@ -208,7 +208,37 @@ class EventController < ApplicationController
   end
   
   def live_tracking
-
+    
+    def parseDurationToCheckCondition(d)
+      if d
+        if d == 'arrive'
+          # check if location matches destination within a radius of about 50 metres
+          return 'Until I arrive'
+        elsif d[d.size-1] == 'm'
+          #check which timezone he is in?
+          #either check timezone from lat long
+          #or get him to send time each time he posts the location
+          #or in initial storage convert it to for this many hours (less possible because of history), and save in session
+          if d[d.size-2] == 'p'
+            #check condition for pm
+            
+            return 'Until '+d
+          else
+            #check condition for am
+            return 'Until '+d
+          end
+        elsif d[d.size-1] == 's'
+          #check condition for this many hours
+          num_hours = d[0, d.size-6].to_i
+          return (@event.created_at.to_time + num_hours.hours) > Time.now
+        else
+          return nil
+        end
+      else
+        return nil
+      end
+    end
+    
     id = params[:id]
     if Event.exists?(id: id)
       @event = Event.find(id)
@@ -224,6 +254,8 @@ class EventController < ApplicationController
         # check condition for turning active off
         @event.current_lat = $latitud
         @event.current_lng = $longitud
+        condition = @event.duration_setting
+        
       else
         redirect_to welcome_index_path
       end
