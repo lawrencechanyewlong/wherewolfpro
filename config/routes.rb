@@ -23,7 +23,11 @@ Rails.application.routes.draw do
   
   get 'event/tracking'
   
+<<<<<<< HEAD
   post 'event/tracking', to: 'event#tracking'
+=======
+  # post 'event/tracking', to: 'event#tracking'
+>>>>>>> 0d8340c58f29a748f84c48351779033d3d7e6d88
   
   get 'events/index'
   
@@ -31,16 +35,20 @@ Rails.application.routes.draw do
   
   post 'event/live_tracking', to: "event#live_tracking"
   
+  get 'event/live_tracking/:id', to: "event#live_tracking"
+  
   get 'event/new'
   
+  get 'event/send_mail'
+  
   get 'event/select_contacts'
-  post 'event/select_contacts', to: "event#store_contacts"
+  post 'event/store_contacts'
   
   get 'event/select_destination'
   post 'event/select_destination', to: "event#store_destination"
   
   get 'event/message'
-  post 'event/message', to:"event#store_message"
+  post "event/store_message"
 
   get 'event/select_duration'
 
@@ -55,6 +63,11 @@ Rails.application.routes.draw do
   
   post '/event/select_duration', :to => 'event#store_duration'
   
+<<<<<<< HEAD
+=======
+  post '/event/summary', :to => 'event#create_event'
+  
+>>>>>>> 0d8340c58f29a748f84c48351779033d3d7e6d88
   root 'welcome#index'
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   

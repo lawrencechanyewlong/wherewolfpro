@@ -24,7 +24,8 @@ Scenario: Making a contact and being able to view it.
   And I should see "user created"
   When I check the following emails: user@berkeley.edu
   And I press "Next"
-  Given I am on the summary page
+  And I follow "Next"
+  And I press "Next"
   Then I should see "user@berkeley.edu"
   
   

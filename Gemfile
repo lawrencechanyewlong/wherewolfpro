@@ -9,6 +9,8 @@ gem 'omniauth'
 
 gem 'geocoder'
 
+gem 'ruby-gmail'
+
 gem "omnicontacts"
 
 gem "omniauth-google-oauth2"

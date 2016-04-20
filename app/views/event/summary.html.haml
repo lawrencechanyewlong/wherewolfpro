@@ -20,7 +20,10 @@
   %h4 Testing location
   %P= "#{session[:latlong]}"
   <!-- %p= "latlng: #{session[:latlng]}" -->
-
+  
+  %form{:id => "create", :action => "/event/summary", :method => "post"}
+    %input#submit-form.hidden{:type => "submit"}/
+  
   %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
     .container
       .row
@@ -30,7 +33,7 @@
             %span Back
         .col-xs-6
         .col-xs-3
-          %a.btn.btn-success{:href => "/"}
-            %span Send !
+          %a.btn.btn-success{:href => "/event/send_mail", :onclick => "document.getElementById('create').submit(); return false;"}
+            %span Send 
             <!-- %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"} -->
 

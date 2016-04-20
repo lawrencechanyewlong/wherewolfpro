@@ -4,7 +4,7 @@ class EventController < ApplicationController
   #attr_accessor :latitud
   #attr_accessor :longitud
   skip_before_action :verify_authenticity_token
-  
+  require 'gmail'
   def event_params
     params.require(:event).permit(:address_lat, :address_lng, :receiver, :duration_setting, :uid, :message)
   end
@@ -12,7 +12,13 @@ class EventController < ApplicationController
   def select_contacts
     user = User.where(:id => session[:id]).take
     if user
-      @receiver_all = user.contacts 
+      @receiver_all = []
+      @receiver_name_all = []
+      user.contacts.each do |c|
+        @receiver_name_all << c[0]
+        @receiver_all << c[1]
+      end
+      # @receiver_all = user.contacts 
       if params['email']
         if params['email'].length == 0 or params['name'].length == 0
           flash['notice'] = 'Invalid'
@@ -62,13 +68,26 @@ class EventController < ApplicationController
 
   def store_contacts
     logger.debug "In store_contacts"
+    logger.debug params.inspect
     puts "HELLO"
-    if params[:receiver_name] and params[:receiver]
-      session[:receiver] = params[:receiver]
-      session[:receiver_name] = params[:receiver_name]
+    @receiver = []
+    @receiver_name = []
+    params.each do |k, v|
+      if k =~ /^info_.*$/
+        @temp = v.split(', ')
+        @receiver_name << @temp[0]
+        @receiver << @temp[1]
+      end
     end
+    session[:receiver] = @receiver
+    session[:receiver_name] = @receiver_name
+    # if params[:receiver_name] and params[:receiver]
+    #   session[:receiver] = params[:receiver]
+    #   session[:receiver_name] = params[:receiver_name]
+    # end
     logger.debug "receiver: #{session[:receiver]}"
-    render text: "<script>window.location = '#{event_select_duration_path}';</script>", status: 200
+    # render text: "<script>window.location = '#{event_select_duration_path}';</script>", status: 200
+    redirect_to '/event/select_duration'
   end
   
   def geocoding
@@ -177,23 +196,104 @@ class EventController < ApplicationController
   end
  
   def store_message
+    logger.debug params.inspect
     if params[:message]
       session[:message] = params[:message]
     else
       session[:message] = ""
     end
-    render text: "<script>window.location = '#{event_summary_path}';</script>", status: 200
+    logger.debug session[:message]
+    redirect_to '/event/summary'
+    # render text: "<script>window.location = '#{event_summary_path}';</script>", status: 200
   end
   
   def live_tracking
-    @latlong = {lat: params[:latitude], lng: params[:longitude]}
-    logger.debug "latlong = #{@latlong}"
-    session[:latlong] = @latlong
-    #logger.debug "latlong = #{session[:latlong]}"
-    $latitud = params[:latitude]
-    $longitud = params[:longitude]
-    logger.debug "lat = #{$latitud}"
     
+    def parseDurationToCheckCondition(d)
+      if d
+        if d == 'arrive'
+          # check if location matches destination within a radius of about 50 metres
+          return 'Until I arrive'
+        elsif d[d.size-1] == 'm'
+          #check which timezone he is in?
+          #either check timezone from lat long
+          #or get him to send time each time he posts the location
+          #or in initial storage convert it to for this many hours (less possible because of history), and save in session
+          if d[d.size-2] == 'p'
+            #check condition for pm
+            
+            return 'Until '+d
+          else
+            #check condition for am
+            return 'Until '+d
+          end
+        elsif d[d.size-1] == 's'
+          #check condition for this many hours
+          num_hours = d[0, d.size-6].to_i
+          return (@event.created_at.to_time + num_hours.hours) > Time.now
+        else
+          return nil
+        end
+      else
+        return nil
+      end
+    end
+    
+    id = params[:id]
+    if Event.exists?(id: id)
+      @event = Event.find(id)
+      if @event.active == true
+        @latlong = {lat: params[:latitude], lng: params[:longitude]}
+        logger.debug "latlong = #{@latlong}"
+        session[:latlong] = @latlong
+        #logger.debug "latlong = #{session[:latlong]}"
+        $latitud = params[:latitude]
+        $longitud = params[:longitude]
+        logger.debug "lat = #{$latitud}"
+        
+        # check condition for turning active off
+        @event.current_lat = $latitud
+        @event.current_lng = $longitud
+        condition = @event.duration_setting
+        
+      else
+        redirect_to welcome_index_path
+      end
+    else
+      redirect_to welcome_index_path
+    end
+
+    
+  end
+  
+  def send_mail
+    gmail = Gmail.new('woofwhere', 'battle431101')
+    
+    redirect_to "/"
+    message = session[:message]
+    if session[:receiver]
+      if session[:receiver].is_a?(String)
+        receiver = session[:receiver]
+        gmail.deliver do
+          to receiver
+          subject "Welcome to wherewoof" 
+          text_part do
+            body "Wherewoof is here for you. The message is " + message
+          end
+        end
+        return
+      end
+      session[:receiver].each do |messenger|
+        gmail.deliver do
+          to messenger
+          subject "Welcome to wherewoof " + session[:message]
+          text_part do
+            
+            body "Wherewoof is here for you. The message is " + message
+          end
+        end
+      end
+    end
   end
   
   def tracking
@@ -233,5 +333,25 @@ class EventController < ApplicationController
 
   end
   
+  def create_event
+    @event = Event.create!(
+        :uid => session[:uid],
+        :address_lat => session[:address_lat],
+        :address_lng => session[:address_lng],
+        :receiver => session[:receiver],
+        :datetime_sent => session[:datetime_sent],
+        :duration_setting => session[:duration_setting],
+        :active => true,
+        :address_string => session[:address_string],
+        :receiver_name => session[:receiver_name],
+        :message => session[:message],
+        # :current_lat => session[:current_lat],
+        # :current_lng => session[:current_lng]
+      )
+      
+      #not sure if this path is defined
+    # redirect_to event_live_tracking_path(@event)
+    redirect_to controller: 'event', action: 'live_tracking', id: @event.id
+  end
 
 end

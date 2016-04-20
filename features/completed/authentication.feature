@@ -50,5 +50,5 @@ Scenario: A user logs in and is able to log out
   And I fill in "Password" with "password"
   And I press "login"
   Then I should be on the welcome page
-  Then I follow "logout"
-  Then I should be on the login page
+  Then I follow "Logout"
+  Then I should be on the home page

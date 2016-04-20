@@ -21,7 +21,7 @@ Scenario: After selecting destination, see the select contacts page
 Scenario: After selecting contacts, see the select duration page
     
     Given I am on the select contacts page
-    When I follow "Next"
+    When I press "Next"
     Then I should be on the select duration page
 
 Scenario: After selecting duration, see the confirm page
@@ -33,5 +33,5 @@ Scenario: After selecting duration, see the confirm page
 Scenario: After wrting message, see the confirm page
     
     Given I am on the message page
-    When I follow "Next"
+    When I press "Next"
     Then I should be on the summary page
