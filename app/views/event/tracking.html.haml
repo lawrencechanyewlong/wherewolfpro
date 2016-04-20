@@ -19,6 +19,7 @@
     #map
     :javascript
       function initMap() {
+        
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: #{@lati}, lng: #{@longi}},
           zoom: 150,
@@ -28,7 +29,6 @@
         
         var newPoint = new google.maps.LatLng(#{@lati}, #{@longi});
         addMarker(newPoint, map);
-       
         
       }
         
@@ -39,6 +39,7 @@
                 });
         marker.setPosition(location); 
       }
+        
         
     %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?&callback=initMap"}
       :cdata      
