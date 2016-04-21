@@ -221,7 +221,6 @@ class EventController < ApplicationController
           #or in initial storage convert it to for this many hours (less possible because of history), and save in session
           if d[d.size-2] == 'p'
             #check condition for pm
-            
             return 'Until '+d
           else
             #check condition for am
