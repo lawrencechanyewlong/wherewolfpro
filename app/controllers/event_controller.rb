@@ -278,7 +278,7 @@ class EventController < ApplicationController
           to receiver
           subject "Welcome to wherewoof" 
           text_part do
-            body "Wherewoof is here for you. The message is " + message
+            body "Wherewoof is here for you. The message is " + message + " Track " + receiver + " at " + session['url'] + "!"
           end
         end
         return
@@ -351,6 +351,7 @@ class EventController < ApplicationController
       
       #not sure if this path is defined
     # redirect_to event_live_tracking_path(@event)
+    session['url'] = "https://testwoof-danielseetoh.c9users.io/event/live_tracking/" + @event.id.to_s
     redirect_to controller: 'event', action: 'live_tracking', id: @event.id
   end
 
