@@ -18,6 +18,8 @@
   %body
     #map
     :javascript
+    
+      var marker = null;
       function initMap() {
         
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -27,26 +29,61 @@
         });
         var infoWindow = new google.maps.InfoWindow({map: map});
         
-        var newPoint = new google.maps.LatLng(#{@lati}, #{@longi});
-        addMarker(newPoint, map);
         
-        /*$.ajax({
-              type: "GET",
-              url: '/event/tracking/#{@event.id}',
-              timeout: 3000,
-              success: initMap
+        //var newPoint = new google.maps.LatLng(#{@lati}, #{@longi});
+        
+        
+      //addMarker();
+        
+        addMarker({
+          lat: #{@lati},
+          lng: #{@longi}
+        });
+        
+        function addMarker(data) {
+          
+          var newPoint = new google.maps.LatLng(data.lat, data.lng);
+          
+          if (marker) {
+            
+            marker.setPosition(newPoint);
+            
+          }
+          
+          else {
+          
+            marker = new google.maps.Marker({
+                      position: newPoint,
+                      map: map
+                  });
+            marker.setPosition(location);
+          
+          }
+          
+          map.setCenter(newPoint);
+          
+          
+              
+          setTimeout(function() {
+            $.ajax({
+              method: "GET",
+              url: '/event/latlng/#{@event.id}',
+              success: function (data) {
+                console.log(data)
+                addMarker(data)
+              }
              
-        });*/
-        
+            });
+          }, 5000)      
+                
+        }
+      
+      
+      //addMarker();
+      
       }
-        
-      function addMarker(location, map) {
-        var marker = new google.maps.Marker({
-                    position: location,
-                    map: map
-                });
-        marker.setPosition(location); 
-      }
+      
+      
       
         
     %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?&callback=initMap"}

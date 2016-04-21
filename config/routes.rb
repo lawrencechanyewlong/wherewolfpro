@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   
   get 'event/tracking', to: "event#tracking"
   
+  get 'event/latlng/:id', to: "event#latlng"
+  
   #post 'event/tracking', to: 'event#tracking'
   
   get 'events/index'

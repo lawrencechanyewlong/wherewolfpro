@@ -317,12 +317,29 @@ class EventController < ApplicationController
         @lati = @event.current_lat
         @longi = @event.current_lng
         
+        return {lat: @lati, lng: @longi}
         logger.debug "lat = #{@lati}"
         logger.debug "lng = #{@longi}"
     #logger.debug "lati = #{@lati}"
     #@longi = $longitud
     #logger.debug "longi = #{@longi}"
       end
+    end
+  end
+  
+  def latlng
+    id = params[:id]
+    if Event.exists?(id: id)
+      @event = Event.find(id)
+      # if @event.active == true
+      @lati = @event.current_lat
+      @longi = @event.current_lng
+    
+      logger.debug "lat = #{@lati}"
+      logger.debug "lng = #{@longi}"
+      @data = {:lat => @lati, :lng => @longi}
+      render json: @data
+      # end
     end
   end
 
