@@ -12,8 +12,8 @@ users.each do |user|
     User.create!(user)
 end
 
-events = [{:uid => '2', :address_string => '2299 Piedmont Avenue, Berkeley, CA 94720', :address_lat => 37.6189, :address_lng => 122.3750, :receiver_name => 'Melvyn', :receiver => '5107100734', :datetime_sent => DateTime.parse('2016-03-20 00:00:00 UTC'), :duration_setting => '1 hour', :active => true},
-		{:uid => '2', :address_string => '2299 Piedmont Avenue, Berkeley, CA 94720', :address_lat => 37.6189, :address_lng => 122.3750, :receiver_name => 'Melvyn', :receiver => '5107100734', :datetime_sent => DateTime.parse('2016-03-19 00:00:00 UTC'), :duration_setting => '1 hour', :active => true}
+events = [{:uid => '2', :address_string => '2299 Piedmont Avenue, Berkeley, CA 94720', :address_lat => 37.6189, :address_lng => 122.3750, :receiver_name => 'Melvyn', :receiver => 'sngguojie@gmail.com', :datetime_sent => DateTime.parse('2016-03-20 00:00:00 UTC'), :duration_setting => '1 hour', :active => true},
+		{:uid => '2', :address_string => '2299 Piedmont Avenue, Berkeley, CA 94720', :address_lat => 37.6189, :address_lng => 122.3750, :receiver_name => 'Melvyn', :receiver => 'sngguojie@gmail.com', :datetime_sent => DateTime.parse('2016-03-19 00:00:00 UTC'), :duration_setting => '1 hour', :active => true}
     ]
     
 events.each do |event|

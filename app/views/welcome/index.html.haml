@@ -13,20 +13,22 @@
 			%br
 			- if session[:id]
 				%p Currently logged in as #{@name}
-			%p
-				%a.btn.btn-success{:href => "#", :submit_tag => "login",:class => "btn btn-primary", :value => "login"}
-					%span Login with AppleID
-			%p
-				%a.btn.btn-success{:href => "/contacts/gmail", :submit_tag => "login",:class => "btn btn-primary", :value => "login"}
-					%span Login with Gmail
+			- if session[:id] == nil
+				%p
+					%a.btn.btn-success{:href => "#", :submit_tag => "login",:class => "btn btn-primary", :value => "login"}
+						%span Login with AppleID
+				%p
+					%a.btn.btn-success{:href => "/contacts/gmail", :submit_tag => "login",:class => "btn btn-primary", :value => "login"}
+						%span Login with Gmail
 			
 
 %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
 	.container
 		.row
 			.col-xs-3
-				%a.btn.btn-success{:href => "/welcome/destroy", :submit_tag => "logout",:class => "btn btn-danger", :value => "logout"}
-					%span Logout
+				- if session[:id]
+					%a.btn.btn-success{:href => "/welcome/destroy", :submit_tag => "logout",:class => "btn btn-danger", :value => "logout"}
+						%span Logout
 			.col-xs-6
 			.col-xs-3
 				%a.btn.btn-success{:controller => "event", :action => "new", method: :post,:href => "/event/select_destination"}

@@ -221,7 +221,6 @@ class EventController < ApplicationController
           #or in initial storage convert it to for this many hours (less possible because of history), and save in session
           if d[d.size-2] == 'p'
             #check condition for pm
-            
             return 'Until '+d
           else
             #check condition for am
@@ -240,6 +239,7 @@ class EventController < ApplicationController
     end
     
     id = params[:id]
+    print "event exists: ", Event.exists?(id: id)
     if Event.exists?(id: id)
       @event = Event.find(id)
       if @event.active == true
@@ -270,7 +270,16 @@ class EventController < ApplicationController
   
   def send_mail
     gmail = Gmail.new('woofwhere', 'battle431101')
-    
+    if session[:id]
+      user = User.find_by id: session[:id]
+      if user
+        name = user.name
+      else
+        name = ""
+      end
+    else
+      name = "an unspecified user"
+    end 
     redirect_to "/"
     message = session[:message]
     if session[:receiver]
@@ -280,7 +289,7 @@ class EventController < ApplicationController
           to receiver
           subject "Welcome to wherewoof" 
           text_part do
-            body "Wherewoof is here for you. The message is " + message
+            body "Wherewoof is forwarding a message from " + name +  ".The message is " + message + " Track " + receiver + " at " + session['url'] + "!"
           end
         end
         return
@@ -362,6 +371,7 @@ class EventController < ApplicationController
       
       #not sure if this path is defined
     # redirect_to event_live_tracking_path(@event)
+    session['url'] = "https://testwoof-danielseetoh.c9users.io/event/live_tracking/" + @event.id.to_s
     redirect_to controller: 'event', action: 'live_tracking', id: @event.id
   end
 

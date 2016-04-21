@@ -1,5 +1,5 @@
 %h1 User's Location
-%h2 Link-id: #{@event.id}
+%h2 Link-id: #{session['url']}
 !!!
 %html
   %head
@@ -43,7 +43,7 @@
             latlong['latitude'] = lat;
             latlong['longitude'] = lng;
 
-            var url = '/event/live_tracking';
+            var url = '/event/live_tracking/#{@event.id}';
             
             $.ajax({
               type: "POST",
