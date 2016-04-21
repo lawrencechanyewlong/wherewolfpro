@@ -372,7 +372,7 @@ class EventController < ApplicationController
       
       #not sure if this path is defined
     # redirect_to event_live_tracking_path(@event)
-    session['url'] = "https://testwoof-danielseetoh.c9users.io/event/tracking/" + @event.id.to_s
+    session['url'] = "http://wherewoof.herokuapp.com/event/tracking/" + @event.id.to_s
     redirect_to controller: 'event', action: 'live_tracking', id: @event.id
   end
 
