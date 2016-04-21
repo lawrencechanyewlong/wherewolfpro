@@ -39,7 +39,7 @@ class WelcomeController < ApplicationController
       puts e.inspect
       @history << e
     end
-    @history.sort!{ |x,y| y[:datetime_sent] <=> x[:datetime_sent] }
+    @history.sort!{ |x,y| y[:created_at] <=> x[:created_at] }
     @history = @history.first(10)
   end
 
