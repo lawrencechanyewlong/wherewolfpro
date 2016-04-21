@@ -243,17 +243,19 @@ class EventController < ApplicationController
     if Event.exists?(id: id)
       @event = Event.find(id)
       if @event.active == true
-        @latlong = {lat: params[:latitude], lng: params[:longitude]}
-        logger.debug "latlong = #{@latlong}"
-        session[:latlong] = @latlong
+        #@latlong = {lat: params[:latitude], lng: params[:longitude]}
+        #logger.debug "latlong = #{@latlong}"
+        #session[:latlong] = @latlong
         #logger.debug "latlong = #{session[:latlong]}"
-        $latitud = params[:latitude]
-        $longitud = params[:longitude]
-        logger.debug "lat = #{$latitud}"
-        
+        #logger.debug "lat = #{$latitud}"
+        #logger.debug "lat = #{params[:latitude]}"
+        logger.debug "lat = #{params}"
         # check condition for turning active off
-        @event.current_lat = $latitud
-        @event.current_lng = $longitud
+        @event.current_lat = params[:latitude]
+        @event.current_lng = params[:longitude]
+        @event.save!
+        logger.debug "lat = #{@event.current_lat}"
+        logger.debug "lng = #{@event.current_lng}"
         condition = @event.duration_setting
         
       else
@@ -308,11 +310,20 @@ class EventController < ApplicationController
   def tracking
     #@sess = session[:latlong]
     #logger.debug "sess = #{session[:latlong]}"
-    @lati = $latitud
-    logger.debug "lati = #{@lati}"
-    @longi = $longitud
-    logger.debug "longi = #{@longi}"
-
+    id = params[:id]
+    if Event.exists?(id: id)
+      @event = Event.find(id)
+      if @event.active == true
+        @lati = @event.current_lat
+        @longi = @event.current_lng
+        
+        logger.debug "lat = #{@lati}"
+        logger.debug "lng = #{@longi}"
+    #logger.debug "lati = #{@lati}"
+    #@longi = $longitud
+    #logger.debug "longi = #{@longi}"
+      end
+    end
   end
 
   def store_event
@@ -355,13 +366,13 @@ class EventController < ApplicationController
         :address_string => session[:address_string],
         :receiver_name => session[:receiver_name],
         :message => session[:message],
-        # :current_lat => session[:current_lat],
-        # :current_lng => session[:current_lng]
+        #:current_lat => session[:current_lat],
+        #:current_lng => session[:current_lng]
       )
       
       #not sure if this path is defined
     # redirect_to event_live_tracking_path(@event)
-    session['url'] = "https://testwoof-danielseetoh.c9users.io/event/live_tracking/" + @event.id.to_s
+    session['url'] = "https://testwoof-danielseetoh.c9users.io/event/tracking/" + @event.id.to_s
     redirect_to controller: 'event', action: 'live_tracking', id: @event.id
   end
 
