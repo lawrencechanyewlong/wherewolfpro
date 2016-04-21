@@ -47,7 +47,7 @@
             
             $.ajax({
               type: "POST",
-              url: '/event/live_tracking',
+              url: '/event/live_tracking/#{@event.id}',
               data: latlong
              
             });

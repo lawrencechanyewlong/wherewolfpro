@@ -30,7 +30,14 @@
         var newPoint = new google.maps.LatLng(#{@lati}, #{@longi});
         addMarker(newPoint, map);
         
-        setTimeout(initMap, 3000);
+        /*$.ajax({
+              type: "GET",
+              url: '/event/tracking/#{@event.id}',
+              timeout: 3000,
+              success: initMap
+             
+        });*/
+        
       }
         
       function addMarker(location, map) {
@@ -41,8 +48,6 @@
         marker.setPosition(location); 
       }
       
-      initMap();
-        
         
     %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?&callback=initMap"}
       :cdata      

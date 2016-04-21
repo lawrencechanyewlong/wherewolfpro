@@ -21,15 +21,19 @@ Rails.application.routes.draw do
   
   get 'users/login'
   
-  get 'event/tracking'
+  get 'event/tracking/:id', to: "event#tracking"
   
-  post 'event/tracking', to: 'event#tracking'
+  get 'event/tracking', to: "event#tracking"
+  
+  #post 'event/tracking', to: 'event#tracking'
   
   get 'events/index'
   
   get 'event/live_tracking'
   
   post 'event/live_tracking', to: "event#live_tracking"
+  
+  post 'event/live_tracking/:id', to: "event#live_tracking"
   
   get 'event/live_tracking/:id', to: "event#live_tracking"
   
