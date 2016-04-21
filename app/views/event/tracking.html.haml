@@ -30,13 +30,13 @@
         var newPoint = new google.maps.LatLng(#{@lati}, #{@longi});
         addMarker(newPoint, map);
         
-        /*$.ajax({
+        $.ajax({
               type: "GET",
               url: '/event/tracking/#{@event.id}',
               timeout: 3000,
               success: initMap
              
-        });*/
+        });
         
       }
         
