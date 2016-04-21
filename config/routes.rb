@@ -37,8 +37,6 @@ Rails.application.routes.draw do
   
   get 'event/live_tracking/:id', to: "event#live_tracking"
   
-  post 'event/live_tracking/:id', to: "event#live_tracking"
-  
   get 'event/new'
   
   get 'event/send_mail'
