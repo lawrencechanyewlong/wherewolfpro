@@ -23,11 +23,7 @@ Rails.application.routes.draw do
   
   get 'event/tracking'
   
-<<<<<<< HEAD
   post 'event/tracking', to: 'event#tracking'
-=======
-  # post 'event/tracking', to: 'event#tracking'
->>>>>>> 0d8340c58f29a748f84c48351779033d3d7e6d88
   
   get 'events/index'
   
@@ -63,11 +59,9 @@ Rails.application.routes.draw do
   
   post '/event/select_duration', :to => 'event#store_duration'
   
-<<<<<<< HEAD
-=======
   post '/event/summary', :to => 'event#create_event'
   
->>>>>>> 0d8340c58f29a748f84c48351779033d3d7e6d88
+
   root 'welcome#index'
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   
