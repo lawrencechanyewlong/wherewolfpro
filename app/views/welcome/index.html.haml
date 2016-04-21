@@ -11,8 +11,9 @@
 			%br
 			%br
 			%br
-			- if session[:id] == nil
+			- if session[:id]
 				%p Currently logged in as #{@name}
+			- if session[:id] == nil
 				%p
 					%a.btn.btn-success{:href => "#", :submit_tag => "login",:class => "btn btn-primary", :value => "login"}
 						%span Login with AppleID
