@@ -27,19 +27,19 @@ Scenario: Navigate to the history page
 
 Scenario: The 10 most recent events are shown
 	Given I am on the history page
-	Then I should see event 101 to 110
-	And I should not see event 111
+	Then I should see event 102 to 111
+	And I should not see event 101
 
 
 Scenario: The most recent event appears at the top of the list
 	Given I am on the history page
-	And I should see event 101 to 110
+	And I should see event 102 to 111
 	Then I should see events sorted by recency	
 
 
 Scenario: Click on a past event
 	Given I am on the history page
-	And I should see event 101
-	And I press event 101
+	And I should see event 102
+	And I press event 102
 	Then I should be on the summary page
   
