@@ -42,7 +42,7 @@
             latlong['latitude'] = lat
             latlong['longitude'] = lng
 
-            var url = '/event/live_tracking';
+            var url = '/event/live_tracking/#{@event.id}';
             
             $.ajax({
               type: "POST",

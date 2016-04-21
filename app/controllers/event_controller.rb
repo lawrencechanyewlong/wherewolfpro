@@ -239,6 +239,7 @@ class EventController < ApplicationController
     end
     
     id = params[:id]
+    print "event exists: ", Event.exists?(id: id)
     if Event.exists?(id: id)
       @event = Event.find(id)
       if @event.active == true
