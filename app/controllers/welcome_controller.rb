@@ -36,7 +36,7 @@ class WelcomeController < ApplicationController
     @history = []
     i = 0
     Event.all.each do |e|
-      puts e.inspect
+      # puts e.inspect
       @history << e
     end
     @history.sort!{ |x,y| y[:created_at] <=> x[:created_at] }
