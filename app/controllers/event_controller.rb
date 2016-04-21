@@ -267,16 +267,16 @@ class EventController < ApplicationController
   
   def send_mail
     gmail = Gmail.new('woofwhere', 'battle431101')
-    # if session[:id]
-    #   user = User.find_by id: session[:id]
-    #   if user
-    #     name = user.name
-    #   else
-    #     name = ""
-    #   end
-    # else
-    #   name = "an unspecified user"
-    # end 
+    if session[:id]
+      user = User.find_by id: session[:id]
+      if user
+        name = user.name
+      else
+        name = ""
+      end
+    else
+      name = "an unspecified user"
+    end 
     redirect_to "/"
     message = session[:message]
     if session[:receiver]
@@ -286,7 +286,7 @@ class EventController < ApplicationController
           to receiver
           subject "Welcome to wherewoof" 
           text_part do
-            body "Wherewoof is forwarding a message from " +  ".The message is " + message + " Track " + receiver + " at " + session['url'] + "!"
+            body "Wherewoof is forwarding a message from " + name +  ".The message is " + message + " Track " + receiver + " at " + session['url'] + "!"
           end
         end
         return
