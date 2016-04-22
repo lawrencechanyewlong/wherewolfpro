@@ -31,7 +31,7 @@
         
       var marker = null;
     
-      var latlong = {latitude: '', longitude: ''};  
+      var data = {latitude: '', longitude: '', hour: ''};  
       function autoUpdate() {
         navigator.geolocation.getCurrentPosition(function(position) {  
             var newPoint = new google.maps.LatLng(position.coords.latitude, 
@@ -39,15 +39,17 @@
                            
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
-            latlong['latitude'] = lat;
-            latlong['longitude'] = lng;
+            data['latitude'] = lat;
+            data['longitude'] = lng;
+            var dt = new Date();
+            data['hour'] = dt.getHours();
 
             var url = '/event/live_tracking/#{@event.id}';
             
             $.ajax({
               type: "POST",
               url: '/event/live_tracking/#{@event.id}',
-              data: latlong
+              data: data
              
             });
 
