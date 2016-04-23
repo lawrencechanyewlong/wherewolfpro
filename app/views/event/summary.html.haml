@@ -5,7 +5,7 @@
   %p= "#{@address_string}"
   - if @address_lat and @address_lng
     %p= "Lat: #{@address_lat}, Lng: #{@address_lng}"
-  %h3 Contacts
+  %h3 To:
   %p
     - if @receiver_name
       - (0...@receiver_name.size).each do |i|
