@@ -6,7 +6,7 @@ Feature: Message templates to choose from
 
 Scenario: I want to send a message from my templates
     Given I am on the message page
-    And I press "Message"
+    And I press "On my way!"
     And I press "Next"
     Then I should be on the summary page
     And I should see "Message"
