@@ -143,14 +143,17 @@ class EventController < ApplicationController
     elsif params[:for_this_many_hours] != '0'
       @duration = "#{params[:for_this_many_hours]} hours"
     else
+      logger.debug "Something is wrong"
       @duration = nil
     end
     if @duration
       session[:duration_setting] = @duration
       logger.debug "duration"
-      render text: "<script>window.location = '#{event_message_path}';</script>", status: 200
+      redirect_to event_message_path
+      # render text: "<script>window.location = '#{event_message_path}';</script>", status: 200
     else
-      render text: "<script>window.location = '#{event_select_duration_path}';</script>", status: 400
+      redirect_to event_select_duration_path
+      # render text: "<script>window.location = '#{event_select_duration_path}';</script>", status: 400
     end
   end
 
