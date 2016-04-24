@@ -44,7 +44,7 @@
               %p{:style=>"font-size:0.8em"}= h[:address_string]
             - if h[:duration_setting].length > 0
               %p{:style=>"font-size:0.8em"}= h[:duration_setting]
-            - if h[:message].length > 0
+            - if h[:message]
               %p{:style=>"font-size:0.8em"}= h[:message]
             %p{:style=>"font-size:0.8em"}= "Created: #{h[:created_at]}"
 
