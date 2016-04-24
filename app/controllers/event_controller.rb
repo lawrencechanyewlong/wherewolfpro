@@ -70,17 +70,17 @@ class EventController < ApplicationController
     logger.debug "In store_contacts"
     logger.debug params.inspect
     puts "HELLO"
-    @receiver = []
-    @receiver_name = []
+    @receiver = ''
+    @receiver_name = ''
     params.each do |k, v|
       if k =~ /^info_.*$/
         @temp = v.split(', ')
-        @receiver_name << @temp[0]
-        @receiver << @temp[1]
+        @receiver_name += @temp[0] + ', '
+        @receiver += @temp[1] + ', '
       end
     end
-    session[:receiver] = @receiver
-    session[:receiver_name] = @receiver_name
+    session[:receiver] = @receiver[0..-3]
+    session[:receiver_name] = @receiver_name[0..-3]
     # if params[:receiver_name] and params[:receiver]
     #   session[:receiver] = params[:receiver]
     #   session[:receiver_name] = params[:receiver_name]
