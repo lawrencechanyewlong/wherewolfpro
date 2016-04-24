@@ -162,7 +162,7 @@ class EventController < ApplicationController
           return 'Until I arrive'
         elsif d[d.size-1] == 'm'
           return 'Until '+d
-        elsif d[d.size-1] == 's'
+        elsif d[d.size-1] == 's' or d[d.size-1] == 'r'
           return 'For '+d
         else
           return nil
