@@ -290,7 +290,7 @@ class EventController < ApplicationController
     end
     message = session[:message]
     url = session['url']
-    redirect_to url
+    # redirect_to url
     if session[:receiver]
       if session[:receiver].is_a?(String)
         receiver = session[:receiver]
@@ -396,9 +396,8 @@ class EventController < ApplicationController
         #:current_lng => session[:current_lng]
       )
       
-      #not sure if this path is defined
-    # redirect_to event_live_tracking_path(@event)
     session['url'] = "http://wherewoof.herokuapp.com/event/tracking/" + @event.id.to_s
+    send_mail
     redirect_to controller: 'event', action: 'live_tracking', id: @event.id
   end
 
