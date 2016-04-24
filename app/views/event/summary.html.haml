@@ -4,7 +4,8 @@
   %h3 Address:
   %p= "#{@address_string}"
   - if @address_lat and @address_lng
-    %p= "Lat: #{@address_lat}, Lng: #{@address_lng}"
+    - if @address_string != "No Destination Chosen"
+      %p= "Lat: #{@address_lat}, Lng: #{@address_lng}"
   %h3 To:
   %p
     - if @receiver_name
