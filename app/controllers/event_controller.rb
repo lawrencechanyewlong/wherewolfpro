@@ -188,6 +188,15 @@ class EventController < ApplicationController
 
 
   def message
+    @messagehistory = []
+    Event.all.each do |e|
+      if not e.message.to_s.empty?
+        logger.debug "message: #{e.message}"
+        @messagehistory << e
+      end
+    end
+    @messagehistory = @messagehistory.uniq { |p| p.message }
+    @messagehistory.sort!{ |x,y| y[:created_at] <=> x[:created_at] }
     if session[:message]
       @message = session[:message]
     else
