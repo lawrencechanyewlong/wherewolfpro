@@ -30,14 +30,29 @@
 .container
   %div{:style => "margin-top:50px;"}
     %h2 Recent Activities
-    %p Send these same howls with just 1 click
-    .list-group
-      - @history.each do |h|
-        %a.list-group-item{:href => "/event/summary", :onclick => "submit_form(#{h[:id].to_s});return false;"}
-          %p= "eid:#{h[:id]}:"
-          %p= h[:receiver_name]
-          %p= h[:receiver]
-          %p= h[:address_string]
-          %p= h[:duration_setting]
-          %p= h[:created_at]
+    %p Send these same woofs with just 1 click:
+    - @history.each do |h|
+      %form{:action=>"", :method=>"post"}
+        %input{:type=>"hidden", :name=>"eid", :value=>"#{h[:id]}"}
+        %p
+          %button.btn.btn-default.btn-block{:type=>"submit"}
+            - if h[:receiver_name].length > 0
+              %p{:style=>"font-weight:bold"}= h[:receiver_name]
+            - if h[:receiver].length > 0
+              %p{:style=>"font-size:0.8em"}= h[:receiver]
+            - if h[:address_string].length > 0
+              %p{:style=>"font-size:0.8em"}= h[:address_string]
+            - if h[:duration_setting]
+              %p{:style=>"font-size:0.8em"}= h[:duration_setting]
+            - if h[:message]
+              %p{:style=>"font-size:0.8em"}= h[:message]
+            %p{:style=>"font-size:0.8em"}= "Created: #{h[:created_at]}"
+
+        / %a.list-group-item{:href => "/event/summary", :onclick => "submit_form(#{h[:id].to_s});return false;"}
+        /   %p{:style=>"display:none"}= "eid:#{h[:id]}:"
+        /   %p= h[:receiver_name]
+        /   %p= h[:receiver]
+        /   %p= h[:address_string]
+        /   %p= h[:duration_setting]
+        /   %p= h[:created_at]
     

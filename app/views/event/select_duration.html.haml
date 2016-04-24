@@ -1,6 +1,6 @@
 .container
     %h1 Select Duration
-
+    %h2#setting.text-center
     = form_tag '/event/select_duration', :method => :post, :id => 'duration_form' do
         
         %br
@@ -29,24 +29,76 @@
             .container
                 .col-xs-9
                     %input#slider2{"data-slider-id" => "ex2Slider", "data-slider-max" => "12", "data-slider-min" => "0", "data-slider-step" => "1", "data-slider-value" => "0", :type => "text", :style => "width:100%", :name => "for_this_many_hours"}/
-                .col-xs-3
+                .col-xs-3{:style=>"padding-left: 15px;padding-right: 0px;"}
                     .btn-group
-                        %a.btn.btn-warning.btn-xs{:onclick => "lessHours()"} Less
-                        %a.btn.btn-success.btn-xs{:onclick => "moreHours()"} More
+                        %a.btn.btn-default.btn-xs#less Less
+                        %a.btn.btn-default.btn-xs#more More
+                
         %br
+        
         .row.selectdurationarrive
             .container.vertical-align
                 .col-xs-3.col-xs-offset-7
-                    .btn-group
-                        %label.btn.btn-default.btn-md.btn-block{:for => 'arrive'}
-                            = check_box_tag "arrive" , 1, true, :name => "arrive", :type => "checkbox", :id => "arrive"
-                            Until I Arrive
-                / .col-xs-3
-                /     %a#arrive_next{:onclick => 'submit_form_arrive();return false;', :href => '/event/message'}
-                /         %label#submit_arrive.btn.btn-success.btn-xs
-                /             %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
+                    %span.button-checkbox
+                        %button.btn{"data-color" => "success", :type => "button"} Until I Arrive
+                        %input.hidden{:name=>"arrive", :id=>"arrive", :checked => "checked", :type => "checkbox", :value=>"1"}/
+        
+        
+                    
 
-    :javascript
+    
+    %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
+        .container
+            .row
+                .col-xs-3
+                    %a#back.btn.btn-danger{:href => "/event/select_contacts"} 
+                        %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
+                        %span Back
+                .col-xs-6
+                .col-xs-3
+                    %a#next.btn.btn-success{:href => "/event/message"}
+                        %span Next
+                        %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
+:javascript
+    var pageready = function(){
+        function updateSetting() {
+            // console.log('update setting')
+            if (check_arrive() && !check_for_this_many_hours() && !check_until_this_time()) {
+                // console.log('update arrive');
+                $('#setting').html('Until I Arrive')
+            } else if (!check_arrive() && check_for_this_many_hours() && !check_until_this_time()) {
+                // console.log('update hours');
+                $('#setting').html('For '+$('#slider2').val()+' Hours')
+            } else if (!check_arrive() && !check_for_this_many_hours() && check_until_this_time()) {
+                // console.log('update until');
+                var ampm = ''
+                if ($('#am').prop('checked') && !$('#pm').prop('checked')) {
+                    ampm = 'am'
+                } else if (!$('#am').prop('checked') && $('#pm').prop('checked')) {
+                    ampm = 'pm'
+                } else {
+                    console.log('ampm wrong')
+                }
+                hour = $('#slider1').val()
+                var clarify12 = ''
+                if (hour == 12) {
+                    if (ampm == 'am') {
+                        clarify12 = ' Midnight'
+                    } else if (ampm == 'pm') {
+                        clarify12 = ' Noon'
+                    }
+                }
+                $('#setting').html('Until '+hour+' '+ampm+clarify12)
+            } else {
+                console.log('This isnt supposed to happen')
+                resetSlider1()
+                resetSlider2()
+                setArrive()
+                updateSetting()
+            }
+        }
+        $('#more').on('click', moreHours);
+        $('#less').on('click', lessHours);
         function lessHours() {
             var values = $('#slider2').slider('getAttribute', 'ticks');
             console.log(values);
@@ -77,14 +129,11 @@
                     return 'Current value: ' + value;
                 }
             });
-            $('#slider2').on('change', function(event) {
-                $('#arrive').prop('checked', false);
-                $('#slider1').slider("setValue", startPos);
-                $('#am').prop('checked', false);
-                $('#amlabel').removeClass('active');
-                $('#pm').prop('checked', false);
-                $('#pmlabel').removeClass('active');
-            });
+            $('#slider2').on('change', changeSlider2);
+            if ($('#slider1').val() == 0) {
+                setArrive()
+            }
+            updateSetting()
             return;
         }
         function moreHours() {
@@ -99,7 +148,7 @@
             for (var i = 0; i < 13; i++) {
                 var num;
                 if (i == 0) {
-                    values[i] =0;
+                    values[i] = 0;
                 } else {
                     values[i] += 12;
                 }
@@ -117,68 +166,291 @@
                     return 'Current value: ' + value;
                 }
             });
-            $('#slider2').on('change', function(event) {
-                $('#arrive').prop('checked', false);
-                $('#slider1').slider("setValue", startPos);
-                $('#am').prop('checked', false);
-                $('#amlabel').removeClass('active');
-                $('#pm').prop('checked', false);
-                $('#pmlabel').removeClass('active');
-            });
+            $('#slider2').on('change', changeSlider2);
+            if ($('#slider1').val() == 0) {
+                setArrive()
+            }
+            updateSetting()
             return;
         }
-        var pageready = function(){
-            $('#slider1').slider({
-                ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-                ticks_labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-            	formatter: function(value) {
-            		return 'Current value: ' + value;
-            	}
-            });
-            $('#slider2').slider({
-                ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-                ticks_labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-            	formatter: function(value) {
-            		return 'Current value: ' + value;
-            	}
-            });
-            
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            });
-            
-            startPos = 0
-            $('#arrive').on('click', function(event) {
-                if (this.checked){
-                    $('#slider1').slider("setValue", startPos);
-                    $('#slider2').slider("setValue", startPos);
-                    $('#am').prop('checked', false);
-                    $('#amlabel').removeClass('active');
-                    $('#pm').prop('checked', false);
-                    $('#pmlabel').removeClass('active');
+        $('#slider1').slider({
+            ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            ticks_labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+            formatter: function(value) {
+                return 'Current value: ' + value;
+            }
+        });
+        $('#slider2').slider({
+            ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            ticks_labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+            formatter: function(value) {
+                return 'Current value: ' + value;
+            }
+        });
+        
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+        
+        startPos = 0
+        function setAM() {
+            $('#am').prop('checked', true);
+            $('#amlabel').addClass('active');
+        }
+        function resetAM() {
+            $('#am').prop('checked', false);
+            $('#amlabel').removeClass('active');
+        }
+        function resetPM() {
+            $('#pm').prop('checked', false);
+            $('#pmlabel').removeClass('active');
+        }
+        function resetSlider1() {
+            $('#slider1').slider("setValue", startPos);
+            resetAM()
+            resetPM()
+        }
+        function resetSlider2(){
+            $('#slider2').slider("setValue", startPos);
+        }
+        function setArrive() {
+            $('.button-checkbox').each(function(){
+                // Settings
+                var $widget = $(this),
+                    $button = $widget.find('button'),
+                    $checkbox = $widget.find('input:checkbox'),
+                    color = $button.data('color'),
+                    settings = {
+                        on: {
+                            icon: 'glyphicon glyphicon-check'
+                        },
+                        off: {
+                            icon: 'glyphicon glyphicon-unchecked'
+                        }
+                    };
+
+                // Event Handlers
+                if (!$checkbox.prop('checked')){
+                    $checkbox.prop('checked', !$checkbox.is(':checked'));
+                    $checkbox.triggerHandler('change');
+                    updateDisplay();
+                }
+                    
+                
+                // Actions
+                function updateDisplay() {
+                    var isChecked = $checkbox.is(':checked');
+
+                    // Set the button's state
+                    $button.data('state', (isChecked) ? "on" : "off");
+
+                    // Set the button's icon
+                    $button.find('.state-icon')
+                        .removeClass()
+                        .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+                    // Update the button's color
+                    if (isChecked) {
+                        $button
+                            .removeClass('btn-default')
+                            .addClass('btn-' + color + ' active');
+                    }
+                    else {
+                        $button
+                            .removeClass('btn-' + color + ' active')
+                            .addClass('btn-default');
+                    }
+                }
+
+            })
+        }
+        function resetArrive(){
+            $('.button-checkbox').each(function(){
+                // Settings
+                var $widget = $(this),
+                    $button = $widget.find('button'),
+                    $checkbox = $widget.find('input:checkbox'),
+                    color = $button.data('color'),
+                    settings = {
+                        on: {
+                            icon: 'glyphicon glyphicon-check'
+                        },
+                        off: {
+                            icon: 'glyphicon glyphicon-unchecked'
+                        }
+                    };
+
+                // Event Handlers
+                if ($checkbox.prop('checked')){
+                    $checkbox.prop('checked', !$checkbox.is(':checked'));
+                    $checkbox.triggerHandler('change');
+                    updateDisplay();
+                }
+                    
+                
+                // Actions
+                function updateDisplay() {
+                    var isChecked = $checkbox.is(':checked');
+
+                    // Set the button's state
+                    $button.data('state', (isChecked) ? "on" : "off");
+
+                    // Set the button's icon
+                    $button.find('.state-icon')
+                        .removeClass()
+                        .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+                    // Update the button's color
+                    if (isChecked) {
+                        $button
+                            .removeClass('btn-default')
+                            .addClass('btn-' + color + ' active');
+                    }
+                    else {
+                        $button
+                            .removeClass('btn-' + color + ' active')
+                            .addClass('btn-default');
+                    }
+                }
+
+            })
+        }
+        function changeSlider2() {
+            if ($('#slider2').val() == 0) {
+                if ($('#slider1').val() == 0) {
+                    setArrive()
+                }
+            } else {
+                resetSlider1()
+                resetArrive()
+            }
+            updateSetting()
+        }
+
+        $('#arrive').on('click', function(event) {
+            if (this.checked){
+                resetSlider1()
+                resetSlider2()
+            }
+        });
+        $('#slider1').on('change', function(event) {
+            if ($(this).val() == 0) {
+                resetAM()
+                resetPM()
+                if ($('#slider2').val() == 0) {
+                    setArrive()
+                }
+            } else {
+                if (!check_am_pm()) {
+                    resetAM()
+                    resetPM()
+                    setAM()
+                }
+                resetSlider2()
+                resetArrive()
+
+            }
+            updateSetting()
+        });
+        $('#am').on('change', function(event) {
+            if ($('#slider1').val() == 0) {
+                resetAM()
+                resetPM()
+                if ($('#slider2').val() == 0) {
+                    setArrive()
+                }
+            } else {
+                resetSlider2()
+                resetArrive()
+            }
+            resetPM()
+            updateSetting()
+        });
+        $('#pm').on('change', function(event) {
+            if ($('#slider1').val() == 0) {
+                resetAM()
+                resetPM()
+                if ($('#slider2').val() == 0) {
+                    setArrive()
+                }
+            } else {
+                resetSlider2()
+                resetArrive()
+            }
+            resetAM()
+            updateSetting()
+        });
+        $('#slider2').on('change', changeSlider2);
+        $('.button-checkbox').each(function () {
+
+            // Settings
+            var $widget = $(this),
+                $button = $widget.find('button'),
+                $checkbox = $widget.find('input:checkbox'),
+                color = $button.data('color'),
+                settings = {
+                    on: {
+                        icon: 'glyphicon glyphicon-check'
+                    },
+                    off: {
+                        icon: 'glyphicon glyphicon-unchecked'
+                    }
+                };
+
+            // Event Handlers
+            $button.on('click', function () {
+                // console.log($checkbox)
+                if (!$checkbox.prop('checked')) {
+                    resetSlider1()
+                    resetSlider2()
+                    $checkbox.prop('checked', !$checkbox.is(':checked'));
+                    $checkbox.triggerHandler('change');
+                    updateDisplay();
+                    updateSetting();
                 }
             });
-            $('#slider1').on('change', function(event) {
-                $('#am').prop('checked', true);
-                $('#amlabel').addClass('active');
-                $('#arrive').prop('checked', false);
-                $('#slider2').slider("setValue", startPos);
+            $checkbox.on('change', function () {
+                updateDisplay();
             });
-            $('#am, #pm').on('change', function(event) {
-                $('#arrive').prop('checked', false);
-                $('#slider2').slider("setValue", startPos);
-            });
-            $('#slider2').on('change', function(event) {
-                $('#arrive').prop('checked', false);
-                $('#slider1').slider("setValue", startPos);
-                $('#am').prop('checked', false);
-                $('#amlabel').removeClass('active');
-                $('#pm').prop('checked', false);
-                $('#pmlabel').removeClass('active');
-            });
-            
-        };
-      
+
+            // Actions
+            function updateDisplay() {
+                var isChecked = $checkbox.is(':checked');
+
+                // Set the button's state
+                $button.data('state', (isChecked) ? "on" : "off");
+
+                // Set the button's icon
+                $button.find('.state-icon')
+                    .removeClass()
+                    .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+                // Update the button's color
+                if (isChecked) {
+                    $button
+                        .removeClass('btn-default')
+                        .addClass('btn-' + color + ' active');
+                }
+                else {
+                    $button
+                        .removeClass('btn-' + color + ' active')
+                        .addClass('btn-default');
+                }
+            }
+
+            // Initialization
+            function init() {
+
+                updateDisplay();
+
+                // Inject the icon if applicable
+                if ($button.find('.state-icon').length == 0) {
+                    $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+                }
+            }
+            init();
+            updateSetting();
+        });
         function submit_form_arrive() {
             var form =  document.getElementById("duration_form");
             if (check_arrive()) {
@@ -225,21 +497,13 @@
                 alert('Choose an option.');
             }
         }
-        
+        $('#next').on('click', function () {
+            submit_form();
+            return false;
+        })
+    };
+  
+    
+    
 
-        $(document).ready(pageready);
-
-    %nav.navbar.navbar-fixed-bottom{:style => "background: #000; padding: 20px"}
-        .container
-            .row
-                .col-xs-3
-                    %a#back.btn.btn-danger{:href => "/event/select_contacts"} 
-                        %span.glyphicon.glyphicon-arrow-left{"aria-hidden" => "true"}
-                        %span Back
-                .col-xs-6
-                .col-xs-3
-                    %a#next.btn.btn-success{:onclick => 'submit_form();return false;', :href => "/event/message"}
-                        %span Next
-                        %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
-                        
-                    
+    $(document).ready(pageready);

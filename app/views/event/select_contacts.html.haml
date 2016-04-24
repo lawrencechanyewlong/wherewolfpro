@@ -1,3 +1,55 @@
+:css
+
+
+    .inside {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom,color-stop(0%, #f4f4f4), color-stop(100%, #ededed));
+    background: -moz-linear-gradient(top, #f4f4f4 0%, #ededed 100%);
+    background: -ms-linear-gradient(top, #f4f4f4 0%, #ededed 100%);
+    }
+    .inside-full-height {
+    height: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    }
+    .content {
+    padding: 12px 3px;
+    }
+
+    /* columns of same height styles */
+
+    .row-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+    }
+    .col-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+    }
+
+    @media (min-width: 480px) {
+    .row-xs-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+    }
+    .col-xs-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+    }
+    .col-xs-middle {
+    vertical-align: middle;
+    }
+    }
+
+
 
 
 .container{:style => "margin-top: 0px;"}
@@ -8,27 +60,39 @@
             %p= flash[:notice]
   
     = form_tag event_select_contacts_path, :method => :get, :id => 'add_form' do
-        %input.form-control{:id => "add_name", :placeholder => "Add Name", :type => "text", :name => "name", :required => true}/
-        %input.form-control{:id => "add_email", :placeholder => "Add Email", :type => "text", :name => "email", :required => true}/            
-        %button.btn.btn-default.btn-block{:type => "submit"} Add Contact
-
-
-    
-    
+        
+        %p
+            %input.form-control{:id => "add_name", :placeholder => "Add Name", :type => "text", :name => "name", :required => true}/
+            %input.form-control{:id => "add_email", :placeholder => "Add Email", :type => "text", :name => "email", :required => true}/            
+        %p
+            %button.btn.btn-default.btn-block{:type => "submit"} Add New Contact
+    %br
 
     / # = form_tag event_store_contacts_path, :method => :post, :id => 'ratings_form' do
-    %form{:action => "/event/store_contacts", :method => "post", :id => "ratings_form"}
+    %form{:style=>"margin-bottom:70px", :action => "/event/store_contacts", :method => "post", :id => "ratings_form"}
+        
         - if @receiver_all
             %ul.list-group
                 - (0...@receiver_all.size).each do |i|
                     %li.list-group-item
-                        .input-group
-                            %span#basic-addon2.input-group-addon 
-                                = "#{@receiver_name_all[i]} : #{@receiver_all[i]}"
-                            %span.input-group-addon
-                                %input.receivers{"aria-label" => "...", :type => "checkbox", :name => "info_#{@receiver_all[i]}", :value => "#{@receiver_name_all[i]}, #{@receiver_all[i]}"}/
+                        .row
+                            .row-height
+                                .col-xs-10.col-xs-height.col-xs-middle
+                                    %p#basic-addon2{:style=>"font-size:1em"} 
+                                        = "#{@receiver_name_all[i]}"
+                                    
+                                    %p#basic-addon2{:style=>"font-size:0.8em"} 
+                                        = "#{@receiver_all[i]}"
+                                .col-xs-2.col-xs-height.col-xs-middle
+                                    %span
+                                        
+                                        %input.receivers{:style=>"width: 50px; height: 50px;", :type => "checkbox", :name => "info_#{@receiver_all[i]}", :value => "#{@receiver_name_all[i]}, #{@receiver_all[i]}"}/
+                                
+                                
                         / = contact
                         / = check_box_tag "info[#{contact}]", :id => "info_#{contact}"
+        
+            
         
     
         
@@ -47,3 +111,82 @@
                             %span Next
                             %span.glyphicon.glyphicon-arrow-right{"aria-hidden" => "true"}
 
+:javascript
+    $(function () {
+        $('.list-group.checked-list-box .list-group-item').each(function () {
+            console.log($(this))
+            // Settings
+            var $widget = $(this),
+                $checkbox = $('<input type="checkbox" class="hidden" />'),
+                color = ($widget.data('color') ? $widget.data('color') : "primary"),
+                style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
+                settings = {
+                    on: {
+                        icon: 'glyphicon glyphicon-check'
+                    },
+                    off: {
+                        icon: 'glyphicon glyphicon-unchecked'
+                    }
+                };
+                
+            $widget.css('cursor', 'pointer')
+            $widget.append($checkbox);
+
+            // Event Handlers
+            $widget.on('click', function () {
+                $checkbox.prop('checked', !$checkbox.is(':checked'));
+                $checkbox.triggerHandler('change');
+                updateDisplay();
+            });
+            $checkbox.on('change', function () {
+                updateDisplay();
+            });
+              
+
+            // Actions
+            function updateDisplay() {
+                var isChecked = $checkbox.is(':checked');
+
+                // Set the button's state
+                $widget.data('state', (isChecked) ? "on" : "off");
+
+                // Set the button's icon
+                $widget.find('.state-icon')
+                    .removeClass()
+                    .addClass('state-icon ' + settings[$widget.data('state')].icon);
+
+                // Update the button's color
+                if (isChecked) {
+                    $widget.addClass(style + color + ' active');
+                } else {
+                    $widget.removeClass(style + color + ' active');
+                }
+            }
+
+            // Initialization
+            function init() {
+                
+                if ($widget.data('checked') == true) {
+                    $checkbox.prop('checked', !$checkbox.is(':checked'));
+                }
+                
+                updateDisplay();
+
+                // Inject the icon if applicable
+                if ($widget.find('.state-icon').length == 0) {
+                    $widget.prepend('<span class="state-icon ' + settings[$widget.data('state')].icon + '"></span>');
+                }
+            }
+            init();
+        });
+        
+        $('#get-checked-data').on('click', function(event) {
+            event.preventDefault(); 
+            var checkedItems = {}, counter = 0;
+            $("#check-list-box li.active").each(function(idx, li) {
+                checkedItems[counter] = $(li).text();
+                counter++;
+            });
+            $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
+        });
+    });
