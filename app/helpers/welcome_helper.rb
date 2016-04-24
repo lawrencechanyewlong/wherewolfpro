@@ -34,6 +34,8 @@ module WelcomeHelper
 				end 
 			end
 			return "Until "+number+" "+ampm+clarify12
+		else
+			return duration_setting
 		end
 	end
 end
