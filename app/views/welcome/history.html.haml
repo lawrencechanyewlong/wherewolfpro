@@ -36,10 +36,14 @@
         %input{:type=>"hidden", :name=>"eid", :value=>"#{h[:id]}"}
         %p
           %button.btn.btn-default.btn-block{:type=>"submit"}
-            %p{:style=>"font-weight:bold"}= h[:receiver_name]
-            %p{:style=>"font-size:0.8em"}= h[:receiver]
-            %p{:style=>"font-size:0.8em"}= h[:address_string]
-            %p{:style=>"font-size:0.8em"}= h[:duration_setting]
+            - if h[:receiver_name].length > 0
+              %p{:style=>"font-weight:bold"}= h[:receiver_name]
+            - if h[:receiver].length > 0
+              %p{:style=>"font-size:0.8em"}= h[:receiver]
+            - if h[:address_string].length > 0
+              %p{:style=>"font-size:0.8em"}= h[:address_string]
+            - if h[:duration_setting].length > 0
+              %p{:style=>"font-size:0.8em"}= h[:duration_setting]
             %p{:style=>"font-size:0.8em"}= "Created: #{h[:created_at]}"
 
         / %a.list-group-item{:href => "/event/summary", :onclick => "submit_form(#{h[:id].to_s});return false;"}

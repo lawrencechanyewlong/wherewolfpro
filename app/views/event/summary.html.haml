@@ -1,7 +1,7 @@
 .container
 
   %h1 Summary
-  %h3 Address
+  %h3 Address:
   %p= "#{@address_string}"
   - if @address_lat and @address_lng
     %p= "Lat: #{@address_lat}, Lng: #{@address_lng}"
@@ -12,14 +12,13 @@
         = "#{@receiver_name[i]} #{@receiver[i]}"
         - if i != @receiver_name.size - 1
           = ", "
-  %h3 Duration
+  %h3 Duration:
   %p= "#{@duration}"
-  %h3 Message
+  %h3 Message:
 
   %p= "#{session[:message]}"
-  %h4 Testing location
-  %P= "#{session[:latlong]}"
-  <!-- %p= "latlng: #{session[:latlng]}" -->
+  / %h4 Testing location
+  / %P= "#{session[:latlong]}"
   
   %form{:id => "create", :action => "/event/summary", :method => "post"}
     %input#submit-form.hidden{:type => "submit"}/
