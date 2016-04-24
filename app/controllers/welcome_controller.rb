@@ -42,7 +42,7 @@ class WelcomeController < ApplicationController
     @history.sort!{ |x,y| y[:created_at] <=> x[:created_at] }
     @history = @history.first(10)
     @history.each do |e|
-      e[:duration_setting] = WelcomeHelper.toDurationString('1 hour')
+      e[:duration_setting] = WelcomeHelper.toDurationString(e[:duration_setting])
     end
   end
 
