@@ -1,5 +1,5 @@
 %h1 Select Destination
-%p If no destination is required, press Next without placing a marker on the map. 
+%p or press Next without placing a marker on the map. 
 
 %meta{:content => "initial-scale=1.0, user-scalable=no", :name => "viewport"}/
 %meta{:charset => "utf-8"}/
@@ -73,10 +73,7 @@
       mapTypeId: google.maps.MapTypeId.ROADMAP
       
     });
-    if (!(lat == 37.7749 && long == -122.4194)) {
-      var myLatlng = new google.maps.LatLng(lat,long);
-      addMarker(myLatlng, map);
-    }
+    
     google.maps.event.addListener(map, 'click', function(event) {
       addMarker(event.latLng, map);
       lat = event.latLng.lat();

@@ -12,7 +12,7 @@ Background:
     
 Scenario: Seeing the map rendered
   
-    Then I should see "User's Location"
+    Then I should see "Sender Location"
     Then I should see the map rendered
 
     
