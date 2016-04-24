@@ -280,8 +280,12 @@ class EventController < ApplicationController
     else
       name = "an unspecified user"
     end 
-    redirect_to "/"
+    if name == nil
+      name = "unspecified user"
+    end
     message = session[:message]
+    url = session['url']
+    redirect_to url
     if session[:receiver]
       if session[:receiver].is_a?(String)
         receiver = session[:receiver]
@@ -289,18 +293,18 @@ class EventController < ApplicationController
           to receiver
           subject "Welcome to wherewoof" 
           text_part do
-            body "Wherewoof is forwarding a message from " + name +  ".The message is " + message + " Track " + receiver + " at " + session['url'] + "!"
+            body "Wherewoof is forwarding a message from " + name +  ".The message is " + message + " Track " + receiver + " at " + url + "!"
           end
         end
         return
       end
       session[:receiver].each do |messenger|
+        receiver = messenger
         gmail.deliver do
           to messenger
-          subject "Welcome to wherewoof " + session[:message]
+          subject "Welcome to wherewoof " + message
           text_part do
-            
-            body "Wherewoof is here for you. The message is " + message
+            body "Wherewoof is forwarding a message from " + name +  ".The message is " + message + " Track " + receiver + " at " + url + "!"
           end
         end
       end
