@@ -83,7 +83,7 @@ class EventController < ApplicationController
       session[:receiver] = @receiver[0..-3]
       session[:receiver_name] = @receiver_name[0..-3]
     else
-      redirect_to event_select_contacts_path
+      return redirect_to event_select_contacts_path
     end
     # if params[:receiver_name] and params[:receiver]
     #   session[:receiver] = params[:receiver]
