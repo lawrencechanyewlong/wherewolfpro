@@ -2,7 +2,7 @@ module WelcomeHelper
 	def self.toDurationString(duration_setting)
 		if duration_setting == 'arrive'
 			return "Until I Arrive"
-		elsif duration_setting[-4..-1] == 'hour'
+		elsif duration_setting[-4..-1] == 'hour' or duration_setting[-5..-1] == 'hours'
 			if duration_setting[1] == ' '
 				number = duration_setting[0]
 			else
