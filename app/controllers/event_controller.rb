@@ -210,26 +210,31 @@ class EventController < ApplicationController
   def live_tracking
     
     def parseDurationToCheckCondition(d)
+      # return true if condition is met and stop tracking, else return false if keep tracking
       if d
         if d == 'arrive'
           # check if location matches destination within a radius of about 50 metres
           return 'Until I arrive'
         elsif d[d.size-1] == 'm'
-          #check which timezone he is in?
-          #either check timezone from lat long
-          #or get him to send time each time he posts the location
-          #or in initial storage convert it to for this many hours (less possible because of history), and save in session
+          #check the time each time he posts
+          #doesnt take into consideration starting at the same hour as the stopping time
+          hour = params[:hour]
           if d[d.size-2] == 'p'
-            #check condition for pm
-            return 'Until '+d
+            # reach hour is set to the saved hour plus 12
+            reachHour = (d.slice(0,d.size-3)).to_i + 12
           else
-            #check condition for am
-            return 'Until '+d
+            # reach hour is set to the saved hour
+            reachHour = (d.slice(0,d.size-3)).to_i
+          end
+          if hour == reachHour
+            return True
+          else
+            return False
           end
         elsif d[d.size-1] == 's'
           #check condition for this many hours
           num_hours = d[0, d.size-6].to_i
-          return (@event.created_at.to_time + num_hours.hours) > Time.now
+          return (@event.created_at.to_time + num_hours.hours) < Time.now
         else
           return nil
         end
@@ -280,8 +285,12 @@ class EventController < ApplicationController
     else
       name = "an unspecified user"
     end 
-    redirect_to "/"
+    if name == nil
+      name = "unspecified user"
+    end
     message = session[:message]
+    url = session['url']
+    # redirect_to url
     if session[:receiver]
       if session[:receiver].is_a?(String)
         receiver = session[:receiver]
@@ -289,18 +298,18 @@ class EventController < ApplicationController
           to receiver
           subject "Welcome to wherewoof" 
           text_part do
-            body "Wherewoof is forwarding a message from " + name +  ".The message is " + message + " Track " + receiver + " at " + session['url'] + "!"
+            body "Wherewoof is forwarding a message from " + name +  ".The message is " + message + " Track " + receiver + " at " + url + "!"
           end
         end
         return
       end
       session[:receiver].each do |messenger|
+        receiver = messenger
         gmail.deliver do
           to messenger
-          subject "Welcome to wherewoof " + session[:message]
+          subject "Welcome to wherewoof " + message
           text_part do
-            
-            body "Wherewoof is here for you. The message is " + message
+            body "Wherewoof is forwarding a message from " + name +  ".The message is " + message + " Track " + receiver + " at " + url + "!"
           end
         end
       end
@@ -387,9 +396,8 @@ class EventController < ApplicationController
         #:current_lng => session[:current_lng]
       )
       
-      #not sure if this path is defined
-    # redirect_to event_live_tracking_path(@event)
     session['url'] = "http://wherewoof.herokuapp.com/event/tracking/" + @event.id.to_s
+    send_mail
     redirect_to controller: 'event', action: 'live_tracking', id: @event.id
   end
 

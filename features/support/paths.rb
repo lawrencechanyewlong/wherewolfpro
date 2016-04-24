@@ -62,7 +62,7 @@ module NavigationHelpers
       '/event/live_tracking/1'
       
     when /^the receiver's live tracking page/
-      '/event/tracking'
+      '/event/tracking/1'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
