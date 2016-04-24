@@ -4,12 +4,10 @@
 			%p The Wherewoof App is a project of City Dog Share
 			%p a 501c3 nonprofit organization
 			%a{:href => "http://citydogshare.org"}
-				= image_tag("citydogshare_logo.jpg", :size => '150x150', :id => "citydogshare_logo", :style => "margin: auto;")
+				= image_tag("citydogshare_logo.jpg", :size => '80x80', :id => "citydogshare_logo", :style => "margin: auto;")
 			/ %a.btn.btn-success{:href => "/event/select_contacts"}
 			/ 	%span contacts
 			/ 	%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
-			%br
-			%br
 			%br
 			- if session[:id]
 				%p Currently logged in as #{@name}

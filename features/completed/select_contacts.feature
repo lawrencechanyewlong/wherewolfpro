@@ -18,7 +18,7 @@ Scenario: Making a contact and being able to view it.
   Given I am on the select contacts page
   And I fill in "name" with "user"
   And I fill in "email" with "user@berkeley.edu"
-  And I press "Add Contact"
+  And I press "Add New Contact"
   Then I should be on the select contacts page
   And I should see "user@berkeley.edu"
   And I should see "user created"
@@ -32,5 +32,5 @@ Scenario: Making a contact and being able to view it.
 Scenario: Failing to make a contact
   
   Given I am on the select contacts page
-  And I press "Add Contact"
+  And I press "Add New Contact"
   Then I should see "Invalid"

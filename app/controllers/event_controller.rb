@@ -70,17 +70,21 @@ class EventController < ApplicationController
     logger.debug "In store_contacts"
     logger.debug params.inspect
     puts "HELLO"
-    @receiver = []
-    @receiver_name = []
+    @receiver = ''
+    @receiver_name = ''
     params.each do |k, v|
       if k =~ /^info_.*$/
         @temp = v.split(', ')
-        @receiver_name << @temp[0]
-        @receiver << @temp[1]
+        @receiver_name += @temp[0] + ', '
+        @receiver += @temp[1] + ', '
       end
     end
-    session[:receiver] = @receiver
-    session[:receiver_name] = @receiver_name
+    if @receiver.length > 0 and @receiver_name.length > 0
+      session[:receiver] = @receiver[0..-3]
+      session[:receiver_name] = @receiver_name[0..-3]
+    else
+      return redirect_to event_select_contacts_path
+    end
     # if params[:receiver_name] and params[:receiver]
     #   session[:receiver] = params[:receiver]
     #   session[:receiver_name] = params[:receiver_name]
@@ -143,14 +147,17 @@ class EventController < ApplicationController
     elsif params[:for_this_many_hours] != '0'
       @duration = "#{params[:for_this_many_hours]} hours"
     else
+      logger.debug "Something is wrong"
       @duration = nil
     end
     if @duration
       session[:duration_setting] = @duration
       logger.debug "duration"
-      render text: "<script>window.location = '#{event_message_path}';</script>", status: 200
+      redirect_to event_message_path
+      # render text: "<script>window.location = '#{event_message_path}';</script>", status: 200
     else
-      render text: "<script>window.location = '#{event_select_duration_path}';</script>", status: 400
+      redirect_to event_select_duration_path
+      # render text: "<script>window.location = '#{event_select_duration_path}';</script>", status: 400
     end
   end
 
@@ -162,7 +169,7 @@ class EventController < ApplicationController
           return 'Until I arrive'
         elsif d[d.size-1] == 'm'
           return 'Until '+d
-        elsif d[d.size-1] == 's'
+        elsif d[d.size-1] == 's' or d[d.size-1] == 'r'
           return 'For '+d
         else
           return nil
