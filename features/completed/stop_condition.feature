@@ -12,12 +12,12 @@ Background:
   
 Scenario: Stop tracking after arriving
   
-  Given I am on the user's live tracking page
+  Given I am on the sender's map page
   And my current lat is "37.8699438" and long is "-122.25148310000002"
   Then I should be on the homepage
   
 Scenario: Continue tracking if not yet at destination
   
-  Given I am on the user's live tracking page
+  Given I am on the sender's map page
   And my current lat is "35.8699438" and long is "-120.25148310000002"
-  Then I should be on the user's live tracking page
+  Then I should be on the sender's map page
