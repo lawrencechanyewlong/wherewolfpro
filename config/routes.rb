@@ -31,13 +31,13 @@ Rails.application.routes.draw do
   
   get 'events/index'
   
-  get 'event/live_tracking'
+  get 'event/user_map'
   
-  post 'event/live_tracking', to: "event#live_tracking"
+  post 'event/user_map', to: "event#user_map"
   
-  post 'event/live_tracking/:id', to: "event#live_tracking"
+  post 'event/user_map/:id', to: "event#user_map"
   
-  get 'event/live_tracking/:id', to: "event#live_tracking"
+  get 'event/user_map/:id', to: "event#user_map"
   
   get 'event/new'
   
