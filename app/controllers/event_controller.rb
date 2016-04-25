@@ -228,8 +228,10 @@ class EventController < ApplicationController
     def parseDurationToCheckCondition(d)
       # return true if condition is met and stop tracking, else return false if keep tracking
       if d == 'arrive'
+        # print "\n Inside d=='arrive' \n"
+        # print @event.current_lat, @event.current_lng
         # check if location matches destination within a radius of about 50 metres
-        current_distance = Geocoder::Calculations.distance_between([params[:latitude],params[:longitude]], [@event.address_lat,@event.address_lng])
+        current_distance = Geocoder::Calculations.distance_between([@event.current_lat,@event.current_lng], [@event.address_lat,@event.address_lng])
         print current_distance
         stop_dist = 50/1600.0
         return current_distance < stop_dist
@@ -268,8 +270,9 @@ class EventController < ApplicationController
         #logger.debug "lat = #{params[:latitude]}"
         logger.debug "lat = #{params}"
         # check condition for turning active off
-        @event.current_lat = params[:latitude]
-        @event.current_lng = params[:longitude]
+        # print "\n@event.current_lat is : ", @event.current_lat, "\n"
+        @event.current_lat = params[:latitude] || @event.current_lat
+        @event.current_lng = params[:longitude] || @event.current_lng
         @event.save!
         logger.debug "lat = #{@event.current_lat}"
         logger.debug "lng = #{@event.current_lng}"
@@ -279,15 +282,15 @@ class EventController < ApplicationController
           print "stop"
           @event.active = false
           @event.save!
-          render :js => "window.location = '#{welcome_index_path}'" 
+          render :js => "window.location = '/'" 
         else
           print "continue"
         end
       else
-        redirect_to welcome_index_path
+        redirect_to '/'
       end
     else
-      redirect_to welcome_index_path
+      redirect_to '/'
     end
 
     

@@ -1,6 +1,6 @@
 Given(/^the following events exist:$/) do |table|
   table.hashes.each do |e|
-  	Event.new(id: e[:id], address_string: e[:address_string], receiver_name: e[:receiver_name], receiver: e[:receiver], datetime_sent: e[:datetime_sent], duration_setting: e[:duration_setting], active: e[:active]).save
+  	Event.new(id: e[:id], address_string: e[:address_string], receiver_name: e[:receiver_name], receiver: e[:receiver], datetime_sent: e[:datetime_sent], duration_setting: e[:duration_setting], active: e[:active], address_lat: e[:address_lat], address_lng: e[:address_lng]).save
   end
 end
 

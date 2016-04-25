@@ -6,11 +6,18 @@ Feature: Stop the tracking after certain conditions
   
 Background:
   Given the following events exist:
-	| id | address_string                             | receiver_name | receiver     | datetime_sent           | duration_setting | active |
-	| 1   | '2299 Piedmont Avenue, Berkeley, CA 94720' | 'Melvyn'      | '5107100734' | 2016-03-21 00:00:10 UTC | '1 hour'         | true  |
+	| id | address_string                             | receiver_name | receiver     | datetime_sent           | duration_setting | active | address_lat | address_lng        |
+	| 1  | '2299 Piedmont Avenue, Berkeley, CA 94720' | 'Melvyn'      | '5107100734' | 2016-03-21 00:00:10 UTC | arrive         | true   | 37.8699438  | -122.25148310000002 |
+  
+  
+Scenario: Stop tracking after arriving
+  
   Given I am on the user's live tracking page
-  
-Scenario: PENDING: Stop tracking after one hour
-  
-  And it has been one hour
+  And my current lat is "37.8699438" and long is "-122.25148310000002"
   Then I should be on the homepage
+  
+Scenario: Continue tracking if not yet at destination
+  
+  Given I am on the user's live tracking page
+  And my current lat is "35.8699438" and long is "-120.25148310000002"
+  Then I should be on the user's live tracking page
