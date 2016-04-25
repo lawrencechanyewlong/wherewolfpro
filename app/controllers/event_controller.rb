@@ -223,7 +223,7 @@ class EventController < ApplicationController
     # render text: "<script>window.location = '#{event_summary_path}';</script>", status: 200
   end
   
-  def live_tracking
+  def user_map
     
     def parseDurationToCheckCondition(d)
       # return true if condition is met and stop tracking, else return false if keep tracking
@@ -339,7 +339,7 @@ class EventController < ApplicationController
     end
   end
   
-  def tracking
+  def receiver_map
     #@sess = session[:latlong]
     #logger.debug "sess = #{session[:latlong]}"
     id = params[:id]
@@ -419,9 +419,9 @@ class EventController < ApplicationController
         #:current_lng => session[:current_lng]
       )
       
-    session['url'] = "http://wherewoof.herokuapp.com/event/tracking/" + @event.id.to_s
+    session['url'] = "http://wherewoof.herokuapp.com/event/receiver_map/" + @event.id.to_s
     send_mail
-    redirect_to controller: 'event', action: 'live_tracking', id: @event.id
+    redirect_to controller: 'event', action: 'user_map', id: @event.id
   end
 
 end

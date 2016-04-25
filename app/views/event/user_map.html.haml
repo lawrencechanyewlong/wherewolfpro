@@ -44,11 +44,11 @@
             var dt = new Date();
             data['hour'] = dt.getHours();
 
-            var url = '/event/live_tracking/#{@event.id}';
+            var url = '/event/user_map/#{@event.id}';
             
             $.ajax({
               type: "POST",
-              url: '/event/live_tracking/#{@event.id}',
+              url: '/event/user_map/#{@event.id}',
               data: data
              
             });
