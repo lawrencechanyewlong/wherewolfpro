@@ -116,3 +116,4 @@ gem 'friendly_id', '~> 5.0.2'
 # To allow jquery and turbolinks to work together
 gem 'jquery-turbolinks'
 
+gem 'geocoder'

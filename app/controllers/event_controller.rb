@@ -227,40 +227,36 @@ class EventController < ApplicationController
     
     def parseDurationToCheckCondition(d)
       # return true if condition is met and stop tracking, else return false if keep tracking
-      if d
-        if d == 'arrive'
-          # check if location matches destination within a radius of about 50 metres
-          return 'Until I arrive'
-        elsif d[d.size-1] == 'm'
-          #check the time each time he posts
-          #doesnt take into consideration starting at the same hour as the stopping time
-          hour = params[:hour]
-          if d[d.size-2] == 'p'
-            # reach hour is set to the saved hour plus 12
-            reachHour = (d.slice(0,d.size-3)).to_i + 12
-          else
-            # reach hour is set to the saved hour
-            reachHour = (d.slice(0,d.size-3)).to_i
-          end
-          if hour == reachHour
-            return True
-          else
-            return False
-          end
-        elsif d[d.size-1] == 's'
-          #check condition for this many hours
-          num_hours = d[0, d.size-6].to_i
-          return (@event.created_at.to_time + num_hours.hours) < Time.now
+      if d == 'arrive'
+        # check if location matches destination within a radius of about 50 metres
+        current_distance = Geocoder::Calculations.distance_between([params[:latitude],params[:longitude]], [@event.address_lat,@event.address_lng])
+        print current_distance
+        stop_dist = 50/1600.0
+        return current_distance < stop_dist
+      elsif d[d.size-1] == 'm'
+        #check the time each time he posts
+        #not allowed to start at the exact same hour and minute as the end time
+        hour = params[:hour].to_i
+        minutes = params[:minutes].to_i
+        if d[d.size-2] == 'p'
+          # reach hour is set to the saved hour plus 12
+          reachHour = (d.slice(0,d.size-3)).to_i + 12
         else
-          return nil
+          # reach hour is set to the saved hour
+          reachHour = (d.slice(0,d.size-3)).to_i
         end
+        return (hour == reachHour and minutes == 0)
+      elsif d[d.size-1] == 's'
+        #check condition for this many hours
+        num_hours = d[0, d.size-6].to_i
+        return (@event.created_at.to_time + num_hours.hours) < Time.now
       else
         return nil
       end
     end
     
     id = params[:id]
-    print "event exists: ", Event.exists?(id: id)
+    # print "event exists: ", Event.exists?(id: id)
     if Event.exists?(id: id)
       @event = Event.find(id)
       if @event.active == true
@@ -277,8 +273,16 @@ class EventController < ApplicationController
         @event.save!
         logger.debug "lat = #{@event.current_lat}"
         logger.debug "lng = #{@event.current_lng}"
-        condition = @event.duration_setting
-        
+        # condition = @event.duration_setting
+        stop = parseDurationToCheckCondition(@event.duration_setting)
+        if stop
+          print "stop"
+          @event.active = false
+          @event.save!
+          render :js => "window.location = '#{welcome_index_path}'" 
+        else
+          print "continue"
+        end
       else
         redirect_to welcome_index_path
       end

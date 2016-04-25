@@ -1,4 +1,5 @@
 %h1 Sender Location
+// %h2 Link-id: #{session['url']}
 !!!
 %html
   %head
@@ -30,7 +31,7 @@
         
       var marker = null;
     
-      var data = {latitude: '', longitude: '', hour: '', minute: ''};  
+      var data = {latitude: '', longitude: '', hour: ''};  
       function autoUpdate() {
         navigator.geolocation.getCurrentPosition(function(position) {  
             var newPoint = new google.maps.LatLng(position.coords.latitude, 
@@ -42,7 +43,6 @@
             data['longitude'] = lng;
             var dt = new Date();
             data['hour'] = dt.getHours();
-            data['minute'] = dt.getMinutes(); 
 
             var url = '/event/live_tracking/#{@event.id}';
             
