@@ -336,7 +336,7 @@ class EventController < ApplicationController
     end
   end
   
-  def tracking
+  def receiver_map
     #@sess = session[:latlong]
     #logger.debug "sess = #{session[:latlong]}"
     id = params[:id]
@@ -416,7 +416,7 @@ class EventController < ApplicationController
         #:current_lng => session[:current_lng]
       )
       
-    session['url'] = "http://wherewoof.herokuapp.com/event/tracking/" + @event.id.to_s
+    session['url'] = "http://wherewoof.herokuapp.com/event/receiver_map/" + @event.id.to_s
     send_mail
     redirect_to controller: 'event', action: 'user_map', id: @event.id
   end

@@ -21,13 +21,13 @@ Rails.application.routes.draw do
   
   get 'users/login'
   
-  get 'event/tracking/:id', to: "event#tracking"
+  get 'event/receiver_map/:id', to: "event#receiver_map"
   
-  get 'event/tracking', to: "event#tracking"
+  get 'event/receiver_map', to: "event#receiver_map"
   
   get 'event/latlng/:id', to: "event#latlng"
   
-  #post 'event/tracking', to: 'event#tracking'
+  #post 'event/receiver_map', to: 'event#receiver_map'
   
   get 'events/index'
   
