@@ -58,7 +58,7 @@ module NavigationHelpers
     when /^the message page/ 
       '/event/message'
       
-    when /^the user's live tracking page/
+    when /^the sender's map page/
       '/event/user_map/1'
       
     when /^the receiver's live tracking page/
