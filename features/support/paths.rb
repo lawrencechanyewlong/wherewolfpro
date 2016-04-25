@@ -59,10 +59,10 @@ module NavigationHelpers
       '/event/message'
       
     when /^the user's live tracking page/
-      '/event/live_tracking/1'
+      '/event/user_map/1'
       
     when /^the receiver's live tracking page/
-      '/event/tracking/1'
+      '/event/receiver_map/1'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
