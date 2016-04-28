@@ -12,12 +12,12 @@
   .panel.panel-default
     .panel-heading
       %h3.panel-title To:
-      - if @receiver_name
-        - (0...@receiver_name.size).each do |i|
-          .panel-body
-            = "#{@receiver_name[i]} #{@receiver[i]}"
-            - if i != @receiver_name.size - 1
-              = ", "
+    - if @receiver_name
+      - (0...@receiver_name.size).each do |i|
+        .panel-body
+          = "#{@receiver_name[i]} #{@receiver[i]}"
+          - if i != @receiver_name.size - 1
+            = ", "
   .panel.panel-default
     .panel-heading
       %h3.panel-title Duration:
