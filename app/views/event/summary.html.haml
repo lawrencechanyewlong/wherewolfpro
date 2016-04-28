@@ -1,23 +1,36 @@
 .container
 
   %h1 Summary
-  %h3 Address:
-  %p= "#{@address_string}"
-  - if @address_lat and @address_lng
-    - if @address_string != "No Destination Chosen"
-      %p{:style=>"display:none;"}= "Lat: #{@address_lat}, Lng: #{@address_lng}"
-  %h3 To:
-  %p
-    - if @receiver_name
-      - (0...@receiver_name.size).each do |i|
-        = "#{@receiver_name[i]} #{@receiver[i]}"
-        - if i != @receiver_name.size - 1
-          = ", "
-  %h3 Duration:
-  %p= "#{@duration}"
-  %h3 Message:
-
-  %p= "#{session[:message]}"
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Address:
+    .panel-body
+      %p= "#{@address_string}"
+      - if @address_lat and @address_lng
+        - if @address_string != "No Destination Chosen"
+          %p{:style=>"display:none;"}= "Lat: #{@address_lat}, Lng: #{@address_lng}"
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title To:
+    .panel-body
+      %p
+        - if @receiver_name
+          - (0...@receiver_name.size).each do |i|
+            = "#{@receiver_name[i]} #{@receiver[i]}"
+            - if i != @receiver_name.size - 1
+              = ", "
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Duration:
+    .panel-body
+      %p= "#{@duration}"
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Message:
+    .panel-body
+      %p= "#{session[:message]}"
+      
+  
   / %h4 Testing location
   / %P= "#{session[:latlong]}"
   
