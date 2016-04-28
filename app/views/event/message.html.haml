@@ -12,7 +12,8 @@
       \
       .list-group
         - @messagehistory.each do |h|
-          %button.list-group-item.msg-tmpl{:type => "button"}#{h[:message]}
+          - if h[:message] != "On my way!" and h[:message] != "See you!" and h[:message] != "Rushing over now!"
+            %button.list-group-item.msg-tmpl{:type => "button"}#{h[:message]}
         %button.list-group-item.msg-tmpl{:type => "button"} On my way!
         %button.list-group-item.msg-tmpl{:type => "button"} See you!
         %button.list-group-item.msg-tmpl{:type => "button"} Rushing over now!
