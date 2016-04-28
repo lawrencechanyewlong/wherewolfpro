@@ -9,10 +9,7 @@
 			/ 	%span contacts
 			/ 	%span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
 			%br
-			- if session[:id] == nil
-				%p
-					%a.btn.btn-success{:href => "#", :submit_tag => "login",:class => "btn btn-primary", :value => "login"}
-						%span Login with AppleID
+			- if session[:id] == nil or @login != nil
 				%p
 					%a.btn.btn-success{:href => "/contacts/gmail", :submit_tag => "login",:class => "btn btn-primary", :value => "login"}
 						%span Login with Gmail

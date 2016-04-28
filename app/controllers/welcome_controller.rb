@@ -1,6 +1,9 @@
 class WelcomeController < ApplicationController
   def index
-    if session[:id]
+    if params[:login]
+      @login = true
+    end
+    if session[:id] 
       user = User.find_by id: session[:id]
       if !user
         session[:id] = nil

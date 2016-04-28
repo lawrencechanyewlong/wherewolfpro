@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     if user
       @contacts = user.contacts
       session[:id] = user.id
+      params[:login] = true
       redirect_to "/welcome/index"
       return
     end
@@ -23,6 +24,7 @@ class UsersController < ApplicationController
     end
     user.contacts = contact_list
     user.save!
+    params[:login] = true
     redirect_to "/welcome/index"
   end
   
