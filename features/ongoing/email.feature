@@ -16,10 +16,10 @@ Scenario: I send an email and the contact was submitted
   
     Given I am on the select contacts page
     And I fill in "email" with "user@berkeley.edu"
-    And I press "Add Contact"
+    And I press "Add New Contact"
     Given I am on the summary page
     When I follow "Send"
-    Then I should be on the home page
+    Then I should be on the send mail page
 
  
 
@@ -33,7 +33,6 @@ Scenario: I send an email and there is no contact
   
     Given I am on the select contacts page
     And I fill in "email" with "user@berkeley.edu"
-    And I press "Add Contact"
+    And I press "Add New Contact"
     Given I am on the summary page
     When I follow "Send"
-    Then I should see "no contact was selected"

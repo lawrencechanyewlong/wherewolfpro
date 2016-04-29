@@ -21,7 +21,14 @@ Scenario: After selecting destination, see the select contacts page
 Scenario: After selecting contacts, see the select duration page
     
     Given I am on the select contacts page
-    When I press "Next"
+    And I fill in "name" with "user"
+    And I fill in "email" with "user@berkeley.edu"
+    And I press "Add New Contact"
+    Then I should be on the select contacts page
+    And I should see "user@berkeley.edu"
+    And I should see "user created"
+    When I check the following emails: user@berkeley.edu
+    And I press "Next"
     Then I should be on the select duration page
 
 Scenario: After selecting duration, see the confirm page

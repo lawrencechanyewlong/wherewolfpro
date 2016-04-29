@@ -4,11 +4,6 @@ Feature: User info
   so I can access the features of the site.
  
 
-Scenario: A user logs in with AppleID
-  Given I am on the home page,
-  And I press "Log in with AppleID"
-  Then I should not see "Log in with AppleID"
-
 Scenario: A user creates an account
   Given I am on the new user page
   When I fill in "Email" with "user@berkeley.edu"

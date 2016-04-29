@@ -63,6 +63,9 @@ module NavigationHelpers
       
     when /^the receiver's live tracking page/
       '/event/receiver_map/1'
+      
+    when /^the send mail page/
+      '/event/send_mail'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
