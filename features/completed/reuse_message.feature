@@ -6,11 +6,10 @@ Feature: Message templates to choose from
     
 Background:
   Given the following events exist:
-	| id | address_string                             | receiver_name | receiver     | message | datetime_sent | duration_setting | active |
-	| 1   | '2299 Piedmont Avenue, Berkeley, CA 94720' | 'Melvyn'      | '5107100734' | "On my way!" | 2016-03-21 00:00:10 UTC | '1 hour' | false |
+	| address_string                             | receiver_name | receiver     | message | datetime_sent | duration_setting | active |
+	| '2299 Piedmont Avenue, Berkeley, CA 94720' | 'Melvyn'      | '5107100734' | "On my way!" | 2016-03-21 00:00:10 UTC | '1 hour' | false |
     Given I am on the message page
     
-
 Scenario: I want to reuse a message used previously
  
     Then I should see "On my way!"

@@ -6,8 +6,8 @@ Feature: Stop the tracking after certain conditions
   
 Background:
   Given the following events exist:
-	| id | address_string                             | receiver_name | receiver     | datetime_sent           | duration_setting | active | address_lat | address_lng        |
-	| 1  | '2299 Piedmont Avenue, Berkeley, CA 94720' | 'Melvyn'      | '5107100734' | 2016-03-21 00:00:10 UTC | arrive         | true   | 37.8699438  | -122.25148310000002 |
+	| address_string                             | receiver_name | receiver     | datetime_sent           | duration_setting | active | address_lat | address_lng        |
+	| '2299 Piedmont Avenue, Berkeley, CA 94720' | 'Melvyn'      | '5107100734' | 2016-03-21 00:00:10 UTC | arrive         | true   | 37.8699438  | -122.25148310000002 |
   
   
 Scenario: Stop tracking after arriving
